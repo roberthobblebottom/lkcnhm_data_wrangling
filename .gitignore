@@ -12,6 +12,7 @@ wheels/
 # Other Files
 *pdf
 *jpg
+*odt
 gbif/
 __marimo__/cache/
 __marimo__/session/
