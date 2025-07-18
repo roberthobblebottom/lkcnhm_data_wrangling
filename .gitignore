@@ -13,3 +13,5 @@ wheels/
 *pdf
 *jpg
 gbif/
+__marimo__/cache/
+__marimo__/session/
