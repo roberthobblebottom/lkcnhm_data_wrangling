@@ -30,6 +30,15 @@ def _(pl):
 
     bos_df_1 = bos_df_1.rename({"data cleanup changes": "data cleanup changes 1"})
     bos_df_1.columns = [_c.lower() for _c in bos_df_1.columns]
+    bos_df_1 = bos_df_1.rename(
+        {
+            "species": "specificEpithet",
+            "subspecies": "infraspecificEpithet",
+            "genus": "genericName",
+        }
+    )
+
+    bos_df_1 = bos_df_1.with_columns(pl.col(pl.String).str.strip_chars(" "))
     bos_df_1_columns = ", ".join(bos_df_1.collect_schema().names())
     return bos_df_1, bos_df_1_columns
 
@@ -46,6 +55,12 @@ def _(bos_df_1_columns, mo, taxon_lf_columns):
     {bos_df_1_columns}
     """
     )
+    return
+
+
+@app.cell
+def _(bos_df_1_columns):
+    bos_df_1_columns.find("genericName")
     return
 
 
@@ -404,6 +419,7 @@ def _(bos_df_1):
 
 @app.cell
 def _():
+    # taxon_lf.select(pl.col('acceptedNameUsageID')).collect().head(10)
     return
 
 
@@ -437,21 +453,69 @@ def _(bos_df_2):
     return
 
 
+@app.cell
+def _(mo):
+    mo.md(r"""## replace nan and null with empty string and name cleaning""")
+    return
+
+
+@app.cell
+def _(bos_df_2, pl):
+    bos_df_3 = (
+        bos_df_2.fill_nan("")
+        .fill_null("")
+        .with_columns(
+            specificEpithet=pl.when(
+                (pl.col("genericName") == "Glenea")
+                & (pl.col("specificEpithet") == "mathemathica")
+            )
+            .then(pl.lit("mathematica"))
+            .when(
+                (pl.col("genericName") == "Bavia")
+                & (pl.col("specificEpithet") == "sexupunctata")
+            )
+            .then(pl.lit("sexpunctata"))
+            .when(
+                (pl.col("genericName") == "Omoedus")
+                & (pl.col("specificEpithet") == "ephippigera")
+            )
+            .then(pl.lit("ephippiger"))
+            .when(
+                (pl.col("genericName") == "Byblis")
+                & (pl.col("specificEpithet") == "kallartha")
+            )
+            .then(pl.lit("kallarthra"))
+            .when(
+                (pl.col("genericName") == "Alcockpenaeopsis")
+                & (pl.col("specificEpithet") == "hungerfordi")
+            )
+            .then(pl.lit("hungerfordii"))
+            .when(
+                (pl.col("genericName") == "Pseudosesarma")
+                & (pl.col("specificEpithet") == "edwardsi")
+            )
+            .then(pl.lit("edwardsii"))
+            .when(
+                (pl.col("genericName") == "Urocaridella")
+                & (pl.col("specificEpithet") == "antonbruuni")
+            )
+            .then(pl.lit("antonbruunii"))
+            .when(
+                (pl.col("genericName") == "Ocypode")
+                & (pl.col("specificEpithet") == "cordimanus")
+            )
+            .then(pl.lit("cordimana"))
+        )
+    )
+
+
+    bos_df_3
+    return (bos_df_3,)
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""# R script translation""")
-    return
-
-
-@app.cell
-def _(taxon_lf):
-    taxon_lf.select("taxonomicStatus").collect().unique()
-    return
-
-
-@app.cell
-def _(taxon_lf):
-    taxon_lf.select("taxonRank").collect().unique()
     return
 
 
@@ -481,6 +545,8 @@ def _(pl, taxon_lf):
         )
         .select(_l2)
         .filter((pl.col("genus") != "") | (pl.col("specificEpithet") != ""))
+        .fill_null("")
+        .fill_nan("")
     )
     return (taxon_ranked_only,)
 
@@ -491,9 +557,152 @@ def _(taxon_ranked_only):
     return
 
 
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""## Join Attempt""")
+    return
+
+
 @app.cell
-def _(bos_df_2):
-    bos_df_2.columns
+def _(bos_df_3, pl, taxon_ranked_only):
+    matching_df = (
+        pl.LazyFrame(bos_df_3)
+        .join(
+            other=taxon_ranked_only,
+            on=["genericName", "specificEpithet", "infraspecificEpithet"],
+        )
+        .rename({"taxonID": "matched_taxonID"})
+    )
+    return (matching_df,)
+
+
+@app.cell
+def _(matching_df):
+    matching_df.collect().shape
+    return
+
+
+@app.cell
+def _(matching_df):
+    matching_df.collect().sort(by="speciesid")
+    return
+
+
+@app.cell
+def _(matching_df):
+    matching_df.columns
+    return
+
+
+@app.cell
+def _(matching_df):
+    matching_df.select(
+        ["genericName", "specificEpithet", "matched_taxonID"]
+    ).collect().describe()
+    return
+
+
+@app.cell
+def _(matching_df, pl):
+    _df = matching_df.select(
+        ["genericName", "specificEpithet", "matched_taxonID"]
+    ).collect()
+    print(_df.filter(pl.col("genericName") == ""))
+    print()
+
+    print(_df.filter(pl.col("specificEpithet") == ""))
+
+    print()
+
+    print(
+        _df.filter(
+            (pl.col("matched_taxonID") == 0) | (pl.col("matched_taxonID").is_nan())
+        )
+    )
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""no empty strings or 0s""")
+    return
+
+
+@app.cell
+def _(matching_df, pl):
+    matching_df_2 = matching_df.select(
+        (
+            "speciesid",
+            "matched_taxonID",
+            "acceptedNameUsageID",
+            "taxonname",
+            "domain ",
+            "kingdom",
+            "phylum",
+            "class",
+            "subclass",
+            "superorder",
+            "order",
+            "sub-order",
+            "infraorder",
+            "section",
+            "subsection",
+            "superfamily",
+            "family",
+            "subfamily",
+            "tribe",
+            "genus",
+            "subgenus",
+            "specificEpithet",
+            "infraspecificEpithet",
+        )
+    )
+
+
+    contentious = matching_df_2.filter(pl.col("speciesid").is_duplicated()).sort(
+        by="speciesid"
+    )
+    matching_df_2 = matching_df_2.filter(
+        ~pl.col("speciesid").is_duplicated()
+    ).sort(by="speciesid")
+
+
+    # I don't know how to do this lines:
+    # R code:
+    # contentious <- contentious[!contentious$acceptedNameUsageID %in% contentious$matched_taxonID, ]
+    # Python code attempt:
+    # contentious = contentious.filter(~pl.col('acceptedNameUsageID') == (pl.col('matched_taxonID')))
+
+
+    matching_df_2.collect()
+    return (contentious,)
+
+
+@app.cell
+def _(contentious):
+    contentious.collect()
+    return
+
+
+@app.cell
+def _(contentious, pl):
+    contentious_2 = contentious.filter(
+        pl.col("acceptedNameUsageID") != ""
+    ).collect()
+    # _contentious_unique.collect()
+    # matching_df_3 = matching_df_2.collect().vstack(contentious_2)
+    return
+
+
+@app.cell
+def _():
+    # matching_df_3
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""the vstack may not be needed according to the R code.""")
     return
 
 

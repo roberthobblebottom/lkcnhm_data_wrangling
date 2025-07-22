@@ -63,6 +63,7 @@ matching[infraspecificEpithet == "__none__", infraspecificEpithet := NA]
 # Rename taxonID result for clarity
 setnames(matching, "taxonID", "matched_taxonID")
 
+
 #find out if there are any acceptedIDs which are missing from the whole taxonID values
 missing_ids <- as.character(setdiff(Taxon$acceptedNameUsageID, Taxon$taxonID))
 
@@ -84,11 +85,13 @@ matching <- matching[,c("speciesId","matched_taxonID","acceptedNameUsageID","tax
 
 contentious <- matching[speciesId %in% speciesId[duplicated(speciesId)]]
 matching <- matching[!matching$speciesId %in% matching$speciesId[duplicated(matching$speciesId)], ]
+#RYAN: I DID NOT INCLUDE THIS LINE BELOW
 contentious <- contentious[!contentious$acceptedNameUsageID %in% contentious$matched_taxonID, ]
 
 # Identify unique speciesId rows in contentious
 unique_rows <- contentious[!duplicated(contentious$speciesId) & !duplicated(contentious$speciesId, fromLast = TRUE), ]
 
+#TODO: STOPPED HERE - RYAN
 # Append to matching
 matching <- rbind(matching, unique_rows)
 
