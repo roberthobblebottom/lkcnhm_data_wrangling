@@ -12,7 +12,7 @@ wheels/
 # Other Files
 *pdf
 *jpg
-*odt
+*odt*
 gbif/
 MatchinngTexonBB.R
 outputsplit.csv

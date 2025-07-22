@@ -491,5 +491,11 @@ def _(taxon_ranked_only):
     return
 
 
+@app.cell
+def _(bos_df_2):
+    bos_df_2.columns
+    return
+
+
 if __name__ == "__main__":
     app.run()
