@@ -119,94 +119,6 @@ def _(bos_df_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(rf"""# Unique Counts""")
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo, pl, taxon_lf):
-    pl.Config.set_tbl_hide_column_data_types(True)
-
-
-    @mo.persistent_cache
-    def _x():
-        _df = (
-            taxon_lf.group_by("taxonRank")
-            .len()
-            .collect()
-            .sort(by="len")
-            .transpose()
-        )
-        return (
-            _df[1, :]
-            .rename(_df.head(1).to_dicts().pop())
-            .with_columns(pl.all().cast(pl.Int64))
-        )
-
-
-    _x()
-    return
-
-
-@app.cell
-def _(pl):
-    pl.Config.restore_defaults()
-    pass
-    return
-
-
-@app.cell
-def _(mo, pl, taxon_lf):
-    @mo.persistent_cache
-    def count(feature_name):
-        pl.Config.set_tbl_rows(100)
-        return (
-            taxon_lf.group_by(feature_name)
-            .len()
-            .sort(by="len", descending=True)
-            .collect()
-        )
-    return (count,)
-
-
-@app.cell(hide_code=True)
-def _(count):
-    count("kingdom")
-    return
-
-
-@app.cell
-def _(count):
-    count("phylum")
-    return
-
-
-@app.cell
-def _(count):
-    count("class")
-    return
-
-
-@app.cell
-def _(count):
-    count("order")
-    return
-
-
-@app.cell
-def _(count):
-    count("family")
-    return
-
-
-@app.cell
-def _(count):
-    count("genus")
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
     mo.md(r"""# Null Check for taxon_lf""")
     return
 
@@ -462,8 +374,9 @@ def _(mo):
 @app.cell
 def _(bos_df_2, pl):
     bos_df_3 = (
-        bos_df_2.fill_nan("")
-        .fill_null("")
+        bos_df_2
+        #     .fill_nan("")
+        # .fill_null("")
         .with_columns(
             specificEpithet=pl.when(
                 (pl.col("genericName") == "Glenea")
@@ -570,6 +483,7 @@ def _(bos_df_3, pl, taxon_ranked_only):
         .join(
             other=taxon_ranked_only,
             on=["genericName", "specificEpithet", "infraspecificEpithet"],
+            how="left",
         )
         .rename({"taxonID": "matched_taxonID"})
     )
@@ -590,7 +504,7 @@ def _(matching_df):
 
 @app.cell
 def _(matching_df):
-    matching_df.columns
+    list(matching_df.collect_schema().keys())
     return
 
 
@@ -607,16 +521,17 @@ def _(matching_df, pl):
     _df = matching_df.select(
         ["genericName", "specificEpithet", "matched_taxonID"]
     ).collect()
-    print(_df.filter(pl.col("genericName") == ""))
+    print(_df.filter(pl.col("genericName").is_null()))
     print()
 
-    print(_df.filter(pl.col("specificEpithet") == ""))
+    print(_df.filter(pl.col("specificEpithet").is_null()))
 
     print()
 
     print(
         _df.filter(
-            (pl.col("matched_taxonID") == 0) | (pl.col("matched_taxonID").is_nan())
+            (pl.col("matched_taxonID") == 0)
+            | (pl.col("matched_taxonID").is_null())
         )
     )
     return
@@ -624,7 +539,7 @@ def _(matching_df, pl):
 
 @app.cell
 def _(mo):
-    mo.md(r"""no empty strings or 0s""")
+    mo.md(r"""## contentious and matching rows""")
     return
 
 
@@ -675,12 +590,18 @@ def _(matching_df, pl):
 
 
     matching_df_2.collect()
-    return (contentious,)
+    return contentious, matching_df_2
 
 
 @app.cell
 def _(contentious):
     contentious.collect()
+    return
+
+
+@app.cell
+def _(matching_df_2, pl):
+    matching_df_2.filter(pl.col("acceptedNameUsageID").is_null()).collect().shape
     return
 
 
@@ -695,8 +616,16 @@ def _(contentious, pl):
 
 
 @app.cell
-def _():
-    # matching_df_3
+def _(mo):
+    mo.md(r"""## No match""")
+    return
+
+
+@app.cell
+def _(matching_df_2, pl):
+    nomatch_df = matching_df_2.filter(pl.col("matched_taxonID").is_not_null())
+
+    nomatch_df.collect()
     return
 
 

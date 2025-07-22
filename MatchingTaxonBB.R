@@ -91,7 +91,6 @@ contentious <- contentious[!contentious$acceptedNameUsageID %in% contentious$mat
 # Identify unique speciesId rows in contentious
 unique_rows <- contentious[!duplicated(contentious$speciesId) & !duplicated(contentious$speciesId, fromLast = TRUE), ]
 
-#TODO: STOPPED HERE - RYAN
 # Append to matching
 matching <- rbind(matching, unique_rows)
 
@@ -99,6 +98,7 @@ matching <- rbind(matching, unique_rows)
 contentious <- contentious[!contentious$speciesId %in% unique_rows$speciesId, ]
 
 
+#RYAN: at 95 rows are appended and then at 105, it is removed??!
 #remove rows from matching where speciesId are in contentious
 matching <- matching[!speciesId %in% contentious$speciesId]
 
@@ -109,6 +109,7 @@ cleanfortaxoDBport <- matching[!is.na(matching$matched_taxonID), ]
 #create nomatch from matching which only contains values where matched_taxonId is empty
 nomatch <- matching[is.na(matched_taxonID)]
 
+#TODO: STOPPED HERE - RYAN
 #set columns for parent matching
 priority_cols <- c(
   "infraspecificEpithet", "specificEpithet", "genus", "family",
