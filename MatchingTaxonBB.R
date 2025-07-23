@@ -85,7 +85,8 @@ matching <- matching[,c("speciesId","matched_taxonID","acceptedNameUsageID","tax
 
 contentious <- matching[speciesId %in% speciesId[duplicated(speciesId)]]
 matching <- matching[!matching$speciesId %in% matching$speciesId[duplicated(matching$speciesId)], ]
-#RYAN: I DID NOT INCLUDE THIS LINE BELOW
+
+#RYAN: I DID NOT INCLUDE THIS LINE BELOW, not sure if it is needed
 contentious <- contentious[!contentious$acceptedNameUsageID %in% contentious$matched_taxonID, ]
 
 # Identify unique speciesId rows in contentious

@@ -182,9 +182,7 @@ def _(bos_df_1):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""Nothing in the second speciesid column, this column will be dropped."""
-    )
+    mo.md(r"""Nothing in the second speciesid column, this column will be dropped.""")
     return
 
 
