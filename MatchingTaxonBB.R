@@ -2,7 +2,7 @@ library(data.table)
 
 #Load GBIF taxonomic backbone
 
-Taxon <- fread("C:/Users/tienp88/Downloads/backbone (1)/Taxon.tsv", sep = "\t", quote = "")
+Taxon <- fread("~/Documents/LKCNHM_volunteering/gbif/Taxon.tsv", sep = "\t", quote = "")
 Taxon <- Taxon[, lapply(.SD, as.character)]
 
 #Shrink Taxon to include only entries and fields wanted for matching
@@ -18,7 +18,7 @@ Taxonsml <- Taxonsml[
 ]
 
 #Load allBOS taxonsplit info
-outputsplit <- read.csv("C:/Users/tienp88/Downloads/uploaded to teams-20250609T033933Z-1-001/uploaded to teams/outputsplit.csv")
+outputsplit <- read.csv("~/Documents/LKCNHM_volunteering/outputsplit.csv")
 
 # Convert both to data.table
 setDT(Taxonsml)
@@ -178,4 +178,4 @@ nomatch <- nomatch[,c("speciesId","taxonName","parentNameUsageID","parentCanonic
 
 
 
-fwrite(cleanfortaxoDBport, "C:/Data/cleanfortaxoDBport.csv")
+# fwrite(cleanfortaxoDBport, "C:/Data/cleanfortaxoDBport.csv")

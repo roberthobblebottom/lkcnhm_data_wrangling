@@ -29,7 +29,8 @@ def _(pl):
 
 
     bos_df_1 = bos_df_1.rename({"data cleanup changes": "data cleanup changes 1"})
-    bos_df_1.columns = [_c.lower() for _c in bos_df_1.columns]
+    # bos_df_1.columns = [_c.lower() for _c in bos_df_1.columns]
+    print(bos_df_1.columns)
     bos_df_1 = bos_df_1.rename(
         {
             "species": "specificEpithet",
@@ -76,7 +77,7 @@ def _(taxon_lf):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""# Describe bos_df_1""")
     return
@@ -105,7 +106,7 @@ def _(mo, taxon_lf):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""# bos_life sample 10""")
     return
@@ -170,19 +171,19 @@ def _(bos_df_1):
 
 @app.cell
 def _(bos_df_1):
-    bos_df_1["speciesid"]
+    bos_df_1["speciesId"]
     return
 
 
 @app.cell
 def _(bos_df_1):
-    bos_df_1[" speciesid"].unique()
+    bos_df_1[" speciesId"].unique()
     return
 
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""Nothing in the second speciesid column, this column will be dropped.""")
+    mo.md(r"""Nothing in the second speciesId column, this column will be dropped.""")
     return
 
 
@@ -205,12 +206,12 @@ def _(bos_df_1, bos_length):
     return (columns_to_drop_as_all_nulls,)
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _():
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(
         r"""
@@ -226,12 +227,15 @@ def _(mo):
 def _(bos_df_1):
     columns_to_drop_as_they_are_just_changes_logs = [
         "cleanup changes ",
-        "data cleanup changes",
+        "Data cleanup changes",
         "data cleanup changes 1",
         "changes",
         "cleanup changes",
-        "unnamed: 18",
-        "unnamed: 17",
+        "Unnamed: 18",
+        "Unnamed: 17",
+        "Unnamed: 19",
+        "query",
+        "issue",
     ]
     for _feature in columns_to_drop_as_they_are_just_changes_logs:
         print(
@@ -304,14 +308,14 @@ def _(mo):
 @app.cell
 def _(bos_df_1):
     ambigiousolumns_2 = [
-        "unnamed: 19",
+        "Unnamed: 19",
         "query",
         "issue",
         "query ",
-        "unnamed: 21",
-        "unnamed: 22",
-        "unnamed: 20",
-        "unnamed: 23",
+        "Unnamed: 21",
+        "Unnamed: 22",
+        "Unnamed: 20",
+        "Unnamed: 23",
     ]
 
     for _feature in ambigiousolumns_2:
@@ -344,10 +348,11 @@ def _(
     bos_df_1,
     columns_to_drop_as_all_nulls,
     columns_to_drop_as_they_are_just_changes_logs,
+    pl,
 ):
     bos_df_2 = bos_df_1.drop(columns_to_drop_as_all_nulls).drop(
         columns_to_drop_as_they_are_just_changes_logs
-    )
+    ).select(~pl.selectors.starts_with("Unnamed"))
     return (bos_df_2,)
 
 
@@ -363,9 +368,9 @@ def _(bos_df_2):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""## replace nan and null with empty string and name cleaning""")
+    mo.md(r"""##  name cleaning""")
     return
 
 
@@ -373,14 +378,21 @@ def _(mo):
 def _(bos_df_2, pl):
     bos_df_3 = (
         bos_df_2
-        #     .fill_nan("")
-        # .fill_null("")
+
+            .with_columns(
+                infraspecificEpithet=pl.when(
+                (pl.col("genericName") == "Glenea")
+                & (pl.col("specificEpithet") == "mathemathica")
+            )
+            .then(pl.lit("mathematica"))
+            )
         .with_columns(
             specificEpithet=pl.when(
                 (pl.col("genericName") == "Glenea")
                 & (pl.col("specificEpithet") == "mathemathica")
             )
             .then(pl.lit("mathematica"))
+
             .when(
                 (pl.col("genericName") == "Bavia")
                 & (pl.col("specificEpithet") == "sexupunctata")
@@ -416,7 +428,8 @@ def _(bos_df_2, pl):
                 & (pl.col("specificEpithet") == "cordimanus")
             )
             .then(pl.lit("cordimana"))
-        )
+        )       .fill_nan("")
+        .fill_null("")
     )
 
 
@@ -440,7 +453,7 @@ def _(pl, taxon_lf):
         "heterotypic synonym",
     ]
 
-    _l2 = [
+    _c = [
         "taxonID",
         "genericName",
         "genus",
@@ -454,17 +467,79 @@ def _(pl, taxon_lf):
             (pl.col("taxonRank") != "unranked")
             & (pl.col("taxonomicStatus").is_in(_l))
         )
-        .select(_l2)
-        .filter((pl.col("genus") != "") | (pl.col("specificEpithet") != ""))
+        .select(_c)
+        # .filter((pl.col("genus") != "") | (pl.col("specificEpithet") != ""))
         .fill_null("")
         .fill_nan("")
     )
+    taxon_ranked_only.select(pl.len()).collect().item()
     return (taxon_ranked_only,)
 
 
 @app.cell
 def _(taxon_ranked_only):
-    taxon_ranked_only.collect().sample(100)
+    taxon_ranked_only.collect_schema().keys()
+    return
+
+
+@app.cell
+def _(taxon_ranked_only):
+    taxon_ranked_only.select(
+        ["genericName", "specificEpithet", "taxonID"]
+    ).unique().collect()
+    return
+
+
+@app.cell
+def _(bos_df_3):
+    bos_df_3.columns
+
+    return
+
+
+@app.cell
+def _(bos_df_3, pl):
+    bos_df_3.select(
+        ["genericName", "specificEpithet", "infraspecificEpithet"]
+    ).filter(pl.col("genericName")!="")
+    return
+
+
+@app.cell
+def _(bos_df_3, pl):
+    bos_df_3.select(
+        ["genericName", "specificEpithet", "infraspecificEpithet"]
+    ).filter(pl.col("genericName")=="")
+    return
+
+
+@app.cell
+def _(bos_df_3, pl):
+    bos_df_3.select(
+        ["genericName", "specificEpithet", "infraspecificEpithet"]
+    ).filter(pl.col("specificEpithet") != "")
+    return
+
+
+@app.cell
+def _(bos_df_3, pl):
+    bos_df_3.select(
+        ["genericName", "specificEpithet", "infraspecificEpithet"]
+    ).filter(pl.col("infraspecificEpithet") != "")
+    return
+
+
+@app.cell
+def _(taxon_ranked_only):
+    taxon_ranked_only.select(
+        [ "specificEpithet"]
+    ).unique().collect()
+    return
+
+
+@app.cell(disabled=True)
+def _(taxon_ranked_only):
+    taxon_ranked_only.collect().head(10)
     return
 
 
@@ -481,7 +556,7 @@ def _(bos_df_3, pl, taxon_ranked_only):
         .join(
             other=taxon_ranked_only,
             on=["genericName", "specificEpithet", "infraspecificEpithet"],
-            how="left",
+            how="inner",
         )
         .rename({"taxonID": "matched_taxonID"})
     )
@@ -490,52 +565,28 @@ def _(bos_df_3, pl, taxon_ranked_only):
 
 @app.cell
 def _(matching_df):
-    matching_df.collect().shape
+    matching_df.collect()
     return
 
 
-@app.cell
-def _(matching_df):
-    matching_df.collect().sort(by="speciesid")
-    return
-
-
-@app.cell
-def _(matching_df):
-    list(matching_df.collect_schema().keys())
-    return
-
-
-@app.cell
-def _(matching_df):
-    matching_df.select(
-        ["genericName", "specificEpithet", "matched_taxonID"]
-    ).collect().describe()
-    return
-
-
-@app.cell
+@app.cell(disabled=True)
 def _(matching_df, pl):
     _df = matching_df.select(
         ["genericName", "specificEpithet", "matched_taxonID"]
-    ).collect()
-    print(_df.filter(pl.col("genericName").is_null()))
+    )
+    print(_df.filter(pl.col("genericName")=="").collect())
     print()
-
-    print(_df.filter(pl.col("specificEpithet").is_null()))
-
+    print(_df.filter(pl.col("specificEpithet")=="").collect())
     print()
-
     print(
         _df.filter(
-            (pl.col("matched_taxonID") == 0)
-            | (pl.col("matched_taxonID").is_null())
-        )
+             (pl.col("matched_taxonID")==0)
+        ).collect()
     )
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""## contentious and matching rows""")
     return
@@ -545,10 +596,10 @@ def _(mo):
 def _(matching_df, pl):
     matching_df_2 = matching_df.select(
         (
-            "speciesid",
+            "speciesId",
             "matched_taxonID",
             "acceptedNameUsageID",
-            "taxonname",
+            "taxonName",
             "domain ",
             "kingdom",
             "phylum",
@@ -572,12 +623,12 @@ def _(matching_df, pl):
     )
 
 
-    contentious = matching_df_2.filter(pl.col("speciesid").is_duplicated()).sort(
-        by="speciesid"
+    contentious = matching_df_2.filter(pl.col("speciesId").is_duplicated()).sort(
+        by="speciesId"
     )
     matching_df_2 = matching_df_2.filter(
-        ~pl.col("speciesid").is_duplicated()
-    ).sort(by="speciesid")
+        ~pl.col("speciesId").is_duplicated()
+    ).sort(by="speciesId")
 
 
     # I don't know how to do this lines:
@@ -587,23 +638,23 @@ def _(matching_df, pl):
     # contentious = contentious.filter(~pl.col('acceptedNameUsageID') == (pl.col('matched_taxonID')))
 
 
-    matching_df_2.collect()
+    # matching_df_2.collect().describe()
     return contentious, matching_df_2
 
 
 @app.cell
-def _(contentious):
-    contentious.collect()
+def _():
+    # contentious.collect().describe()
     return
 
 
-@app.cell
+@app.cell(disabled=True)
 def _(matching_df_2, pl):
     matching_df_2.filter(pl.col("acceptedNameUsageID").is_null()).collect().shape
     return
 
 
-@app.cell
+@app.cell(disabled=True)
 def _(contentious, pl):
     contentious_2 = contentious.filter(
         pl.col("acceptedNameUsageID") != ""
@@ -613,17 +664,17 @@ def _(contentious, pl):
     return
 
 
-@app.cell
+@app.cell(hide_code=True)
 def _(mo):
     mo.md(r"""## No match""")
     return
 
 
 @app.cell
-def _(matching_df_2, pl):
-    nomatch_df = matching_df_2.filter(pl.col("matched_taxonID").is_not_null())
+def _():
+    # nomatch_df = matching_df_2.filter(pl.col("matched_taxonID").is_not_null())
 
-    nomatch_df.collect()
+    # nomatch_df.collect()
     return
 
 
