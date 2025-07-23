@@ -4,7 +4,8 @@ Darwin Core Standards
   
 To see my exploration of the data and some R translation to python, open to __marimo__/explore_datasets_marimo_notebook.html.   
 
-    
+The following commands is for `bash` environment.  
+  
 You also activate the python environement by going to this folder in Command Line INterface and do `source .venv/bin/activate`.  
   
 you may install the required packages via `uv pip install -r requirements.txt`  
