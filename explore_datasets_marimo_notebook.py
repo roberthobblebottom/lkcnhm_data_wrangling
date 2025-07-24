@@ -29,7 +29,7 @@ def _(pl):
 @app.cell
 def _(df, pl):
     contentious = (
-        df.filter(pl.col("speciesId").is_not_null().is_duplicated())
+        df.filter(pl.col("speciesId").is_duplicated())
         .sort(by="speciesId")
         .filter(pl.col("acceptedNameUsageID") != "")
     )
@@ -47,7 +47,7 @@ def _(df, pl):
 
 @app.cell
 def _(df):
-    df.select("speciesId").unique().collect().null_count()
+    df.group_by("speciesId").len().collect().sort('len')
     return
 
 
