@@ -2,12 +2,6 @@ import polars as pl
 
 
 def join():
-    taxon_lf = pl.scan_csv(
-        "gbif/Taxon.tsv",
-        separator="\t",
-        quote_char=None,
-        cache=True,
-    ).filter((pl.col("genus") != "") & (pl.col("specificEpithet") != ""))
     bos_df = (
         pl.read_csv("outputsplit.csv")
         .rename(
@@ -22,43 +16,46 @@ def join():
         .with_columns(pl.col(pl.String).str.strip_chars(" "))
     )
     # Taxonsml <- Taxonsml[
-    #   !(Taxonsml$genus == "" | Taxonsml$specificEpithet == ""),
-    # ]
 
-    # null_counts_df = (
-    #     bos_df.null_count()
-    #     .transpose(include_header=True)
-    #     .rename({"column": "feature", "column_0": "len"})
-    # )
-    # columns_to_drop_as_all_nulls = (
-    #     null_counts_df.filter(null_counts_df["len"] == bos_df.shape[0])
-    #     .transpose()[0, :]
-    #     .transpose()
-    #     .to_series()
-    #     .to_list()
-    # )
-    # columns_to_drop_as_they_are_just_changes_logs = [
-    #     "cleanup changes ",
-    #     "Data cleanup changes",
-    #     "data cleanup changes 1",
-    #     "changes",
-    #     "cleanup changes",
-    #     "Unnamed: 18",
-    #     "Unnamed: 17",
-    #     "Unnamed: 19",
-    #     "query",
-    #     "query ",
-    #     "issue",
-    #     "cleanup changes/comments",
-    #     "subphylum",
-    # ]
+    null_counts_df = (
+        bos_df.null_count()
+        .transpose(include_header=True)
+        .rename({"column": "feature", "column_0": "len"})
+    )
+    columns_to_drop_as_all_nulls = (
+        null_counts_df.filter(null_counts_df["len"] == bos_df.shape[0])
+        .transpose()[0, :]
+        .transpose()
+        .to_series()
+        .to_list()
+    )
+    columns_to_drop_as_they_are_just_changes_logs = [
+        "cleanup changes ",
+        "Data cleanup changes",
+        "data cleanup changes 1",
+        "changes",
+        "cleanup changes",
+        "Unnamed: 18",
+        "Unnamed: 17",
+        "Unnamed: 19",
+        "query",
+        "query ",
+        "issue",
+        "cleanup changes/comments",
+        "subphylum",
+    ]
     bos_df = (
-        # (
-        #     bos_df.drop(columns_to_drop_as_all_nulls)
-        #     .drop(columns_to_drop_as_they_are_just_changes_logs)
-        #     .select(~pl.selectors.starts_with("Unnamed"))
-        # )
-        bos_df.with_columns(
+        (
+            bos_df.drop(columns_to_drop_as_all_nulls)
+            .drop(columns_to_drop_as_they_are_just_changes_logs)
+            .select(~pl.selectors.starts_with("Unnamed"))
+        )
+        .with_columns(
+            infraspecificEpithet=pl.when(pl.col("infraspecificEpithet").is_null())
+            .then(pl.lit(""))
+            .otherwise(pl.col("infraspecificEpithet"))
+        )
+        .with_columns(
             infraspecificEpithet=pl.when(
                 (pl.col("genericName") == "Glenea")
                 & (pl.col("specificEpithet") == "mathemathica")
@@ -109,12 +106,11 @@ def join():
             .then(pl.lit("cordimana"))
             .otherwise(pl.col("specificEpithet"))
         )
-        .with_columns(
-            pl.when(pl.col("infraspecificEpithet").is_null())
-            .then(pl.lit(""))
-            .otherwise(pl.col("infraspecificEpithet"))
-        )
     )
+    # print("bos speciesId", bos_df.filter(pl.col('taxonID').is_null()))
+
+
+
 
     _l = [
         "accepted",
@@ -132,23 +128,32 @@ def join():
         "infraspecificEpithet",
         "taxonomicStatus",
         "acceptedNameUsageID",
+
+     
+
     ]
     taxon_ranked_only = (
-        taxon_lf.filter(
+        pl.scan_csv(
+            "gbif/Taxon.tsv",
+            separator="\t",
+            quote_char=None,
+            cache=True,
+        )
+        .filter(
             (pl.col("taxonRank") != "unranked") & (pl.col("taxonomicStatus").is_in(_l))
         )
         .select(_c)
+        .filter((pl.col("genus") != "") & (pl.col("specificEpithet") != ""))
         .with_columns(
-            pl.when(pl.col("infraspecificEpithet").is_null())
+            infraspecificEpithet=pl.when((pl.col("infraspecificEpithet").is_null()))
             .then(pl.lit(""))
             .otherwise(pl.col("infraspecificEpithet"))
         )
     )
 
     matching_df = (
-        pl.LazyFrame(bos_df)
-        .join(
-            other=taxon_ranked_only,
+        taxon_ranked_only.join(
+            other=pl.LazyFrame(bos_df),
             on=["genericName", "specificEpithet", "infraspecificEpithet"],
             how="right",
         )
@@ -175,10 +180,12 @@ def join():
             "tribe",
             "genus",
             "subgenus",
+            "genericName",
             "specificEpithet",
             "infraspecificEpithet",
         )
     )
+
     return matching_df
 
 

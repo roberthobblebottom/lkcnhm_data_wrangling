@@ -105,6 +105,8 @@ cleanfortaxoDBport <- matching[!is.na(matching$matched_taxonID), ]
 
 #add column to Taxon for speciesId located in column 2
 #create nomatch from matching which only contains values where matched_taxonId is empty
+
+#RyAN: THIS BELOW DOESNT RETURN ANYTHING IN PYTHON
 nomatch <- matching[is.na(matched_taxonID)]
 
 #set columns for parent matching
@@ -136,6 +138,7 @@ accepted_taxon_lookup <- Taxon[
 ]
 accepted_taxon_lookup <- accepted_taxon_lookup[!(is.na(canonicalName) | canonicalName == "")]
 setorder(accepted_taxon_lookup, canonicalName)
+#Stopped here below:
 accepted_taxon_lookup[, .N, by = canonicalName][N > 1]
 
 accepted_taxon_lookup_repeats <- accepted_taxon_lookup[
