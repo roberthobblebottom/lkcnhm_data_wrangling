@@ -58,12 +58,6 @@ def _(df, pl):
 
 @app.cell
 def _(df, pl):
-    df.filter(pl.col("matched_taxonID").is_null()).collect()
-    return
-
-
-@app.cell
-def _(df, pl):
     matching = (df.filter((~pl.col("speciesId").is_duplicated()))).with_columns(
         acceptedNameUsageID=pl.col("acceptedNameUsageID")
         .fill_null(pl.lit(-1))
@@ -87,25 +81,11 @@ def _(df, pl):
     matching = pl.concat(
         [matching, unique_contentious],
     )
-    return contentious2, matching
-
-
-@app.cell
-def _(contentious2):
-    contentious2.collect()
-    return
-
-
-@app.cell
-def _(matching):
-    matching.collect()
-    return
+    return (matching,)
 
 
 @app.cell
 def _(matching, pl):
-    # nomatch.collect()
-
     nomatch = (
         matching.filter(pl.col("matched_taxonID").is_null())
         .with_columns(
@@ -115,14 +95,7 @@ def _(matching, pl):
         )
         .collect()
     )
-    nomatch
     return (nomatch,)
-
-
-@app.cell
-def _(nomatch):
-    nomatch.columns
-    return
 
 
 @app.cell
@@ -139,10 +112,37 @@ def _(pl, taxon):
         .filter(~pl.col("canonicalName").is_null())
         .filter(pl.col("canonicalName") != "")
         .sort("canonicalName")
+        .filter((~pl.col("canonicalName").is_first_distinct()))
     )
+    return (accepted_taxon_lookup,)
 
 
-    accepted_taxon_lookup.collect()
+@app.cell
+def _(accepted_taxon_lookup, nomatch, pl):
+    _priority_columns = [
+        "infraspecificEpithet",
+        "specificEpithet",
+        "genus",
+        "family",
+        "order",
+        "class",
+        "phylum",
+        "kingdom",
+        "domain",
+    ]
+
+    # Unsure about this whole for loop block
+    for _c in _priority_columns:
+        _a = accepted_taxon_lookup.filter(pl.col("canonicalName") == _c)["taxonID"]
+        nomatch.with_columns(
+            parentNameUsageID=pl.when(
+                (pl.col("parentNameUsageID").is_nan())
+                & (pl.col(_c).is_not_nan())
+                & (pl.col(_c) != "")
+            )
+            .then(pl.lit(_a))
+            .otherwise("parentNameUsageID")
+        )
     return
 
 
