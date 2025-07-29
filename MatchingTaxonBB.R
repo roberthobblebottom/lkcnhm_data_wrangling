@@ -1,4 +1,4 @@
-library(data.table)
+ibrary(data.table)
 
 #Load GBIF taxonomic backbone
 
@@ -87,7 +87,7 @@ contentious <- matching[speciesId %in% speciesId[duplicated(speciesId)]]
 matching <- matching[!matching$speciesId %in% matching$speciesId[duplicated(matching$speciesId)], ]
 contentious <- contentious[!contentious$acceptedNameUsageID %in% contentious$matched_taxonID, ]
 
-# Identify unique speciesId rows in contentious
+# Identify unique speciesId rows in contentious, RYAN: last condition clause with hte fromLast is assumed not needed.
 unique_rows <- contentious[!duplicated(contentious$speciesId) & !duplicated(contentious$speciesId, fromLast = TRUE), ]
 
 # Append to matching
@@ -106,7 +106,6 @@ cleanfortaxoDBport <- matching[!is.na(matching$matched_taxonID), ]
 #add column to Taxon for speciesId located in column 2
 #create nomatch from matching which only contains values where matched_taxonId is empty
 
-#RyAN: THIS BELOW DOESNT RETURN ANYTHING IN PYTHON
 nomatch <- matching[is.na(matched_taxonID)]
 
 #set columns for parent matching
