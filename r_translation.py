@@ -109,9 +109,6 @@ def join():
     )
     # print("bos speciesId", bos_df.filter(pl.col('taxonID').is_null()))
 
-
-
-
     _l = [
         "accepted",
         "synonym",
@@ -128,9 +125,6 @@ def join():
         "infraspecificEpithet",
         "taxonomicStatus",
         "acceptedNameUsageID",
-
-     
-
     ]
     taxon_ranked_only = (
         pl.scan_csv(

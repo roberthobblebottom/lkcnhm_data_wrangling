@@ -15,6 +15,6 @@ wheels/
 *odt*
 gbif/
 MatchinngTexonBB.R
-outputsplit.csv
+*.csv
 __marimo__/cache/
 __marimo__/session/
