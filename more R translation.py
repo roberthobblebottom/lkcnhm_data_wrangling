@@ -1,6 +1,6 @@
 import marimo
 
-__generated_with = "0.14.15"
+__generated_with = "0.14.16"
 app = marimo.App(width="full")
 
 
@@ -17,8 +17,19 @@ def _():
 
     from r_translation import join
 
-    df = join()
-    return df, mo, pl
+    matching, contentious = join()
+    matching = matching.with_columns(
+        genus=pl.when(
+            (pl.col("genus").is_null()) & (pl.col("specificEpithet").is_not_null())
+        )
+        .then(
+            pl.col("taxonName").str.split(" ").list[0]
+            # .str.replace("<i>", "")
+            # .str.replace("</i>", "")
+        )
+        .otherwise("genus")
+    )
+    return matching, mo, pl
 
 
 @app.cell(hide_code=True)
@@ -32,56 +43,44 @@ def _(mo):
     return
 
 
-@app.cell
-def _(df, pl):
-    matching = df.filter(~pl.col("speciesId").is_duplicated()).with_columns(
-        acceptedNameUsageID=pl.col("acceptedNameUsageID")
-        .fill_null(pl.lit(-1))
-        .cast(pl.Int64)
-    )
-    contentious = df.filter((pl.col("speciesId").is_duplicated())).with_columns(
-        acceptedNameUsageID=pl.col("acceptedNameUsageID")
-        .fill_null(pl.lit(-1))
-        .cast(pl.Int64)
-    )
-
-    unique_contentious = contentious.filter(
-        (pl.col("acceptedNameUsageID") == -1)
-        & (
-            pl.col("matched_taxonID").is_in(
-                pl.col("acceptedNameUsageID").implode()
-            )
-        )
-    )
-    # print(
-    #     unique_contentious.select(
-    #         "speciesId", "acceptedNameUsageID", "matched_taxonID"
-    #     ).collect()
+@app.cell(disabled=True)
+def _():
+    # matching = df.filter(~pl.col("speciesId").is_duplicated()).with_columns(
+    #     acceptedNameUsageID=pl.col("acceptedNameUsageID")
+    #     .fill_null(pl.lit(-1))
+    #     .cast(pl.Int64)
     # )
-    unique_contentius_speciesId = (
-        unique_contentious.select("speciesId").collect().to_series().implode()
-    )  # Just the speciesIds
-    contentious2 = contentious.filter(
-        ~pl.col("speciesId").is_in(unique_contentius_speciesId)
-    )  # Removing...
+    # contentious = df.filter((pl.col("speciesId").is_duplicated())).with_columns(
+    #     acceptedNameUsageID=pl.col("acceptedNameUsageID")
+    #     .fill_null(pl.lit(-1))
+    #     .cast(pl.Int64)
+    # )
 
-    # print(contentious2.select('speciesId','acceptedNameUsageID','matched_taxonID').collect())
+    # unique_contentious = contentious.filter(
+    #     (pl.col("acceptedNameUsageID") == -1)
+    #     & (
+    #         pl.col("matched_taxonID").is_in(
+    #             pl.col("acceptedNameUsageID").implode()
+    #         )
+    #     )
+    # )
+    # # print(
+    # #     unique_contentious.select(
+    # #         "speciesId", "acceptedNameUsageID", "matched_taxonID"
+    # #     ).collect()
+    # # )
+    # unique_contentius_speciesId = (
+    #     unique_contentious.select("speciesId").collect().to_series().implode()
+    # )  # Just the speciesIds
+    # contentious2 = contentious.filter(
+    #     ~pl.col("speciesId").is_in(unique_contentius_speciesId)
+    # )  # Removing...
 
-    matching = pl.concat(
-        [matching, unique_contentious],
-    )
-    return contentious2, matching
+    # # print(contentious2.select('speciesId','acceptedNameUsageID','matched_taxonID').collect())
 
-
-@app.cell(disabled=True)
-def _(contentious2):
-    contentious2.collect().sort("speciesId")
-    return
-
-
-@app.cell(disabled=True)
-def _(matching):
-    matching.collect().sort("speciesId")
+    # matching = pl.concat(
+    #     [matching, unique_contentious],
+    # )
     return
 
 
@@ -90,6 +89,45 @@ def _(mo):
     mo.md(
         r"""nomatch lazyframe is for BOS data point that has no current match in gbif data set."""
     )
+    return
+
+
+@app.cell
+def _(matching, pl):
+    debug = (
+        matching.filter(
+            (pl.col("specificEpithet").is_not_null()) & (pl.col("genus").is_null())
+        )
+        .select(
+            [
+                "speciesId",
+                "taxonName",
+                "infraspecificEpithet",
+                "specificEpithet",
+                "genus",
+                "family",
+                "order",
+                "class",
+                "phylum",
+                "kingdom",
+            ]
+        )
+        .collect()
+    )
+    debug
+    # matching.filter(
+    #     (pl.col("specificEpithet").is_not_null())
+    #     & (
+    #         pl.col("speciesId").is_in(
+    #             debug.select(["speciesId"]).to_series().to_list()
+    #         )
+    #     )
+    # ).select(
+    #     [
+    #         "taxonName",
+    #     ]
+    #     + priorityFeatures
+    # ).collect()
     return
 
 
@@ -110,64 +148,21 @@ def _(matching, pl):
 
 @app.cell
 def _(pl):
-    accepted_taxon_lookup = (
+    repeated_accepted_taxons = (
         pl.scan_csv("gbif/Taxon.tsv", separator="\t", quote_char=None, cache=True)
         .filter(pl.col("taxonomicStatus") == pl.lit("accepted"))
         .filter(pl.col("kingdom").is_in(["Animalia", "Plantae"]))
         .filter(~pl.col("canonicalName").is_null())
         .filter(pl.col("canonicalName") != "")
         .sort("canonicalName")
+        .filter(pl.col("canonicalName").is_duplicated())
     )
-    return (accepted_taxon_lookup,)
-
-
-@app.cell
-def _(accepted_taxon_lookup):
-    accepted_taxon_lookup.select("kingdom").unique().collect()
-    return
-
-
-@app.cell
-def _():
-    # accepted_taxon_lookup.filter(
-    #     pl.col("canonicalName") == "Abakaniella"
-    # ).collect()
-    return
-
-
-@app.cell
-def _():
-    # unique_accepted_taxons = accepted_taxon_lookup.filter(
-    #     ~pl.col("canonicalName").is_duplicated()
-    # )
-    # unique_accepted_taxons.group_by("canonicalName").len().sort("len").collect()
-    return
-
-
-@app.cell
-def _(accepted_taxon_lookup, pl):
-    repeated_accepted_taxons = accepted_taxon_lookup.filter(
-        pl.col("canonicalName").is_duplicated()
-    )
-    # repeated_accepted_taxons.group_by("canonicalName").len().sort("len").collect()
     return (repeated_accepted_taxons,)
-
-
-@app.cell
-def _(repeated_accepted_taxons):
-    repeated_accepted_taxons.select("kingdom").unique().collect()
-    return
 
 
 @app.cell
 def _(mo):
     mo.md(r"""### repeated_accepted_taxons = RAT""")
-    return
-
-
-@app.cell
-def _():
-    # repeated_accepted_taxons.collect_schema().keys()
     return
 
 
@@ -189,14 +184,14 @@ def _(pl, repeated_accepted_taxons):
         "feature_that_is_equal_to_canonicalName": pl.String,
         "matches": pl.String,
     }
-
+    _r = (repeated_accepted_taxons).collect()
     RAT_interim = pl.DataFrame(schema=_schema)
     for _c in priority_columns:
         _a = (
-            repeated_accepted_taxons.filter(pl.col("canonicalName") == pl.col(_c))
+            _r.filter(pl.col("canonicalName") == pl.col(_c))
             .select("canonicalName")
             .unique()
-            .collect()
+            # .collect()
         )
         if _a.shape[0] != 0:
             _t = _a["canonicalName"].to_list()
@@ -214,90 +209,53 @@ def _(pl, repeated_accepted_taxons):
         )
         .sort("feature_that_is_equal_to_canonicalName")
     )
-    RAT_feats
+    # RAT_feats.write_csv("RAT_feats.csv")
     return RAT_feats, priority_columns
 
 
 @app.cell
-def _(accepted_taxon_lookup):
-    accepted_taxon_lookup.columns
-    return
-
-
-@app.cell
-def _(nomatch):
-    nomatch.shape
-    return
-
-
-@app.cell
-def _(nomatch):
-    nomatch.describe()
-    return
-
-
-@app.cell
-def _():
-    bool("test")
-    return
-
-
-@app.cell
 def _(RAT_feats, nomatch, pl, priority_columns, repeated_accepted_taxons):
-    priorityFeatures = [
-        "infraspecificEpithet",
-        "specificEpithet",
-        "genus",
-        "family",
-        "order",
-        "class",
-        "phylum",
-        "kingdom",
-    ]
     pl.Config.set_tbl_cols(1000)
 
-
-    updated_nomatch = pl.DataFrame()
-    all_taxon_data_to_be_selected_from = pl.DataFrame()
-    # for _f in priorityFeatureso:
-
-    i = 0
-    for _f in ["family"]:
+    updated_nomatch = []
+    all_taxon_data_to_be_selected_from = []
+    _collected_repeated_taxons = repeated_accepted_taxons.collect()
+    # for _f in ["family"]:
+    for _f in priority_columns:
         for _m in RAT_feats["matches"]:
-            _no_match_subset_to_update = nomatch.filter(pl.col(_f) == _m)
-            if _no_match_subset_to_update.shape[0] == 0:
+            if _m not in nomatch[_f].to_list():
                 continue
 
-            # _no_match_subset_to_update.with_columns(parentNameUsageID = pl.col('taxon_id')) # THis is not correct
-            taxon_data_to_select_from = (
-                repeated_accepted_taxons.filter(pl.col("canonicalName") == _m)
-                .select(["taxonID"] + priorityFeatures)
-                .collect()
-            )
-            # print("selecting.....", taxon_data_to_select_from)
+            taxon_data_to_select_from = _collected_repeated_taxons.filter(
+                pl.col("canonicalName") == _m
+            ).select(["taxonID"] + priority_columns)
             selected_row = -1
 
             for i, _t in enumerate(taxon_data_to_select_from.iter_rows()):
-                # print("row", i)
                 prev_col_index = priority_columns.index(
                     _f
                 )  # index of previous column of _f
-                # print(prev_col_index)
-                # raise Exception("stopped here")
                 _x = _t[prev_col_index]
                 if not bool(_x):
-                    selected_row = i
+                    selected_row = i  # Since there are only two rows from taxon_data_t0_select_from, the results is either 0 or 1
                     break
             chosen_taxonId = taxon_data_to_select_from[selected_row, 0]
+            other_taxonId = taxon_data_to_select_from[int(~bool(selected_row)), 0]
 
-            # print("chosen_taxonId", chosen_taxonId)
-            # break
-
-            _no_match_subset_to_update = _no_match_subset_to_update.with_columns(
-                parentNameUsageID=pl.lit(chosen_taxonId)
+            _no_match_subset_to_update = nomatch.filter(
+                pl.col(_f) == _m
+            ).with_columns(
+                parentNameUsageID=pl.when(
+                    (pl.col("infraspecificEpithet").is_null())
+                    & (pl.col("specificEpithet").is_not_null())
+                    & (pl.col("genus").is_not_null())
+                )
+                .then(pl.lit(other_taxonId))
+                .otherwise(pl.lit(chosen_taxonId))
             )
-            print("-------\nFeature:", _f, ",Name:", _m)
 
+            # Debugging
+            print("-------\nFeature:", _f, ",Name:", _m)
             print(
                 "taxon_data_to_select_from\n",
                 taxon_data_to_select_from,
@@ -307,30 +265,23 @@ def _(RAT_feats, nomatch, pl, priority_columns, repeated_accepted_taxons):
             print(
                 _no_match_subset_to_update.select(
                     [
-                        # "speciesId",
-                        # "acceptedNameUsageID",
+                        "parentNameUsageID",
                         "taxonName",
-                        # "taxonRank",
-                        # "taxonomicStatus",
                     ]
-                    + priorityFeatures
-                )[0, :]
-            )
-            print("---------\n\n\n\n")
-            # i+=1
-            # if i ==4:
-            #     raise Exception("stopped here")
-            updated_nomatch = updated_nomatch.vstack(_no_match_subset_to_update)
-            all_taxon_data_to_be_selected_from = (
-                all_taxon_data_to_be_selected_from.vstack(
-                    taxon_data_to_select_from
+                    + priority_columns
                 )
             )
-            # if _f == "order":
-    updated_nomatch.write_csv("updated_nomatch.csv")
-    all_taxon_data_to_be_selected_from.write_csv(
-        "all_taxon_data_to_be_selected_from.csv"
+            print("---------\n\n\n\n")
+            updated_nomatch.append(_no_match_subset_to_update)
+            all_taxon_data_to_be_selected_from.append(taxon_data_to_select_from)
+
+
+    pl.concat(updated_nomatch, rechunk=True, parallel=True).write_csv(
+        "updated_nomatch.csv"
     )
+    pl.concat(
+        all_taxon_data_to_be_selected_from, rechunk=True, parallel=True
+    ).write_csv("all_taxon_data_to_be_selected_from.csv")
     return
 
 

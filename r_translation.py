@@ -9,11 +9,11 @@ def join():
                 "data cleanup changes": "data cleanup changes 1",
                 "species": "specificEpithet",
                 "subspecies": "infraspecificEpithet",
-                "genus": "genericName",
                 "domain ": "domain",
             }
         )
         .with_columns(pl.col(pl.String).str.strip_chars(" "))
+        .with_columns(genericName=pl.col("genus"))
     )
     # Taxonsml <- Taxonsml[
 
@@ -106,7 +106,38 @@ def join():
             .then(pl.lit("cordimana"))
             .otherwise(pl.col("specificEpithet"))
         )
+        .with_columns(
+            domain=pl.lit("Eukarya"),
+            kingdom=pl.when((pl.col("phylum").is_in(["Ascomycota", "Basidiomycota"])))
+            .then(pl.lit("fungi"))
+            .when(pl.col("phylum") == "Cyanobacteria")
+            .then(pl.lit("Bacteria"))
+            .when(pl.col("phylum") == "Ciliophora")
+            .then(pl.lit("Protista"))
+            .otherwise(pl.lit("Animalia")),
+        )
+        .with_columns(
+            taxonName=pl.col("taxonName")
+            .str.replace_all("<i>", "")
+            .str.replace_all("</i>", "")
+        )
+        # Not working:
+        # .with_columns(
+        #     genus=pl.when(
+        #         (pl.col("genus").is_null()) & (pl.col("specificEpithet").is_not_null())
+        #     )
+        #     .then(
+        #         pl.col("taxonName")
+        #         .str.split(" ")
+        #         .list[0]
+        #         .str.replace("<i>", "")
+        #         .str.replace("</i>", "")
+        #     )
+        #     .otherwise("genus")
+        # )
     )
+    print("bos_df columns:", bos_df.columns)
+    bos_df.write_csv("outputsplit2.csv")
     # print("bos speciesId", bos_df.filter(pl.col('taxonID').is_null()))
 
     _l = [
@@ -145,6 +176,22 @@ def join():
         )
     )
 
+    # THIS BELOW DOESN"T WORK, taxon_ranked_only doesn't have taxon name
+    # .with_columns(
+    #     genus=pl.when(
+    #         (pl.col("genus").is_null()) & (pl.col("specificEpithet").is_not_null())
+    #     )
+    #     .then(
+    #         pl.col("taxonName")
+    #         .str.split(" ")
+    #         .list[0]
+    #         .str.replace("<i>", "")
+    #         .str.replace("</i>", "")
+    #     )
+    #     .otherwise("genus")
+    # )
+
+    print("taxon.csv columns,", taxon_ranked_only.collect_schema().keys())
     matching_df = (
         taxon_ranked_only.join(
             other=pl.LazyFrame(bos_df),
@@ -178,9 +225,48 @@ def join():
             "specificEpithet",
             "infraspecificEpithet",
         )
+        .with_columns(
+            pl.when(pl.col("infraspecificEpithet") == "")
+            .then(pl.lit(None))
+            .otherwise("infraspecificEpithet")
+            .alias("infraspecificEpithet")
+        )
     )
 
-    return matching_df
+    # matching and contetnious split
+    # What makes a data point contentious is where it has duplicate speciesId.
+
+    matching = matching_df.filter(~pl.col("speciesId").is_duplicated()).with_columns(
+        acceptedNameUsageID=pl.col("acceptedNameUsageID")
+        .fill_null(pl.lit(-1))
+        .cast(pl.Int64)
+    )
+    contentious = matching_df.filter(
+        (pl.col("speciesId").is_duplicated())
+    ).with_columns(
+        acceptedNameUsageID=pl.col("acceptedNameUsageID")
+        .fill_null(pl.lit(-1))
+        .cast(pl.Int64)
+    )
+
+    unique_contentious = contentious.filter(
+        (pl.col("acceptedNameUsageID") == -1)
+        & (pl.col("matched_taxonID").is_in(pl.col("acceptedNameUsageID").implode()))
+    )
+
+    unique_contentius_speciesId = (
+        unique_contentious.select("speciesId").collect().to_series().implode()
+    )  # Just the speciesIds
+    contentious = contentious.filter(
+        ~pl.col("speciesId").is_in(unique_contentius_speciesId)
+    )  # Removing...
+
+    matching = pl.concat(
+        [matching, unique_contentious],
+    )
+
+    return matching, contentious
 
 
-# .sink_csv("matching_testing.csv",batch_size=50)
+if __name__ == "__main__":
+    join()
