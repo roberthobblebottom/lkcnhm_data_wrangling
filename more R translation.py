@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.14.16"
-app = marimo.App(width="full")
+app = marimo.App(width="full", auto_download=["ipynb", "html"])
 
 
 @app.cell(hide_code=True)
@@ -22,14 +22,16 @@ def _():
         genus=pl.when(
             (pl.col("genus").is_null()) & (pl.col("specificEpithet").is_not_null())
         )
-        .then(
-            pl.col("taxonName").str.split(" ").list[0]
-            # .str.replace("<i>", "")
-            # .str.replace("</i>", "")
-        )
+        .then(pl.col("taxonName").str.split(" ").list[0])
         .otherwise("genus")
     )
-    return matching, mo, pl
+    return contentious, matching, mo, pl
+
+
+@app.cell
+def _(contentious):
+    contentious.collect_schema().keys()
+    return
 
 
 @app.cell(hide_code=True)
@@ -140,10 +142,23 @@ def _(matching, pl):
             taxonomicStatus=pl.lit("BOSunformired"),
             parentNameUsageID=pl.lit(None),
         )
+        .fill_null("")  # TODO TEST IF NOT WORK, REMOVE
         .collect()
     )
     nomatch
     return (nomatch,)
+
+
+@app.cell
+def _(matching, pl):
+    matching_with_populated_match_taxonID = matching.filter(
+        pl.col("matched_taxonID").is_not_null()
+    ).with_columns(
+        taxonRank=pl.lit(None),
+        taxonomicStatus=pl.lit(None),
+        parentNameUsageID=pl.lit(None),
+    )
+    return (matching_with_populated_match_taxonID,)
 
 
 @app.cell
@@ -177,7 +192,6 @@ def _(pl, repeated_accepted_taxons):
         "class",
         "phylum",
         "kingdom",
-        # "domain",
     ]
 
     _schema = {
@@ -214,37 +228,128 @@ def _(pl, repeated_accepted_taxons):
 
 
 @app.cell
-def _(RAT_feats, nomatch, pl, priority_columns, repeated_accepted_taxons):
-    pl.Config.set_tbl_cols(1000)
+def _(RAT_feats):
+    RAT_feats
+    return
 
-    updated_nomatch = []
+
+@app.cell
+def _(RAT_feats, nomatch, pl, priority_columns, repeated_accepted_taxons):
+    updated_to_matching = []
     all_taxon_data_to_be_selected_from = []
-    _collected_repeated_taxons = repeated_accepted_taxons.collect()
-    # for _f in ["family"]:
-    for _f in priority_columns:
+    _collected_repeated_taxons = repeated_accepted_taxons.collect().fill_null("")
+    _reversed_priority_columns = priority_columns.copy()
+    _reversed_priority_columns.reverse()
+    for _f in _reversed_priority_columns:
+        to_skip = False
         for _m in RAT_feats["matches"]:
+            # skipping those that are not in RAT_feats
             if _m not in nomatch[_f].to_list():
                 continue
 
+            print("-------\nFeature:", _f, ",Name:", _m)
+
             taxon_data_to_select_from = _collected_repeated_taxons.filter(
                 pl.col("canonicalName") == _m
-            ).select(["taxonID"] + priority_columns)
-            selected_row = -1
+            ).select(["taxonID"] + _reversed_priority_columns)
 
-            for i, _t in enumerate(taxon_data_to_select_from.iter_rows()):
-                prev_col_index = priority_columns.index(
-                    _f
-                )  # index of previous column of _f
-                _x = _t[prev_col_index]
+            # Select from the two rows what taxon data to select.
+            selected_row = -1
+            for i, _t in enumerate(
+                taxon_data_to_select_from.select(
+                    ["taxonID"] + priority_columns
+                ).iter_rows()
+            ):
+                col_index = priority_columns.index(_f)
+                _x = _t[col_index]
+                print(_x)
                 if not bool(_x):
                     selected_row = i  # Since there are only two rows from taxon_data_t0_select_from, the results is either 0 or 1
                     break
-            chosen_taxonId = taxon_data_to_select_from[selected_row, 0]
-            other_taxonId = taxon_data_to_select_from[int(~bool(selected_row)), 0]
+            assert selected_row != -1
 
+            # has_predicament1 is when kindom to genus all has values and it is kind of leveled between the two rows of the taxon data.
+            has_predicament1 = False
+            _l = taxon_data_to_select_from["family"].to_list()
+            if _f == "genus" and _l[0] != None and _l[1] != None:
+                print("same level detected")
+                has_predicament1 = True
+
+            chosen_taxonId = taxon_data_to_select_from[selected_row, 0]
+            other_taxonId = taxon_data_to_select_from[
+                int(not bool(selected_row)), 0
+            ]
+
+            # Getting the _no_match_subset_to_update section
             _no_match_subset_to_update = nomatch.filter(
-                pl.col(_f) == _m
-            ).with_columns(
+                pl.col(_f) == _m,
+            )
+
+            features_to_null = _reversed_priority_columns[
+                _reversed_priority_columns.index(_f) + 1 : -3
+            ]
+
+            if len(features_to_null) != 0:
+                _no_match_subset_to_update = _no_match_subset_to_update.filter(
+                    pl.col(features_to_null[0]) == ""
+                )
+                if _no_match_subset_to_update.is_empty():
+                    print(
+                        "skipping",
+                        _f,
+                        _m,
+                        "\n this _no_match_subset_to_update dataframe doesn't have the same tax rank level\n",
+                        nomatch.filter(
+                            pl.col(_f) == _m,
+                        ).select(
+                            [
+                                "parentNameUsageID",
+                                "taxonName",
+                            ]
+                            + _reversed_priority_columns
+                        ),
+                    )
+                    print(
+                        "taxon_data_to_select_from\n",
+                        taxon_data_to_select_from,
+                    )
+                    print("---------")
+                    continue
+                else:
+                    # print(
+                    #     "left out:",
+                    #     _no_match_subset_to_update.filter(
+                    #         pl.col(features_to_null[0]) == ""
+                    #     ),
+                    # )
+                    print("---------")
+
+            # Settling predicament one
+            # this predicament thing should only happen when the subset is of only 1 row.
+            if has_predicament1 and _no_match_subset_to_update.shape[0] == 1:
+                match = True
+                for _f1 in ["class", "order", "family"]:
+                    match *= (
+                        _no_match_subset_to_update[_f1].item()
+                        == taxon_data_to_select_from[selected_row, :][_f1].item()
+                    )
+                if not match:
+                    match = True
+                    for _f1 in ["class", "order", "family"]:
+                        match *= (
+                            _no_match_subset_to_update[_f1].item()
+                            == taxon_data_to_select_from[
+                                int(not bool(selected_row)), :
+                            ][_f1].item()
+                        )
+                    assert match == True
+                    print("changing chosen taxonId")
+                    temp = chosen_taxonId
+                    chosen_taxonId = other_taxonId
+                    other_taxonId = temp
+
+            # turning these rows to matching by filling parentNameUsageID
+            _no_match_subset_to_update = _no_match_subset_to_update.with_columns(
                 parentNameUsageID=pl.when(
                     (pl.col("infraspecificEpithet").is_null())
                     & (pl.col("specificEpithet").is_not_null())
@@ -254,34 +359,75 @@ def _(RAT_feats, nomatch, pl, priority_columns, repeated_accepted_taxons):
                 .otherwise(pl.lit(chosen_taxonId))
             )
 
-            # Debugging
-            print("-------\nFeature:", _f, ",Name:", _m)
-            print(
-                "taxon_data_to_select_from\n",
-                taxon_data_to_select_from,
-            )
-            print("parentNameUsageID chosen:", chosen_taxonId)
-            print("no_match_subset_to_update to update:")
-            print(
-                _no_match_subset_to_update.select(
-                    [
-                        "parentNameUsageID",
-                        "taxonName",
-                    ]
-                    + priority_columns
-                )
-            )
-            print("---------\n\n\n\n")
-            updated_nomatch.append(_no_match_subset_to_update)
+            # Debugging for matching data from gbif to new matched rows
+            # print(
+            #     "taxon_data_to_select_from\n",
+            #     taxon_data_to_select_from,
+            # )
+            # print("parentNameUsageID chosen:", chosen_taxonId)
+            # print("no_match_subset_to_update ")
+            # print(
+            #     _no_match_subset_to_update.select(
+            #         [
+            #             "parentNameUsageID",
+            #             "taxonName",
+            #         ]
+            #         + _reversed_priority_columns
+            #     )
+            # )
+            # print("---------")
+
+            updated_to_matching.append(_no_match_subset_to_update)
             all_taxon_data_to_be_selected_from.append(taxon_data_to_select_from)
 
-
-    pl.concat(updated_nomatch, rechunk=True, parallel=True).write_csv(
-        "updated_nomatch.csv"
+    updated_to_matching = pl.concat(
+        updated_to_matching, rechunk=True, parallel=True
     )
-    pl.concat(
+    updated_to_matching.write_csv("updated_to_matching.csv")
+    all_taxon_data_to_be_selected_from = pl.concat(
         all_taxon_data_to_be_selected_from, rechunk=True, parallel=True
-    ).write_csv("all_taxon_data_to_be_selected_from.csv")
+    )
+    all_taxon_data_to_be_selected_from.write_csv(
+        "all_taxon_data_to_be_selected_from.csv"
+    )
+    return (updated_to_matching,)
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""there is rows that are totally skipped and those that are partially skipped or i call it as left out.."""
+    )
+    return
+
+
+@app.cell
+def _(matching_with_populated_match_taxonID, pl, updated_to_matching):
+    matching2 = pl.concat(
+        [updated_to_matching, matching_with_populated_match_taxonID.collect()]
+    )
+    matching2.write_csv("matching2.csv")
+    return
+
+
+@app.cell
+def _(nomatch, priority_columns, updated_to_matching):
+    still_no_match = (
+        nomatch.join(
+            updated_to_matching.select("speciesId", "parentNameUsageID"),
+            on="speciesId",
+            how="left",
+        )
+        .drop("parentNameUsageID")
+        .rename({"parentNameUsageID_right": "parentNameUsageID"})
+    )
+    still_no_match.select(
+        [
+            "parentNameUsageID",
+            "taxonName",
+        ]
+        + priority_columns
+    )
     return
 
 

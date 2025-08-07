@@ -1,33 +1,34 @@
 -------
-Feature: genus ,Name: Lutzia
+Feature: genus ,Name: Polyura
 taxon_data_to_select_from
  shape: (2, 9)
-┌─────────┬───────────┬───────────┬────────┬───────────┬──────────┬──────────┬──────────┬──────────┐
-│ taxonID ┆ infraspec ┆ specificE ┆ genus  ┆ family    ┆ order    ┆ class    ┆ phylum   ┆ kingdom  │
-│ ---     ┆ ificEpith ┆ pithet    ┆ ---    ┆ ---       ┆ ---      ┆ ---      ┆ ---      ┆ ---      │
-│ i64     ┆ et        ┆ ---       ┆ str    ┆ str       ┆ str      ┆ str      ┆ str      ┆ str      │
-│         ┆ ---       ┆ str       ┆        ┆           ┆          ┆          ┆          ┆          │
-│         ┆ str       ┆           ┆        ┆           ┆          ┆          ┆          ┆          │
-╞═════════╪═══════════╪═══════════╪════════╪═══════════╪══════════╪══════════╪══════════╪══════════╡
-│ 7292005 ┆ null      ┆ null      ┆ Lutzia ┆ Brassicac ┆ Brassica ┆ Magnolio ┆ Tracheop ┆ Plantae  │
-│         ┆           ┆           ┆        ┆ eae       ┆ les      ┆ psida    ┆ hyta     ┆          │
-│ 1650076 ┆ null      ┆ null      ┆ Lutzia ┆ Culicidae ┆ Diptera  ┆ Insecta  ┆ Arthropo ┆ Animalia │
-│         ┆           ┆           ┆        ┆           ┆          ┆          ┆ da       ┆          │
-└─────────┴───────────┴───────────┴────────┴───────────┴──────────┴──────────┴──────────┴──────────┘
-parentNameUsageID chosen: 7292005
+┌─────────┬───────────┬───────────┬─────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
+│ taxonID ┆ infraspec ┆ specificE ┆ genus   ┆ family   ┆ order    ┆ class    ┆ phylum   ┆ kingdom  │
+│ ---     ┆ ificEpith ┆ pithet    ┆ ---     ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      │
+│ i64     ┆ et        ┆ ---       ┆ str     ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      │
+│         ┆ ---       ┆ str       ┆         ┆          ┆          ┆          ┆          ┆          │
+│         ┆ str       ┆           ┆         ┆          ┆          ┆          ┆          ┆          │
+╞═════════╪═══════════╪═══════════╪═════════╪══════════╪══════════╪══════════╪══════════╪══════════╡
+│ 2900801 ┆ null      ┆ null      ┆ Polyura ┆ Rubiacea ┆ Gentiana ┆ Magnolio ┆ Tracheop ┆ Plantae  │
+│         ┆           ┆           ┆         ┆ e        ┆ les      ┆ psida    ┆ hyta     ┆          │
+│ 1892952 ┆ null      ┆ null      ┆ Polyura ┆ Nymphali ┆ Lepidopt ┆ Insecta  ┆ Arthropo ┆ Animalia │
+│         ┆           ┆           ┆         ┆ dae      ┆ era      ┆          ┆ da       ┆          │
+└─────────┴───────────┴───────────┴─────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
+parentNameUsageID chosen: 2900801
 no_match_subset_to_update to update:
 shape: (1, 10)
-┌─────────┬─────────┬─────────┬─────────┬────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│ parentN ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus  ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
-│ ameUsag ┆ me      ┆ ecificE ┆ cEpithe ┆ ---    ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
-│ eID     ┆ ---     ┆ pithet  ┆ t       ┆ str    ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
-│ ---     ┆ str     ┆ ---     ┆ ---     ┆        ┆         ┆         ┆         ┆         ┆         │
-│ i32     ┆         ┆ str     ┆ str     ┆        ┆         ┆         ┆         ┆         ┆         │
-╞═════════╪═════════╪═════════╪═════════╪════════╪═════════╪═════════╪═════════╪═════════╪═════════╡
-│ 1650076 ┆ Lutzia  ┆ null    ┆ fuscanu ┆ Lutzia ┆ Culicid ┆ Diptera ┆ Insecta ┆ Arthopo ┆ Animali │
-│         ┆ fuscanu ┆         ┆ s       ┆        ┆ ae      ┆         ┆         ┆ da      ┆ a       │
-│         ┆ s       ┆         ┆         ┆        ┆         ┆         ┆         ┆         ┆         │
-└─────────┴─────────┴─────────┴─────────┴────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
+┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬────────┬─────────┐
+│ parentN ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus   ┆ family  ┆ order   ┆ class   ┆ phylum ┆ kingdom │
+│ ameUsag ┆ me      ┆ ecificE ┆ cEpithe ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---    ┆ ---     │
+│ eID     ┆ ---     ┆ pithet  ┆ t       ┆ str     ┆ str     ┆ str     ┆ str     ┆ str    ┆ str     │
+│ ---     ┆ str     ┆ ---     ┆ ---     ┆         ┆         ┆         ┆         ┆        ┆         │
+│ i32     ┆         ┆ str     ┆ str     ┆         ┆         ┆         ┆         ┆        ┆         │
+╞═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪════════╪═════════╡
+│ 2900801 ┆ Polyura ┆ tisamen ┆ schreib ┆ Polyura ┆ Nymphal ┆ Lepidop ┆ Insecta ┆ null   ┆ Animali │
+│         ┆ schreib ┆ us      ┆ er      ┆         ┆ idae    ┆ tera    ┆         ┆        ┆ a       │
+│         ┆ er tisa ┆         ┆         ┆         ┆         ┆         ┆         ┆        ┆         │
+│         ┆ menus   ┆         ┆         ┆         ┆         ┆         ┆         ┆        ┆         │
+└─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴────────┴─────────┘
 ---------
 
 
@@ -69,36 +70,494 @@ shape: (1, 10)
 
 
 -------
-Feature: genus ,Name: Polyura
+Feature: genus ,Name: Lutzia
 taxon_data_to_select_from
  shape: (2, 9)
-┌─────────┬───────────┬───────────┬─────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
-│ taxonID ┆ infraspec ┆ specificE ┆ genus   ┆ family   ┆ order    ┆ class    ┆ phylum   ┆ kingdom  │
-│ ---     ┆ ificEpith ┆ pithet    ┆ ---     ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      │
-│ i64     ┆ et        ┆ ---       ┆ str     ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      │
-│         ┆ ---       ┆ str       ┆         ┆          ┆          ┆          ┆          ┆          │
-│         ┆ str       ┆           ┆         ┆          ┆          ┆          ┆          ┆          │
-╞═════════╪═══════════╪═══════════╪═════════╪══════════╪══════════╪══════════╪══════════╪══════════╡
-│ 2900801 ┆ null      ┆ null      ┆ Polyura ┆ Rubiacea ┆ Gentiana ┆ Magnolio ┆ Tracheop ┆ Plantae  │
-│         ┆           ┆           ┆         ┆ e        ┆ les      ┆ psida    ┆ hyta     ┆          │
-│ 1892952 ┆ null      ┆ null      ┆ Polyura ┆ Nymphali ┆ Lepidopt ┆ Insecta  ┆ Arthropo ┆ Animalia │
-│         ┆           ┆           ┆         ┆ dae      ┆ era      ┆          ┆ da       ┆          │
-└─────────┴───────────┴───────────┴─────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
-parentNameUsageID chosen: 2900801
+┌─────────┬───────────┬───────────┬────────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ taxonID ┆ infraspec ┆ specificE ┆ genus  ┆ family    ┆ order    ┆ class    ┆ phylum   ┆ kingdom  │
+│ ---     ┆ ificEpith ┆ pithet    ┆ ---    ┆ ---       ┆ ---      ┆ ---      ┆ ---      ┆ ---      │
+│ i64     ┆ et        ┆ ---       ┆ str    ┆ str       ┆ str      ┆ str      ┆ str      ┆ str      │
+│         ┆ ---       ┆ str       ┆        ┆           ┆          ┆          ┆          ┆          │
+│         ┆ str       ┆           ┆        ┆           ┆          ┆          ┆          ┆          │
+╞═════════╪═══════════╪═══════════╪════════╪═══════════╪══════════╪══════════╪══════════╪══════════╡
+│ 7292005 ┆ null      ┆ null      ┆ Lutzia ┆ Brassicac ┆ Brassica ┆ Magnolio ┆ Tracheop ┆ Plantae  │
+│         ┆           ┆           ┆        ┆ eae       ┆ les      ┆ psida    ┆ hyta     ┆          │
+│ 1650076 ┆ null      ┆ null      ┆ Lutzia ┆ Culicidae ┆ Diptera  ┆ Insecta  ┆ Arthropo ┆ Animalia │
+│         ┆           ┆           ┆        ┆           ┆          ┆          ┆ da       ┆          │
+└─────────┴───────────┴───────────┴────────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+parentNameUsageID chosen: 7292005
 no_match_subset_to_update to update:
 shape: (1, 10)
-┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬────────┬─────────┐
-│ parentN ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus   ┆ family  ┆ order   ┆ class   ┆ phylum ┆ kingdom │
-│ ameUsag ┆ me      ┆ ecificE ┆ cEpithe ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---    ┆ ---     │
-│ eID     ┆ ---     ┆ pithet  ┆ t       ┆ str     ┆ str     ┆ str     ┆ str     ┆ str    ┆ str     │
-│ ---     ┆ str     ┆ ---     ┆ ---     ┆         ┆         ┆         ┆         ┆        ┆         │
-│ i32     ┆         ┆ str     ┆ str     ┆         ┆         ┆         ┆         ┆        ┆         │
-╞═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪════════╪═════════╡
-│ 2900801 ┆ Polyura ┆ tisamen ┆ schreib ┆ Polyura ┆ Nymphal ┆ Lepidop ┆ Insecta ┆ null   ┆ Animali │
-│         ┆ schreib ┆ us      ┆ er      ┆         ┆ idae    ┆ tera    ┆         ┆        ┆ a       │
-│         ┆ er tisa ┆         ┆         ┆         ┆         ┆         ┆         ┆        ┆         │
-│         ┆ menus   ┆         ┆         ┆         ┆         ┆         ┆         ┆        ┆         │
-└─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴────────┴─────────┘
+┌─────────┬─────────┬─────────┬─────────┬────────┬─────────┬─────────┬─────────┬─────────┬─────────┐
+│ parentN ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus  ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
+│ ameUsag ┆ me      ┆ ecificE ┆ cEpithe ┆ ---    ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
+│ eID     ┆ ---     ┆ pithet  ┆ t       ┆ str    ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
+│ ---     ┆ str     ┆ ---     ┆ ---     ┆        ┆         ┆         ┆         ┆         ┆         │
+│ i32     ┆         ┆ str     ┆ str     ┆        ┆         ┆         ┆         ┆         ┆         │
+╞═════════╪═════════╪═════════╪═════════╪════════╪═════════╪═════════╪═════════╪═════════╪═════════╡
+│ 1650076 ┆ Lutzia  ┆ null    ┆ fuscanu ┆ Lutzia ┆ Culicid ┆ Diptera ┆ Insecta ┆ Arthopo ┆ Animali │
+│         ┆ fuscanu ┆         ┆ s       ┆        ┆ ae      ┆         ┆         ┆ da      ┆ a       │
+│         ┆ s       ┆         ┆         ┆        ┆         ┆         ┆         ┆         ┆         │
+└─────────┴─────────┴─────────┴─────────┴────────┴─────────┴─────────┴─────────┴─────────┴─────────┘
+---------
+
+
+
+
+-------
+Feature: family ,Name: Apidae
+taxon_data_to_select_from
+ shape: (2, 9)
+┌──────────┬────────────┬───────────┬────────┬────────┬───────────┬─────────┬───────────┬──────────┐
+│ taxonID  ┆ infraspeci ┆ specificE ┆ genus  ┆ family ┆ order     ┆ class   ┆ phylum    ┆ kingdom  │
+│ ---      ┆ ficEpithet ┆ pithet    ┆ ---    ┆ ---    ┆ ---       ┆ ---     ┆ ---       ┆ ---      │
+│ i64      ┆ ---        ┆ ---       ┆ str    ┆ str    ┆ str       ┆ str     ┆ str       ┆ str      │
+│          ┆ str        ┆ str       ┆        ┆        ┆           ┆         ┆           ┆          │
+╞══════════╪════════════╪═══════════╪════════╪════════╪═══════════╪═════════╪═══════════╪══════════╡
+│ 4334     ┆ null       ┆ null      ┆ null   ┆ Apidae ┆ Hymenopte ┆ Insecta ┆ Arthropod ┆ Animalia │
+│          ┆            ┆           ┆        ┆        ┆ ra        ┆         ┆ a         ┆          │
+│ 10501510 ┆ null       ┆ null      ┆ Apidae ┆ Apidae ┆ Hymenopte ┆ Insecta ┆ Arthropod ┆ Animalia │
+│          ┆            ┆           ┆        ┆        ┆ ra        ┆         ┆ a         ┆          │
+└──────────┴────────────┴───────────┴────────┴────────┴───────────┴─────────┴───────────┴──────────┘
+parentNameUsageID chosen: 4334
+no_match_subset_to_update to update:
+shape: (1, 10)
+┌──────────┬─────────┬─────────┬─────────┬─────────┬────────┬─────────┬─────────┬────────┬─────────┐
+│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus   ┆ family ┆ order   ┆ class   ┆ phylum ┆ kingdom │
+│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---     ┆ ---    ┆ ---     ┆ ---     ┆ ---    ┆ ---     │
+│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str     ┆ str    ┆ str     ┆ str     ┆ str    ┆ str     │
+│ ---      ┆ str     ┆ ---     ┆ ---     ┆         ┆        ┆         ┆         ┆        ┆         │
+│ i32      ┆         ┆ str     ┆ str     ┆         ┆        ┆         ┆         ┆        ┆         │
+╞══════════╪═════════╪═════════╪═════════╪═════════╪════════╪═════════╪═════════╪════════╪═════════╡
+│ 10501510 ┆ Homotri ┆ null    ┆ apciali ┆ Homotri ┆ Apidae ┆ Hymenop ┆ Insecta ┆ null   ┆ Animali │
+│          ┆ gona    ┆         ┆ s       ┆ gona    ┆        ┆ tera    ┆         ┆        ┆ a       │
+│          ┆ (Tetrig ┆         ┆         ┆         ┆        ┆         ┆         ┆        ┆         │
+│          ┆ ona)    ┆         ┆         ┆         ┆        ┆         ┆         ┆        ┆         │
+│          ┆ apical… ┆         ┆         ┆         ┆        ┆         ┆         ┆        ┆         │
+└──────────┴─────────┴─────────┴─────────┴─────────┴────────┴─────────┴─────────┴────────┴─────────┘
+---------
+
+
+
+
+-------
+Feature: family ,Name: Flabelligeridae
+taxon_data_to_select_from
+ shape: (2, 9)
+┌──────────┬───────────┬───────────┬───────────┬──────────┬───────┬──────────┬──────────┬──────────┐
+│ taxonID  ┆ infraspec ┆ specificE ┆ genus     ┆ family   ┆ order ┆ class    ┆ phylum   ┆ kingdom  │
+│ ---      ┆ ificEpith ┆ pithet    ┆ ---       ┆ ---      ┆ ---   ┆ ---      ┆ ---      ┆ ---      │
+│ i64      ┆ et        ┆ ---       ┆ str       ┆ str      ┆ str   ┆ str      ┆ str      ┆ str      │
+│          ┆ ---       ┆ str       ┆           ┆          ┆       ┆          ┆          ┆          │
+│          ┆ str       ┆           ┆           ┆          ┆       ┆          ┆          ┆          │
+╞══════════╪═══════════╪═══════════╪═══════════╪══════════╪═══════╪══════════╪══════════╪══════════╡
+│ 7095     ┆ null      ┆ null      ┆ null      ┆ Flabelli ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆           ┆           ┆           ┆ geridae  ┆       ┆ ta       ┆          ┆          │
+│ 12254040 ┆ null      ┆ null      ┆ Flabellig ┆ Flabelli ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆           ┆           ┆ eridae    ┆ geridae  ┆       ┆ ta       ┆          ┆          │
+└──────────┴───────────┴───────────┴───────────┴──────────┴───────┴──────────┴──────────┴──────────┘
+parentNameUsageID chosen: 7095
+no_match_subset_to_update to update:
+shape: (11, 10)
+┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
+│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
+│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
+│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
+│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
+│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
+╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
+│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ e sp. 1 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
+│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ e sp. 2 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
+│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ e sp. 3 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
+│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ e sp. 4 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
+│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ e sp. 5 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
+│ …        ┆ …       ┆ …       ┆ …       ┆ …     ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       │
+│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ e sp. 7 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
+│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ e sp. 8 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
+│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ e sp. 9 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
+│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ e sp.   ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
+│          ┆ 10      ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ e sp.   ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
+│          ┆ 11      ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
+---------
+
+
+
+
+-------
+Feature: family ,Name: Anthribidae
+taxon_data_to_select_from
+ shape: (2, 9)
+┌──────────┬───────────┬──────────┬──────────┬──────────┬──────────┬─────────┬──────────┬──────────┐
+│ taxonID  ┆ infraspec ┆ specific ┆ genus    ┆ family   ┆ order    ┆ class   ┆ phylum   ┆ kingdom  │
+│ ---      ┆ ificEpith ┆ Epithet  ┆ ---      ┆ ---      ┆ ---      ┆ ---     ┆ ---      ┆ ---      │
+│ i64      ┆ et        ┆ ---      ┆ str      ┆ str      ┆ str      ┆ str     ┆ str      ┆ str      │
+│          ┆ ---       ┆ str      ┆          ┆          ┆          ┆         ┆          ┆          │
+│          ┆ str       ┆          ┆          ┆          ┆          ┆         ┆          ┆          │
+╞══════════╪═══════════╪══════════╪══════════╪══════════╪══════════╪═════════╪══════════╪══════════╡
+│ 4206     ┆ null      ┆ null     ┆ null     ┆ Anthribi ┆ Coleopte ┆ Insecta ┆ Arthropo ┆ Animalia │
+│          ┆           ┆          ┆          ┆ dae      ┆ ra       ┆         ┆ da       ┆          │
+│ 10839606 ┆ null      ┆ null     ┆ Anthribi ┆ Anthribi ┆ Coleopte ┆ Insecta ┆ Arthropo ┆ Animalia │
+│          ┆           ┆          ┆ dae      ┆ dae      ┆ ra       ┆         ┆ da       ┆          │
+└──────────┴───────────┴──────────┴──────────┴──────────┴──────────┴─────────┴──────────┴──────────┘
+parentNameUsageID chosen: 4206
+no_match_subset_to_update to update:
+shape: (34, 10)
+┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬────────┐
+│ parentN ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus   ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdo │
+│ ameUsag ┆ me      ┆ ecificE ┆ cEpithe ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ m      │
+│ eID     ┆ ---     ┆ pithet  ┆ t       ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     ┆ ---    │
+│ ---     ┆ str     ┆ ---     ┆ ---     ┆         ┆         ┆         ┆         ┆         ┆ str    │
+│ i32     ┆         ┆ str     ┆ str     ┆         ┆         ┆         ┆         ┆         ┆        │
+╞═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪════════╡
+│ 4206    ┆ Anthrib ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ idae    ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ sp. ZRC ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│         ┆ BDP0071 ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│         ┆ 895     ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 1083960 ┆ Xylinad ┆ null    ┆ limbali ┆ Xylinad ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│ 6       ┆ a limba ┆         ┆ s       ┆ a       ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ lis     ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 4206    ┆ Anthrib ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ idae    ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ sp. ZRC ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│         ┆ BDP_007 ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│         ┆ 1802    ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 1083960 ┆ Xylinad ┆ null    ┆ rugosus ┆ Xylinad ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│ 6       ┆ a       ┆         ┆         ┆ a       ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ rugosus ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 1083960 ┆ Taphrod ┆ null    ┆ pellax  ┆ Taphrod ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│ 6       ┆ eres    ┆         ┆         ┆ eres    ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ pellax  ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ …       ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       ┆ …      │
+│ 4206    ┆ Anthrib ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ idae    ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ sp. AYC ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│         ┆ 111     ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 4206    ┆ Anthrib ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ idae    ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ sp. AYC ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│         ┆ 112     ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 4206    ┆ Nessiar ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ ia sp.  ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ AYC 114 ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 4206    ┆ Apateni ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ a sp.   ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ AYC 115 ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 4206    ┆ Anthrib ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ idae    ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ sp. ZRC ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│         ┆ BDP_007 ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│         ┆ 2114    ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+└─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴────────┘
+---------
+
+
+
+
+-------
+Feature: family ,Name: Maldanidae
+taxon_data_to_select_from
+ shape: (2, 9)
+┌──────────┬───────────┬───────────┬───────────┬──────────┬───────┬──────────┬──────────┬──────────┐
+│ taxonID  ┆ infraspec ┆ specificE ┆ genus     ┆ family   ┆ order ┆ class    ┆ phylum   ┆ kingdom  │
+│ ---      ┆ ificEpith ┆ pithet    ┆ ---       ┆ ---      ┆ ---   ┆ ---      ┆ ---      ┆ ---      │
+│ i64      ┆ et        ┆ ---       ┆ str       ┆ str      ┆ str   ┆ str      ┆ str      ┆ str      │
+│          ┆ ---       ┆ str       ┆           ┆          ┆       ┆          ┆          ┆          │
+│          ┆ str       ┆           ┆           ┆          ┆       ┆          ┆          ┆          │
+╞══════════╪═══════════╪═══════════╪═══════════╪══════════╪═══════╪══════════╪══════════╪══════════╡
+│ 6284     ┆ null      ┆ null      ┆ null      ┆ Maldanid ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆           ┆           ┆           ┆ ae       ┆       ┆ ta       ┆          ┆          │
+│ 10720015 ┆ null      ┆ null      ┆ Maldanida ┆ Maldanid ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆           ┆           ┆ e         ┆ ae       ┆       ┆ ta       ┆          ┆          │
+└──────────┴───────────┴───────────┴───────────┴──────────┴───────┴──────────┴──────────┴──────────┘
+parentNameUsageID chosen: 6284
+no_match_subset_to_update to update:
+shape: (7, 10)
+┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
+│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
+│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
+│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
+│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
+│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
+╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
+│ 6284     ┆ Euclyme ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ ninae   ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp.     ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6284     ┆ Maldani ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ nae sp. ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
+│          ┆ 5316DR2 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -009    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6284     ┆ Euclyme ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ ninae   ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. INT ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -1196   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6284     ┆ Maldani ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ nae sp. ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
+│          ┆ SEA-112 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 9       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6284     ┆ Maldani ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
+│          ┆ SEA-139 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 1       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6284     ┆ Maldani ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ nae sp. ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
+│          ┆ SEA-417 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 2       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6284     ┆ Maldani ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ nae sp. ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
+│          ┆ SEA-552 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 2       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
+---------
+
+
+
+
+-------
+Feature: family ,Name: Tetrigidae
+taxon_data_to_select_from
+ shape: (2, 9)
+┌─────────┬───────────┬───────────┬──────────┬──────────┬──────────┬─────────┬──────────┬──────────┐
+│ taxonID ┆ infraspec ┆ specificE ┆ genus    ┆ family   ┆ order    ┆ class   ┆ phylum   ┆ kingdom  │
+│ ---     ┆ ificEpith ┆ pithet    ┆ ---      ┆ ---      ┆ ---      ┆ ---     ┆ ---      ┆ ---      │
+│ i64     ┆ et        ┆ ---       ┆ str      ┆ str      ┆ str      ┆ str     ┆ str      ┆ str      │
+│         ┆ ---       ┆ str       ┆          ┆          ┆          ┆         ┆          ┆          │
+│         ┆ str       ┆           ┆          ┆          ┆          ┆         ┆          ┆          │
+╞═════════╪═══════════╪═══════════╪══════════╪══════════╪══════════╪═════════╪══════════╪══════════╡
+│ 7342611 ┆ null      ┆ null      ┆ Tetrigid ┆ Tetrigid ┆ Orthopte ┆ Insecta ┆ Arthropo ┆ Animalia │
+│         ┆           ┆           ┆ ae       ┆ ae       ┆ ra       ┆         ┆ da       ┆          │
+│ 3040    ┆ null      ┆ null      ┆ null     ┆ Tetrigid ┆ Orthopte ┆ Insecta ┆ Arthropo ┆ Animalia │
+│         ┆           ┆           ┆          ┆ ae       ┆ ra       ┆         ┆ da       ┆          │
+└─────────┴───────────┴───────────┴──────────┴──────────┴──────────┴─────────┴──────────┴──────────┘
+parentNameUsageID chosen: 3040
+no_match_subset_to_update to update:
+shape: (7, 10)
+┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬────────┐
+│ parentN ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus   ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdo │
+│ ameUsag ┆ me      ┆ ecificE ┆ cEpithe ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ m      │
+│ eID     ┆ ---     ┆ pithet  ┆ t       ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     ┆ ---    │
+│ ---     ┆ str     ┆ ---     ┆ ---     ┆         ┆         ┆         ┆         ┆         ┆ str    │
+│ i32     ┆         ┆ str     ┆ str     ┆         ┆         ┆         ┆         ┆         ┆        │
+╞═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪════════╡
+│ 3040    ┆ Macromo ┆ null    ┆ null    ┆ null    ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ tettix  ┆         ┆         ┆         ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ sp. "1" ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 3040    ┆ Macromo ┆ null    ┆ null    ┆ null    ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ tettix  ┆         ┆         ┆         ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ sp. "2" ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 3040    ┆ Coptote ┆ null    ┆ null    ┆ null    ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ ttix    ┆         ┆         ┆         ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ sp. "1" ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 7342611 ┆ Ergatet ┆ null    ┆ dorsife ┆ Ergatet ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ tix dor ┆         ┆ rus     ┆ tix     ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ siferus ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 3040    ┆ Euparat ┆ null    ┆ null    ┆ null    ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ ettix   ┆         ┆         ┆         ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ sp. "1" ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 3040    ┆ Saussur ┆ null    ┆ null    ┆ null    ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ ella    ┆         ┆         ┆         ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ sp. "1" ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+│ 3040    ┆ Mazarre ┆ null    ┆ null    ┆ null    ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
+│         ┆ dia sp. ┆         ┆         ┆         ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
+│         ┆ "1"     ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
+└─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴────────┘
+---------
+
+
+
+
+-------
+Feature: family ,Name: Spionidae
+taxon_data_to_select_from
+ shape: (2, 9)
+┌──────────┬───────────┬───────────┬───────────┬──────────┬───────┬──────────┬──────────┬──────────┐
+│ taxonID  ┆ infraspec ┆ specificE ┆ genus     ┆ family   ┆ order ┆ class    ┆ phylum   ┆ kingdom  │
+│ ---      ┆ ificEpith ┆ pithet    ┆ ---       ┆ ---      ┆ ---   ┆ ---      ┆ ---      ┆ ---      │
+│ i64      ┆ et        ┆ ---       ┆ str       ┆ str      ┆ str   ┆ str      ┆ str      ┆ str      │
+│          ┆ ---       ┆ str       ┆           ┆          ┆       ┆          ┆          ┆          │
+│          ┆ str       ┆           ┆           ┆          ┆       ┆          ┆          ┆          │
+╞══════════╪═══════════╪═══════════╪═══════════╪══════════╪═══════╪══════════╪══════════╪══════════╡
+│ 3595     ┆ null      ┆ null      ┆ null      ┆ Spionida ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆           ┆           ┆           ┆ e        ┆       ┆ ta       ┆          ┆          │
+│ 10899229 ┆ null      ┆ null      ┆ Spionidae ┆ Spionida ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆           ┆           ┆           ┆ e        ┆       ┆ ta       ┆          ┆          │
+└──────────┴───────────┴───────────┴───────────┴──────────┴───────┴──────────┴──────────┴──────────┘
+parentNameUsageID chosen: 3595
+no_match_subset_to_update to update:
+shape: (14, 10)
+┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
+│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
+│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
+│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
+│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
+│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
+╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
+│ 3595     ┆ Rhyncho ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ spio/   ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
+│          ┆ Malacoc ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ eros    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ sp. O…  ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 3595     ┆ Aonides ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ sp. INT ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
+│          ┆ -0175   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 3595     ┆ Prionos ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ pio sp. ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
+│          ┆ ARM-033 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 1A      ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 3595     ┆ Prionos ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ pio     ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. ARM ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -0331B  ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 3595     ┆ Scolele ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ pis sp. ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
+│          ┆ SEA-555 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 6       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ …        ┆ …       ┆ …       ┆ …       ┆ …     ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       │
+│ 3595     ┆ Spionid ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ ae sp.  ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
+│          ┆ SEA-656 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 5       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 3595     ┆ Polydor ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ a/Dipol ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
+│          ┆ ydora/P ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ seudopo ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ ly…     ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 3595     ┆ Scolele ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ pis sp. ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
+│          ┆ SS-1008 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 3595     ┆ Spionid ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ ae sp.  ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
+│          ┆ SS-1748 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 3595     ┆ Polydor ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ inae    ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. SUB ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -0519   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
+---------
+
+
+
+
+-------
+Feature: family ,Name: Pilargidae
+taxon_data_to_select_from
+ shape: (2, 9)
+┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
+│ taxonID  ┆ infraspe ┆ specific ┆ genus    ┆ family   ┆ order    ┆ class    ┆ phylum   ┆ kingdom  │
+│ ---      ┆ cificEpi ┆ Epithet  ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      │
+│ i64      ┆ thet     ┆ ---      ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      │
+│          ┆ ---      ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          │
+│          ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          ┆          │
+╞══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╡
+│ 10768934 ┆ null     ┆ null     ┆ Pilargid ┆ Pilargid ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆          ┆          ┆ ae       ┆ ae       ┆ cida     ┆ ta       ┆          ┆          │
+│ 7077     ┆ null     ┆ null     ┆ null     ┆ Pilargid ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆          ┆          ┆          ┆ ae       ┆ cida     ┆ ta       ┆          ┆          │
+└──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
+parentNameUsageID chosen: 7077
+no_match_subset_to_update to update:
+shape: (2, 10)
+┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
+│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
+│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
+│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
+│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
+│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
+╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
+│ 7077     ┆ Synelmi ┆ null    ┆ null    ┆ null  ┆ Pilargi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ s? sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ SEA-060 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 6       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7077     ┆ Pilargi ┆ null    ┆ null    ┆ null  ┆ Pilargi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ SEA-774 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 0       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
+---------
+
+
+
+
+-------
+Feature: family ,Name: Ampharetidae
+taxon_data_to_select_from
+ shape: (2, 9)
+┌──────────┬───────────┬───────────┬───────────┬──────────┬───────┬──────────┬──────────┬──────────┐
+│ taxonID  ┆ infraspec ┆ specificE ┆ genus     ┆ family   ┆ order ┆ class    ┆ phylum   ┆ kingdom  │
+│ ---      ┆ ificEpith ┆ pithet    ┆ ---       ┆ ---      ┆ ---   ┆ ---      ┆ ---      ┆ ---      │
+│ i64      ┆ et        ┆ ---       ┆ str       ┆ str      ┆ str   ┆ str      ┆ str      ┆ str      │
+│          ┆ ---       ┆ str       ┆           ┆          ┆       ┆          ┆          ┆          │
+│          ┆ str       ┆           ┆           ┆          ┆       ┆          ┆          ┆          │
+╞══════════╪═══════════╪═══════════╪═══════════╪══════════╪═══════╪══════════╪══════════╪══════════╡
+│ 7093     ┆ null      ┆ null      ┆ null      ┆ Ampharet ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆           ┆           ┆           ┆ idae     ┆       ┆ ta       ┆          ┆          │
+│ 10887416 ┆ null      ┆ null      ┆ Amphareti ┆ Ampharet ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆           ┆           ┆ dae       ┆ idae     ┆       ┆ ta       ┆          ┆          │
+└──────────┴───────────┴───────────┴───────────┴──────────┴───────┴──────────┴──────────┴──────────┘
+parentNameUsageID chosen: 7093
+no_match_subset_to_update to update:
+shape: (9, 10)
+┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
+│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
+│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
+│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
+│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
+│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
+╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
+│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp.1    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp.3    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp.4    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp.5    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp.6    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. SEA ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -9154   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7093     ┆ Amphict ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ eis?    ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp.     ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ SS-0717 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. SEA ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -4434   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. SEA ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -4174   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 ---------
 
 
@@ -179,352 +638,6 @@ shape: (111, 10)
 
 
 -------
-Feature: family ,Name: Cirratulidae
-taxon_data_to_select_from
- shape: (2, 9)
-┌──────────┬───────────┬───────────┬───────────┬──────────┬───────┬──────────┬──────────┬──────────┐
-│ taxonID  ┆ infraspec ┆ specificE ┆ genus     ┆ family   ┆ order ┆ class    ┆ phylum   ┆ kingdom  │
-│ ---      ┆ ificEpith ┆ pithet    ┆ ---       ┆ ---      ┆ ---   ┆ ---      ┆ ---      ┆ ---      │
-│ i64      ┆ et        ┆ ---       ┆ str       ┆ str      ┆ str   ┆ str      ┆ str      ┆ str      │
-│          ┆ ---       ┆ str       ┆           ┆          ┆       ┆          ┆          ┆          │
-│          ┆ str       ┆           ┆           ┆          ┆       ┆          ┆          ┆          │
-╞══════════╪═══════════╪═══════════╪═══════════╪══════════╪═══════╪══════════╪══════════╪══════════╡
-│ 2874     ┆ null      ┆ null      ┆ null      ┆ Cirratul ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆           ┆           ┆           ┆ idae     ┆       ┆ ta       ┆          ┆          │
-│ 10858488 ┆ null      ┆ null      ┆ Cirratuli ┆ Cirratul ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆           ┆           ┆ dae       ┆ idae     ┆       ┆ ta       ┆          ┆          │
-└──────────┴───────────┴───────────┴───────────┴──────────┴───────┴──────────┴──────────┴──────────┘
-parentNameUsageID chosen: 2874
-no_match_subset_to_update to update:
-shape: (5, 10)
-┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
-│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
-│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
-│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
-│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
-╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
-│ 2874     ┆ Cirratu ┆ null    ┆ null    ┆ null  ┆ Cirratu ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ lidae   ┆         ┆         ┆       ┆ lidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. 1   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 2874     ┆ Cirratu ┆ null    ┆ null    ┆ null  ┆ Cirratu ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ lidae   ┆         ┆         ┆       ┆ lidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. 2   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 2874     ┆ Cirratu ┆ null    ┆ null    ┆ null  ┆ Cirratu ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ lidae   ┆         ┆         ┆       ┆ lidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. 3   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 2874     ┆ Cirratu ┆ null    ┆ null    ┆ null  ┆ Cirratu ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ lidae   ┆         ┆         ┆       ┆ lidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. 4   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 2874     ┆ Dodecac ┆ null    ┆ null    ┆ null  ┆ Cirratu ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ eria    ┆         ┆         ┆       ┆ lidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp.     ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ SS-0995 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
----------
-
-
-
-
--------
-Feature: family ,Name: Ampharetidae
-taxon_data_to_select_from
- shape: (2, 9)
-┌──────────┬───────────┬───────────┬───────────┬──────────┬───────┬──────────┬──────────┬──────────┐
-│ taxonID  ┆ infraspec ┆ specificE ┆ genus     ┆ family   ┆ order ┆ class    ┆ phylum   ┆ kingdom  │
-│ ---      ┆ ificEpith ┆ pithet    ┆ ---       ┆ ---      ┆ ---   ┆ ---      ┆ ---      ┆ ---      │
-│ i64      ┆ et        ┆ ---       ┆ str       ┆ str      ┆ str   ┆ str      ┆ str      ┆ str      │
-│          ┆ ---       ┆ str       ┆           ┆          ┆       ┆          ┆          ┆          │
-│          ┆ str       ┆           ┆           ┆          ┆       ┆          ┆          ┆          │
-╞══════════╪═══════════╪═══════════╪═══════════╪══════════╪═══════╪══════════╪══════════╪══════════╡
-│ 7093     ┆ null      ┆ null      ┆ null      ┆ Ampharet ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆           ┆           ┆           ┆ idae     ┆       ┆ ta       ┆          ┆          │
-│ 10887416 ┆ null      ┆ null      ┆ Amphareti ┆ Ampharet ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆           ┆           ┆ dae       ┆ idae     ┆       ┆ ta       ┆          ┆          │
-└──────────┴───────────┴───────────┴───────────┴──────────┴───────┴──────────┴──────────┴──────────┘
-parentNameUsageID chosen: 7093
-no_match_subset_to_update to update:
-shape: (9, 10)
-┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
-│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
-│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
-│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
-│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
-╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
-│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp.1    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp.3    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp.4    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp.5    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp.6    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. SEA ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -9154   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7093     ┆ Amphict ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ eis?    ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp.     ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ SS-0717 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. SEA ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -4434   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7093     ┆ Amphare ┆ null    ┆ null    ┆ null  ┆ Amphare ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ tidae   ┆         ┆         ┆       ┆ tidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. SEA ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -4174   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
----------
-
-
-
-
--------
-Feature: family ,Name: Pilargidae
-taxon_data_to_select_from
- shape: (2, 9)
-┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
-│ taxonID  ┆ infraspe ┆ specific ┆ genus    ┆ family   ┆ order    ┆ class    ┆ phylum   ┆ kingdom  │
-│ ---      ┆ cificEpi ┆ Epithet  ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      │
-│ i64      ┆ thet     ┆ ---      ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      │
-│          ┆ ---      ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          │
-│          ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          ┆          │
-╞══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╡
-│ 10768934 ┆ null     ┆ null     ┆ Pilargid ┆ Pilargid ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆          ┆          ┆ ae       ┆ ae       ┆ cida     ┆ ta       ┆          ┆          │
-│ 7077     ┆ null     ┆ null     ┆ null     ┆ Pilargid ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆          ┆          ┆          ┆ ae       ┆ cida     ┆ ta       ┆          ┆          │
-└──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
-parentNameUsageID chosen: 7077
-no_match_subset_to_update to update:
-shape: (2, 10)
-┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
-│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
-│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
-│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
-│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
-╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
-│ 7077     ┆ Synelmi ┆ null    ┆ null    ┆ null  ┆ Pilargi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ s? sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ SEA-060 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 6       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7077     ┆ Pilargi ┆ null    ┆ null    ┆ null  ┆ Pilargi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ SEA-774 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 0       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
----------
-
-
-
-
--------
-Feature: family ,Name: Polynoidae
-taxon_data_to_select_from
- shape: (2, 9)
-┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
-│ taxonID  ┆ infraspe ┆ specific ┆ genus    ┆ family   ┆ order    ┆ class    ┆ phylum   ┆ kingdom  │
-│ ---      ┆ cificEpi ┆ Epithet  ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      │
-│ i64      ┆ thet     ┆ ---      ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      │
-│          ┆ ---      ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          │
-│          ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          ┆          │
-╞══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╡
-│ 10879564 ┆ null     ┆ null     ┆ Polynoid ┆ Polynoid ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆          ┆          ┆ ae       ┆ ae       ┆ cida     ┆ ta       ┆          ┆          │
-│ 7078     ┆ null     ┆ null     ┆ null     ┆ Polynoid ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆          ┆          ┆          ┆ ae       ┆ cida     ┆ ta       ┆          ┆          │
-└──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
-parentNameUsageID chosen: 7078
-no_match_subset_to_update to update:
-shape: (53, 10)
-┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
-│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
-│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
-│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
-│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
-╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
-│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ 4714TB2 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -076    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ 4815TB1 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -012-01 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 3       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ 4913DR1 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -012    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ 4914DR1 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -008    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ 5113DR1 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -003    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ …        ┆ …       ┆ …       ┆ …       ┆ …     ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       │
-│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ SS-1004 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ SEA-681 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 6       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ SUB-049 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 6       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7078     ┆ Halosyd ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ na? sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
----------
-
-
-
-
--------
-Feature: family ,Name: Hesionidae
-taxon_data_to_select_from
- shape: (2, 9)
-┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
-│ taxonID  ┆ infraspe ┆ specific ┆ genus    ┆ family   ┆ order    ┆ class    ┆ phylum   ┆ kingdom  │
-│ ---      ┆ cificEpi ┆ Epithet  ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      │
-│ i64      ┆ thet     ┆ ---      ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      │
-│          ┆ ---      ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          │
-│          ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          ┆          │
-╞══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╡
-│ 10897709 ┆ null     ┆ null     ┆ Hesionid ┆ Hesionid ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆          ┆          ┆ ae       ┆ ae       ┆ cida     ┆ ta       ┆          ┆          │
-│ 6969     ┆ null     ┆ null     ┆ null     ┆ Hesionid ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆          ┆          ┆          ┆ ae       ┆ cida     ┆ ta       ┆          ┆          │
-└──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
-parentNameUsageID chosen: 6969
-no_match_subset_to_update to update:
-shape: (21, 10)
-┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
-│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
-│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
-│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
-│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
-╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
-│ 6969     ┆ Oxydrom ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ us? sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ INT-074 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 3       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6969     ┆ Oxydrom ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ us sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│ 6969     ┆ Leocrat ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ es sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ JS-0270 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6969     ┆ Hesioni ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ 5113DR1 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -214    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6969     ┆ Leocrat ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ es sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ 5414TB1 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -118    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ …        ┆ …       ┆ …       ┆ …       ┆ …     ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       │
-│ 6969     ┆ Oxydrom ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ us sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ SS-4049 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6969     ┆ Oxydrom ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ us sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ SEA-378 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 2       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6969     ┆ Oxydrom ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ us sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ SEA-682 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 3       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6969     ┆ Leocrat ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ es sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ JS-2272 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6969     ┆ Leocrat ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ es sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ JS-4053 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
----------
-
-
-
-
--------
-Feature: family ,Name: Maldanidae
-taxon_data_to_select_from
- shape: (2, 9)
-┌──────────┬───────────┬───────────┬───────────┬──────────┬───────┬──────────┬──────────┬──────────┐
-│ taxonID  ┆ infraspec ┆ specificE ┆ genus     ┆ family   ┆ order ┆ class    ┆ phylum   ┆ kingdom  │
-│ ---      ┆ ificEpith ┆ pithet    ┆ ---       ┆ ---      ┆ ---   ┆ ---      ┆ ---      ┆ ---      │
-│ i64      ┆ et        ┆ ---       ┆ str       ┆ str      ┆ str   ┆ str      ┆ str      ┆ str      │
-│          ┆ ---       ┆ str       ┆           ┆          ┆       ┆          ┆          ┆          │
-│          ┆ str       ┆           ┆           ┆          ┆       ┆          ┆          ┆          │
-╞══════════╪═══════════╪═══════════╪═══════════╪══════════╪═══════╪══════════╪══════════╪══════════╡
-│ 6284     ┆ null      ┆ null      ┆ null      ┆ Maldanid ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆           ┆           ┆           ┆ ae       ┆       ┆ ta       ┆          ┆          │
-│ 10720015 ┆ null      ┆ null      ┆ Maldanida ┆ Maldanid ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆           ┆           ┆ e         ┆ ae       ┆       ┆ ta       ┆          ┆          │
-└──────────┴───────────┴───────────┴───────────┴──────────┴───────┴──────────┴──────────┴──────────┘
-parentNameUsageID chosen: 6284
-no_match_subset_to_update to update:
-shape: (7, 10)
-┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
-│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
-│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
-│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
-│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
-╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
-│ 6284     ┆ Euclyme ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ ninae   ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp.     ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6284     ┆ Maldani ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ nae sp. ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
-│          ┆ 5316DR2 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -009    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6284     ┆ Euclyme ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ ninae   ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. INT ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -1196   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6284     ┆ Maldani ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ nae sp. ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
-│          ┆ SEA-112 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 9       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6284     ┆ Maldani ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
-│          ┆ SEA-139 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 1       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6284     ┆ Maldani ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ nae sp. ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
-│          ┆ SEA-417 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 2       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 6284     ┆ Maldani ┆ null    ┆ null    ┆ null  ┆ Maldani ┆ blank-M ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ nae sp. ┆         ┆         ┆       ┆ dae     ┆ ald     ┆ eta     ┆ a       ┆ a       │
-│          ┆ SEA-552 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 2       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
----------
-
-
-
-
--------
 Feature: family ,Name: Sabellidae
 taxon_data_to_select_from
  shape: (2, 9)
@@ -589,7 +702,7 @@ shape: (46, 10)
 
 
 -------
-Feature: family ,Name: Velutinidae
+Feature: family ,Name: Sigalionidae
 taxon_data_to_select_from
  shape: (2, 9)
 ┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
@@ -599,14 +712,14 @@ taxon_data_to_select_from
 │          ┆ ---      ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          │
 │          ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          ┆          │
 ╞══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╡
-│ 12242079 ┆ null     ┆ null     ┆ Velutini ┆ Velutini ┆ Littorin ┆ Gastropo ┆ Mollusca ┆ Animalia │
-│          ┆          ┆          ┆ dae      ┆ dae      ┆ imorpha  ┆ da       ┆          ┆          │
-│ 7058     ┆ null     ┆ null     ┆ null     ┆ Velutini ┆ Littorin ┆ Gastropo ┆ Mollusca ┆ Animalia │
-│          ┆          ┆          ┆          ┆ dae      ┆ imorpha  ┆ da       ┆          ┆          │
+│ 12188730 ┆ null     ┆ null     ┆ Sigalion ┆ Sigalion ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆          ┆          ┆ idae     ┆ idae     ┆ cida     ┆ ta       ┆          ┆          │
+│ 7081     ┆ null     ┆ null     ┆ null     ┆ Sigalion ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆          ┆          ┆          ┆ idae     ┆ cida     ┆ ta       ┆          ┆          │
 └──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
-parentNameUsageID chosen: 7058
+parentNameUsageID chosen: 7081
 no_match_subset_to_update to update:
-shape: (4, 10)
+shape: (6, 10)
 ┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
 │ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
 │ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
@@ -614,90 +727,33 @@ shape: (4, 10)
 │ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
 │ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
 ╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
-│ 7058     ┆ Velutin ┆ null    ┆ null    ┆ null  ┆ Velutin ┆ Littori ┆ Gastrop ┆ Mollusc ┆ Animali │
-│          ┆ idae    ┆         ┆         ┆       ┆ idae    ┆ nimorph ┆ oda     ┆ a       ┆ a       │
-│          ┆ sp. 1   ┆         ┆         ┆       ┆         ┆ a       ┆         ┆         ┆         │
-│ 7058     ┆ Velutin ┆ null    ┆ null    ┆ null  ┆ Velutin ┆ Littori ┆ Gastrop ┆ Mollusc ┆ Animali │
-│          ┆ idae    ┆         ┆         ┆       ┆ idae    ┆ nimorph ┆ oda     ┆ a       ┆ a       │
-│          ┆ sp. 2   ┆         ┆         ┆       ┆         ┆ a       ┆         ┆         ┆         │
-│ 7058     ┆ Velutin ┆ null    ┆ null    ┆ null  ┆ Velutin ┆ Littori ┆ Gastrop ┆ Mollusc ┆ Animali │
-│          ┆ idae    ┆         ┆         ┆       ┆ idae    ┆ nimorph ┆ oda     ┆ a       ┆ a       │
-│          ┆ sp. 3   ┆         ┆         ┆       ┆         ┆ a       ┆         ┆         ┆         │
-│ 7058     ┆ Velutin ┆ null    ┆ null    ┆ null  ┆ Velutin ┆ Littori ┆ Gastrop ┆ Mollusc ┆ Animali │
-│          ┆ idae    ┆         ┆         ┆       ┆ idae    ┆ nimorph ┆ oda     ┆ a       ┆ a       │
-│          ┆ sp. 4   ┆         ┆         ┆       ┆         ┆ a       ┆         ┆         ┆         │
+│ 7081     ┆ Sigalio ┆ null    ┆ null    ┆ null  ┆ Sigalio ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ nidae   ┆         ┆         ┆       ┆ nidae   ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. 441 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 2TB1-00 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 9       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7081     ┆ Sigalio ┆ null    ┆ null    ┆ null  ┆ Sigalio ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ nidae   ┆         ┆         ┆       ┆ nidae   ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. SEA ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -1132   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7081     ┆ Sigalio ┆ null    ┆ null    ┆ null  ┆ Sigalio ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ nidae   ┆         ┆         ┆       ┆ nidae   ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. SEA ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -4035   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7081     ┆ Sigalio ┆ null    ┆ null    ┆ null  ┆ Sigalio ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ nidae   ┆         ┆         ┆       ┆ nidae   ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp.     ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ SS-1746 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7081     ┆ Sigalio ┆ null    ┆ null    ┆ null  ┆ Sigalio ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ nidae   ┆         ┆         ┆       ┆ nidae   ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp.     ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ SS-4034 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7081     ┆ Pisione ┆ null    ┆ null    ┆ null  ┆ Sigalio ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ /Pision ┆         ┆         ┆       ┆ nidae   ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ ella    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ sp. OTC ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -026…   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
 └──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
----------
-
-
-
-
--------
-Feature: family ,Name: Anthribidae
-taxon_data_to_select_from
- shape: (2, 9)
-┌──────────┬───────────┬──────────┬──────────┬──────────┬──────────┬─────────┬──────────┬──────────┐
-│ taxonID  ┆ infraspec ┆ specific ┆ genus    ┆ family   ┆ order    ┆ class   ┆ phylum   ┆ kingdom  │
-│ ---      ┆ ificEpith ┆ Epithet  ┆ ---      ┆ ---      ┆ ---      ┆ ---     ┆ ---      ┆ ---      │
-│ i64      ┆ et        ┆ ---      ┆ str      ┆ str      ┆ str      ┆ str     ┆ str      ┆ str      │
-│          ┆ ---       ┆ str      ┆          ┆          ┆          ┆         ┆          ┆          │
-│          ┆ str       ┆          ┆          ┆          ┆          ┆         ┆          ┆          │
-╞══════════╪═══════════╪══════════╪══════════╪══════════╪══════════╪═════════╪══════════╪══════════╡
-│ 4206     ┆ null      ┆ null     ┆ null     ┆ Anthribi ┆ Coleopte ┆ Insecta ┆ Arthropo ┆ Animalia │
-│          ┆           ┆          ┆          ┆ dae      ┆ ra       ┆         ┆ da       ┆          │
-│ 10839606 ┆ null      ┆ null     ┆ Anthribi ┆ Anthribi ┆ Coleopte ┆ Insecta ┆ Arthropo ┆ Animalia │
-│          ┆           ┆          ┆ dae      ┆ dae      ┆ ra       ┆         ┆ da       ┆          │
-└──────────┴───────────┴──────────┴──────────┴──────────┴──────────┴─────────┴──────────┴──────────┘
-parentNameUsageID chosen: 4206
-no_match_subset_to_update to update:
-shape: (34, 10)
-┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬────────┐
-│ parentN ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus   ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdo │
-│ ameUsag ┆ me      ┆ ecificE ┆ cEpithe ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ m      │
-│ eID     ┆ ---     ┆ pithet  ┆ t       ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     ┆ ---    │
-│ ---     ┆ str     ┆ ---     ┆ ---     ┆         ┆         ┆         ┆         ┆         ┆ str    │
-│ i32     ┆         ┆ str     ┆ str     ┆         ┆         ┆         ┆         ┆         ┆        │
-╞═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪════════╡
-│ 4206    ┆ Anthrib ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ idae    ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ sp. ZRC ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│         ┆ BDP0071 ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│         ┆ 895     ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 1083960 ┆ Xylinad ┆ null    ┆ limbali ┆ Xylinad ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│ 6       ┆ a limba ┆         ┆ s       ┆ a       ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ lis     ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 4206    ┆ Anthrib ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ idae    ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ sp. ZRC ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│         ┆ BDP_007 ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│         ┆ 1802    ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 1083960 ┆ Xylinad ┆ null    ┆ rugosus ┆ Xylinad ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│ 6       ┆ a       ┆         ┆         ┆ a       ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ rugosus ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 1083960 ┆ Taphrod ┆ null    ┆ pellax  ┆ Taphrod ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│ 6       ┆ eres    ┆         ┆         ┆ eres    ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ pellax  ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ …       ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       ┆ …      │
-│ 4206    ┆ Anthrib ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ idae    ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ sp. AYC ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│         ┆ 111     ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 4206    ┆ Anthrib ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ idae    ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ sp. AYC ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│         ┆ 112     ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 4206    ┆ Nessiar ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ ia sp.  ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ AYC 114 ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 4206    ┆ Apateni ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ a sp.   ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ AYC 115 ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 4206    ┆ Anthrib ┆ null    ┆ null    ┆ null    ┆ Anthrib ┆ Coleopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ idae    ┆         ┆         ┆         ┆ idae    ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ sp. ZRC ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│         ┆ BDP_007 ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│         ┆ 2114    ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-└─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴────────┘
 ---------
 
 
@@ -787,132 +843,7 @@ shape: (113, 10)
 
 
 -------
-Feature: family ,Name: Spionidae
-taxon_data_to_select_from
- shape: (2, 9)
-┌──────────┬───────────┬───────────┬───────────┬──────────┬───────┬──────────┬──────────┬──────────┐
-│ taxonID  ┆ infraspec ┆ specificE ┆ genus     ┆ family   ┆ order ┆ class    ┆ phylum   ┆ kingdom  │
-│ ---      ┆ ificEpith ┆ pithet    ┆ ---       ┆ ---      ┆ ---   ┆ ---      ┆ ---      ┆ ---      │
-│ i64      ┆ et        ┆ ---       ┆ str       ┆ str      ┆ str   ┆ str      ┆ str      ┆ str      │
-│          ┆ ---       ┆ str       ┆           ┆          ┆       ┆          ┆          ┆          │
-│          ┆ str       ┆           ┆           ┆          ┆       ┆          ┆          ┆          │
-╞══════════╪═══════════╪═══════════╪═══════════╪══════════╪═══════╪══════════╪══════════╪══════════╡
-│ 3595     ┆ null      ┆ null      ┆ null      ┆ Spionida ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆           ┆           ┆           ┆ e        ┆       ┆ ta       ┆          ┆          │
-│ 10899229 ┆ null      ┆ null      ┆ Spionidae ┆ Spionida ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆           ┆           ┆           ┆ e        ┆       ┆ ta       ┆          ┆          │
-└──────────┴───────────┴───────────┴───────────┴──────────┴───────┴──────────┴──────────┴──────────┘
-parentNameUsageID chosen: 3595
-no_match_subset_to_update to update:
-shape: (14, 10)
-┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
-│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
-│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
-│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
-│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
-│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
-╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
-│ 3595     ┆ Rhyncho ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ spio/   ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
-│          ┆ Malacoc ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ eros    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ sp. O…  ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 3595     ┆ Aonides ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ sp. INT ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
-│          ┆ -0175   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 3595     ┆ Prionos ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ pio sp. ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
-│          ┆ ARM-033 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 1A      ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 3595     ┆ Prionos ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ pio     ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. ARM ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -0331B  ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 3595     ┆ Scolele ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ pis sp. ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
-│          ┆ SEA-555 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 6       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ …        ┆ …       ┆ …       ┆ …       ┆ …     ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       │
-│ 3595     ┆ Spionid ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ ae sp.  ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
-│          ┆ SEA-656 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 5       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 3595     ┆ Polydor ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ a/Dipol ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
-│          ┆ ydora/P ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ seudopo ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ ly…     ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 3595     ┆ Scolele ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ pis sp. ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
-│          ┆ SS-1008 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 3595     ┆ Spionid ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ ae sp.  ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
-│          ┆ SS-1748 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 3595     ┆ Polydor ┆ null    ┆ null    ┆ null  ┆ Spionid ┆ Spionid ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ inae    ┆         ┆         ┆       ┆ ae      ┆ a       ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. SUB ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -0519   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
----------
-
-
-
-
--------
-Feature: family ,Name: Tetrigidae
-taxon_data_to_select_from
- shape: (2, 9)
-┌─────────┬───────────┬───────────┬──────────┬──────────┬──────────┬─────────┬──────────┬──────────┐
-│ taxonID ┆ infraspec ┆ specificE ┆ genus    ┆ family   ┆ order    ┆ class   ┆ phylum   ┆ kingdom  │
-│ ---     ┆ ificEpith ┆ pithet    ┆ ---      ┆ ---      ┆ ---      ┆ ---     ┆ ---      ┆ ---      │
-│ i64     ┆ et        ┆ ---       ┆ str      ┆ str      ┆ str      ┆ str     ┆ str      ┆ str      │
-│         ┆ ---       ┆ str       ┆          ┆          ┆          ┆         ┆          ┆          │
-│         ┆ str       ┆           ┆          ┆          ┆          ┆         ┆          ┆          │
-╞═════════╪═══════════╪═══════════╪══════════╪══════════╪══════════╪═════════╪══════════╪══════════╡
-│ 7342611 ┆ null      ┆ null      ┆ Tetrigid ┆ Tetrigid ┆ Orthopte ┆ Insecta ┆ Arthropo ┆ Animalia │
-│         ┆           ┆           ┆ ae       ┆ ae       ┆ ra       ┆         ┆ da       ┆          │
-│ 3040    ┆ null      ┆ null      ┆ null     ┆ Tetrigid ┆ Orthopte ┆ Insecta ┆ Arthropo ┆ Animalia │
-│         ┆           ┆           ┆          ┆ ae       ┆ ra       ┆         ┆ da       ┆          │
-└─────────┴───────────┴───────────┴──────────┴──────────┴──────────┴─────────┴──────────┴──────────┘
-parentNameUsageID chosen: 3040
-no_match_subset_to_update to update:
-shape: (7, 10)
-┌─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬─────────┬────────┐
-│ parentN ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus   ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdo │
-│ ameUsag ┆ me      ┆ ecificE ┆ cEpithe ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ m      │
-│ eID     ┆ ---     ┆ pithet  ┆ t       ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     ┆ ---    │
-│ ---     ┆ str     ┆ ---     ┆ ---     ┆         ┆         ┆         ┆         ┆         ┆ str    │
-│ i32     ┆         ┆ str     ┆ str     ┆         ┆         ┆         ┆         ┆         ┆        │
-╞═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪═════════╪════════╡
-│ 3040    ┆ Macromo ┆ null    ┆ null    ┆ null    ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ tettix  ┆         ┆         ┆         ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ sp. "1" ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 3040    ┆ Macromo ┆ null    ┆ null    ┆ null    ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ tettix  ┆         ┆         ┆         ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ sp. "2" ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 3040    ┆ Coptote ┆ null    ┆ null    ┆ null    ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ ttix    ┆         ┆         ┆         ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ sp. "1" ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 7342611 ┆ Ergatet ┆ null    ┆ dorsife ┆ Ergatet ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ tix dor ┆         ┆ rus     ┆ tix     ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ siferus ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 3040    ┆ Euparat ┆ null    ┆ null    ┆ null    ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ ettix   ┆         ┆         ┆         ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ sp. "1" ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 3040    ┆ Saussur ┆ null    ┆ null    ┆ null    ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ ella    ┆         ┆         ┆         ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ sp. "1" ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-│ 3040    ┆ Mazarre ┆ null    ┆ null    ┆ null    ┆ Tetrigi ┆ Orthopt ┆ Insecta ┆ Arthrop ┆ Animal │
-│         ┆ dia sp. ┆         ┆         ┆         ┆ dae     ┆ era     ┆         ┆ oda     ┆ ia     │
-│         ┆ "1"     ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
-└─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴────────┘
----------
-
-
-
-
--------
-Feature: family ,Name: Sigalionidae
+Feature: family ,Name: Polynoidae
 taxon_data_to_select_from
  shape: (2, 9)
 ┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
@@ -922,14 +853,14 @@ taxon_data_to_select_from
 │          ┆ ---      ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          │
 │          ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          ┆          │
 ╞══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╡
-│ 12188730 ┆ null     ┆ null     ┆ Sigalion ┆ Sigalion ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆          ┆          ┆ idae     ┆ idae     ┆ cida     ┆ ta       ┆          ┆          │
-│ 7081     ┆ null     ┆ null     ┆ null     ┆ Sigalion ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆          ┆          ┆          ┆ idae     ┆ cida     ┆ ta       ┆          ┆          │
+│ 10879564 ┆ null     ┆ null     ┆ Polynoid ┆ Polynoid ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆          ┆          ┆ ae       ┆ ae       ┆ cida     ┆ ta       ┆          ┆          │
+│ 7078     ┆ null     ┆ null     ┆ null     ┆ Polynoid ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆          ┆          ┆          ┆ ae       ┆ cida     ┆ ta       ┆          ┆          │
 └──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
-parentNameUsageID chosen: 7081
+parentNameUsageID chosen: 7078
 no_match_subset_to_update to update:
-shape: (6, 10)
+shape: (53, 10)
 ┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
 │ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
 │ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
@@ -937,32 +868,43 @@ shape: (6, 10)
 │ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
 │ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
 ╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
-│ 7081     ┆ Sigalio ┆ null    ┆ null    ┆ null  ┆ Sigalio ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ nidae   ┆         ┆         ┆       ┆ nidae   ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. 441 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 2TB1-00 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ 9       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7081     ┆ Sigalio ┆ null    ┆ null    ┆ null  ┆ Sigalio ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ nidae   ┆         ┆         ┆       ┆ nidae   ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. SEA ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -1132   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7081     ┆ Sigalio ┆ null    ┆ null    ┆ null  ┆ Sigalio ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ nidae   ┆         ┆         ┆       ┆ nidae   ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp. SEA ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -4035   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7081     ┆ Sigalio ┆ null    ┆ null    ┆ null  ┆ Sigalio ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ nidae   ┆         ┆         ┆       ┆ nidae   ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp.     ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ SS-1746 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7081     ┆ Sigalio ┆ null    ┆ null    ┆ null  ┆ Sigalio ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ nidae   ┆         ┆         ┆       ┆ nidae   ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ sp.     ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ SS-4034 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7081     ┆ Pisione ┆ null    ┆ null    ┆ null  ┆ Sigalio ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ /Pision ┆         ┆         ┆       ┆ nidae   ┆ ocida   ┆ eta     ┆ a       ┆ a       │
-│          ┆ ella    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ sp. OTC ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│          ┆ -026…   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ 4714TB2 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -076    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ 4815TB1 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -012-01 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 3       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ 4913DR1 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -012    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ 4914DR1 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -008    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ 5113DR1 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -003    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ …        ┆ …       ┆ …       ┆ …       ┆ …     ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       │
+│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ SS-1004 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ SEA-681 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 6       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ SUB-049 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 6       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 7078     ┆ Halosyd ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ na? sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│ 7078     ┆ Polynoi ┆ null    ┆ null    ┆ null  ┆ Polynoi ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
 └──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 ---------
 
@@ -1044,7 +986,51 @@ shape: (13, 10)
 
 
 -------
-Feature: family ,Name: Flabelligeridae
+Feature: family ,Name: Velutinidae
+taxon_data_to_select_from
+ shape: (2, 9)
+┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
+│ taxonID  ┆ infraspe ┆ specific ┆ genus    ┆ family   ┆ order    ┆ class    ┆ phylum   ┆ kingdom  │
+│ ---      ┆ cificEpi ┆ Epithet  ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      │
+│ i64      ┆ thet     ┆ ---      ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      │
+│          ┆ ---      ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          │
+│          ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          ┆          │
+╞══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╡
+│ 12242079 ┆ null     ┆ null     ┆ Velutini ┆ Velutini ┆ Littorin ┆ Gastropo ┆ Mollusca ┆ Animalia │
+│          ┆          ┆          ┆ dae      ┆ dae      ┆ imorpha  ┆ da       ┆          ┆          │
+│ 7058     ┆ null     ┆ null     ┆ null     ┆ Velutini ┆ Littorin ┆ Gastropo ┆ Mollusca ┆ Animalia │
+│          ┆          ┆          ┆          ┆ dae      ┆ imorpha  ┆ da       ┆          ┆          │
+└──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
+parentNameUsageID chosen: 7058
+no_match_subset_to_update to update:
+shape: (4, 10)
+┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
+│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
+│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
+│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
+│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
+│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
+╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
+│ 7058     ┆ Velutin ┆ null    ┆ null    ┆ null  ┆ Velutin ┆ Littori ┆ Gastrop ┆ Mollusc ┆ Animali │
+│          ┆ idae    ┆         ┆         ┆       ┆ idae    ┆ nimorph ┆ oda     ┆ a       ┆ a       │
+│          ┆ sp. 1   ┆         ┆         ┆       ┆         ┆ a       ┆         ┆         ┆         │
+│ 7058     ┆ Velutin ┆ null    ┆ null    ┆ null  ┆ Velutin ┆ Littori ┆ Gastrop ┆ Mollusc ┆ Animali │
+│          ┆ idae    ┆         ┆         ┆       ┆ idae    ┆ nimorph ┆ oda     ┆ a       ┆ a       │
+│          ┆ sp. 2   ┆         ┆         ┆       ┆         ┆ a       ┆         ┆         ┆         │
+│ 7058     ┆ Velutin ┆ null    ┆ null    ┆ null  ┆ Velutin ┆ Littori ┆ Gastrop ┆ Mollusc ┆ Animali │
+│          ┆ idae    ┆         ┆         ┆       ┆ idae    ┆ nimorph ┆ oda     ┆ a       ┆ a       │
+│          ┆ sp. 3   ┆         ┆         ┆       ┆         ┆ a       ┆         ┆         ┆         │
+│ 7058     ┆ Velutin ┆ null    ┆ null    ┆ null  ┆ Velutin ┆ Littori ┆ Gastrop ┆ Mollusc ┆ Animali │
+│          ┆ idae    ┆         ┆         ┆       ┆ idae    ┆ nimorph ┆ oda     ┆ a       ┆ a       │
+│          ┆ sp. 4   ┆         ┆         ┆       ┆         ┆ a       ┆         ┆         ┆         │
+└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
+---------
+
+
+
+
+-------
+Feature: family ,Name: Cirratulidae
 taxon_data_to_select_from
  shape: (2, 9)
 ┌──────────┬───────────┬───────────┬───────────┬──────────┬───────┬──────────┬──────────┬──────────┐
@@ -1054,14 +1040,14 @@ taxon_data_to_select_from
 │          ┆ ---       ┆ str       ┆           ┆          ┆       ┆          ┆          ┆          │
 │          ┆ str       ┆           ┆           ┆          ┆       ┆          ┆          ┆          │
 ╞══════════╪═══════════╪═══════════╪═══════════╪══════════╪═══════╪══════════╪══════════╪══════════╡
-│ 7095     ┆ null      ┆ null      ┆ null      ┆ Flabelli ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆           ┆           ┆           ┆ geridae  ┆       ┆ ta       ┆          ┆          │
-│ 12254040 ┆ null      ┆ null      ┆ Flabellig ┆ Flabelli ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
-│          ┆           ┆           ┆ eridae    ┆ geridae  ┆       ┆ ta       ┆          ┆          │
+│ 2874     ┆ null      ┆ null      ┆ null      ┆ Cirratul ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆           ┆           ┆           ┆ idae     ┆       ┆ ta       ┆          ┆          │
+│ 10858488 ┆ null      ┆ null      ┆ Cirratuli ┆ Cirratul ┆ null  ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆           ┆           ┆ dae       ┆ idae     ┆       ┆ ta       ┆          ┆          │
 └──────────┴───────────┴───────────┴───────────┴──────────┴───────┴──────────┴──────────┴──────────┘
-parentNameUsageID chosen: 7095
+parentNameUsageID chosen: 2874
 no_match_subset_to_update to update:
-shape: (11, 10)
+shape: (5, 10)
 ┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
 │ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
 │ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
@@ -1069,39 +1055,22 @@ shape: (11, 10)
 │ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
 │ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
 ╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
-│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ e sp. 1 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
-│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ e sp. 2 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
-│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ e sp. 3 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
-│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ e sp. 4 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
-│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ e sp. 5 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
-│ …        ┆ …       ┆ …       ┆ …       ┆ …     ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       │
-│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ e sp. 7 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
-│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ e sp. 8 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
-│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ e sp. 9 ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
-│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ e sp.   ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
-│          ┆ 10      ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
-│ 7095     ┆ Flabell ┆ null    ┆ null    ┆ null  ┆ Flabell ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
-│          ┆ igerida ┆         ┆         ┆       ┆ igerida ┆ lida    ┆ eta     ┆ a       ┆ a       │
-│          ┆ e sp.   ┆         ┆         ┆       ┆ e       ┆         ┆         ┆         ┆         │
-│          ┆ 11      ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 2874     ┆ Cirratu ┆ null    ┆ null    ┆ null  ┆ Cirratu ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ lidae   ┆         ┆         ┆       ┆ lidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. 1   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 2874     ┆ Cirratu ┆ null    ┆ null    ┆ null  ┆ Cirratu ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ lidae   ┆         ┆         ┆       ┆ lidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. 2   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 2874     ┆ Cirratu ┆ null    ┆ null    ┆ null  ┆ Cirratu ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ lidae   ┆         ┆         ┆       ┆ lidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. 3   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 2874     ┆ Cirratu ┆ null    ┆ null    ┆ null  ┆ Cirratu ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ lidae   ┆         ┆         ┆       ┆ lidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp. 4   ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 2874     ┆ Dodecac ┆ null    ┆ null    ┆ null  ┆ Cirratu ┆ Terebel ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ eria    ┆         ┆         ┆       ┆ lidae   ┆ lida    ┆ eta     ┆ a       ┆ a       │
+│          ┆ sp.     ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ SS-0995 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
 └──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 ---------
 
@@ -1109,36 +1078,67 @@ shape: (11, 10)
 
 
 -------
-Feature: family ,Name: Apidae
+Feature: family ,Name: Hesionidae
 taxon_data_to_select_from
  shape: (2, 9)
-┌──────────┬────────────┬───────────┬────────┬────────┬───────────┬─────────┬───────────┬──────────┐
-│ taxonID  ┆ infraspeci ┆ specificE ┆ genus  ┆ family ┆ order     ┆ class   ┆ phylum    ┆ kingdom  │
-│ ---      ┆ ficEpithet ┆ pithet    ┆ ---    ┆ ---    ┆ ---       ┆ ---     ┆ ---       ┆ ---      │
-│ i64      ┆ ---        ┆ ---       ┆ str    ┆ str    ┆ str       ┆ str     ┆ str       ┆ str      │
-│          ┆ str        ┆ str       ┆        ┆        ┆           ┆         ┆           ┆          │
-╞══════════╪════════════╪═══════════╪════════╪════════╪═══════════╪═════════╪═══════════╪══════════╡
-│ 4334     ┆ null       ┆ null      ┆ null   ┆ Apidae ┆ Hymenopte ┆ Insecta ┆ Arthropod ┆ Animalia │
-│          ┆            ┆           ┆        ┆        ┆ ra        ┆         ┆ a         ┆          │
-│ 10501510 ┆ null       ┆ null      ┆ Apidae ┆ Apidae ┆ Hymenopte ┆ Insecta ┆ Arthropod ┆ Animalia │
-│          ┆            ┆           ┆        ┆        ┆ ra        ┆         ┆ a         ┆          │
-└──────────┴────────────┴───────────┴────────┴────────┴───────────┴─────────┴───────────┴──────────┘
-parentNameUsageID chosen: 4334
+┌──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┬──────────┐
+│ taxonID  ┆ infraspe ┆ specific ┆ genus    ┆ family   ┆ order    ┆ class    ┆ phylum   ┆ kingdom  │
+│ ---      ┆ cificEpi ┆ Epithet  ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      ┆ ---      │
+│ i64      ┆ thet     ┆ ---      ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      ┆ str      │
+│          ┆ ---      ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          │
+│          ┆ str      ┆          ┆          ┆          ┆          ┆          ┆          ┆          │
+╞══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╪══════════╡
+│ 10897709 ┆ null     ┆ null     ┆ Hesionid ┆ Hesionid ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆          ┆          ┆ ae       ┆ ae       ┆ cida     ┆ ta       ┆          ┆          │
+│ 6969     ┆ null     ┆ null     ┆ null     ┆ Hesionid ┆ Phyllodo ┆ Polychae ┆ Annelida ┆ Animalia │
+│          ┆          ┆          ┆          ┆ ae       ┆ cida     ┆ ta       ┆          ┆          │
+└──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┴──────────┘
+parentNameUsageID chosen: 6969
 no_match_subset_to_update to update:
-shape: (1, 10)
-┌──────────┬─────────┬─────────┬─────────┬─────────┬────────┬─────────┬─────────┬────────┬─────────┐
-│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus   ┆ family ┆ order   ┆ class   ┆ phylum ┆ kingdom │
-│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---     ┆ ---    ┆ ---     ┆ ---     ┆ ---    ┆ ---     │
-│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str     ┆ str    ┆ str     ┆ str     ┆ str    ┆ str     │
-│ ---      ┆ str     ┆ ---     ┆ ---     ┆         ┆        ┆         ┆         ┆        ┆         │
-│ i32      ┆         ┆ str     ┆ str     ┆         ┆        ┆         ┆         ┆        ┆         │
-╞══════════╪═════════╪═════════╪═════════╪═════════╪════════╪═════════╪═════════╪════════╪═════════╡
-│ 10501510 ┆ Homotri ┆ null    ┆ apciali ┆ Homotri ┆ Apidae ┆ Hymenop ┆ Insecta ┆ null   ┆ Animali │
-│          ┆ gona    ┆         ┆ s       ┆ gona    ┆        ┆ tera    ┆         ┆        ┆ a       │
-│          ┆ (Tetrig ┆         ┆         ┆         ┆        ┆         ┆         ┆        ┆         │
-│          ┆ ona)    ┆         ┆         ┆         ┆        ┆         ┆         ┆        ┆         │
-│          ┆ apical… ┆         ┆         ┆         ┆        ┆         ┆         ┆        ┆         │
-└──────────┴─────────┴─────────┴─────────┴─────────┴────────┴─────────┴─────────┴────────┴─────────┘
+shape: (21, 10)
+┌──────────┬─────────┬─────────┬─────────┬───────┬─────────┬─────────┬─────────┬─────────┬─────────┐
+│ parentNa ┆ taxonNa ┆ infrasp ┆ specifi ┆ genus ┆ family  ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
+│ meUsageI ┆ me      ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---     ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
+│ D        ┆ ---     ┆ pithet  ┆ t       ┆ str   ┆ str     ┆ str     ┆ str     ┆ str     ┆ str     │
+│ ---      ┆ str     ┆ ---     ┆ ---     ┆       ┆         ┆         ┆         ┆         ┆         │
+│ i32      ┆         ┆ str     ┆ str     ┆       ┆         ┆         ┆         ┆         ┆         │
+╞══════════╪═════════╪═════════╪═════════╪═══════╪═════════╪═════════╪═════════╪═════════╪═════════╡
+│ 6969     ┆ Oxydrom ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ us? sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ INT-074 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 3       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6969     ┆ Oxydrom ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ us sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│ 6969     ┆ Leocrat ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ es sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ JS-0270 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6969     ┆ Hesioni ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ dae sp. ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ 5113DR1 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -214    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6969     ┆ Leocrat ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ es sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ 5414TB1 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ -118    ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ …        ┆ …       ┆ …       ┆ …       ┆ …     ┆ …       ┆ …       ┆ …       ┆ …       ┆ …       │
+│ 6969     ┆ Oxydrom ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ us sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ SS-4049 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6969     ┆ Oxydrom ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ us sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ SEA-378 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 2       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6969     ┆ Oxydrom ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ us sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ SEA-682 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│          ┆ 3       ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6969     ┆ Leocrat ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ es sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ JS-2272 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+│ 6969     ┆ Leocrat ┆ null    ┆ null    ┆ null  ┆ Hesioni ┆ Phyllod ┆ Polycha ┆ Annelid ┆ Animali │
+│          ┆ es sp.  ┆         ┆         ┆       ┆ dae     ┆ ocida   ┆ eta     ┆ a       ┆ a       │
+│          ┆ JS-4053 ┆         ┆         ┆       ┆         ┆         ┆         ┆         ┆         │
+└──────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┴─────────┴─────────┴─────────┘
 ---------
 
 
@@ -1177,42 +1177,6 @@ shape: (2, 10)
 │          ┆ thropte ┆         ┆         ┆         ┆         ┆         ┆       ┆         ┆         │
 │          ┆ ra      ┆         ┆         ┆         ┆         ┆         ┆       ┆         ┆         │
 └──────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴───────┴─────────┴─────────┘
----------
-
-
-
-
--------
-Feature: order ,Name: Plecoptera
-taxon_data_to_select_from
- shape: (2, 9)
-┌─────────┬───────────┬───────────┬──────────┬──────────┬──────────┬─────────┬──────────┬──────────┐
-│ taxonID ┆ infraspec ┆ specificE ┆ genus    ┆ family   ┆ order    ┆ class   ┆ phylum   ┆ kingdom  │
-│ ---     ┆ ificEpith ┆ pithet    ┆ ---      ┆ ---      ┆ ---      ┆ ---     ┆ ---      ┆ ---      │
-│ i64     ┆ et        ┆ ---       ┆ str      ┆ str      ┆ str      ┆ str     ┆ str      ┆ str      │
-│         ┆ ---       ┆ str       ┆          ┆          ┆          ┆         ┆          ┆          │
-│         ┆ str       ┆           ┆          ┆          ┆          ┆         ┆          ┆          │
-╞═════════╪═══════════╪═══════════╪══════════╪══════════╪══════════╪═════════╪══════════╪══════════╡
-│ 1772826 ┆ null      ┆ null      ┆ Plecopte ┆ Erebidae ┆ Lepidopt ┆ Insecta ┆ Arthropo ┆ Animalia │
-│         ┆           ┆           ┆ ra       ┆          ┆ era      ┆         ┆ da       ┆          │
-│ 787     ┆ null      ┆ null      ┆ null     ┆ null     ┆ Plecopte ┆ Insecta ┆ Arthropo ┆ Animalia │
-│         ┆           ┆           ┆          ┆          ┆ ra       ┆         ┆ da       ┆          │
-└─────────┴───────────┴───────────┴──────────┴──────────┴──────────┴─────────┴──────────┴──────────┘
-parentNameUsageID chosen: 787
-no_match_subset_to_update to update:
-shape: (1, 10)
-┌──────────┬──────────┬─────────┬─────────┬───────┬────────┬─────────┬─────────┬─────────┬─────────┐
-│ parentNa ┆ taxonNam ┆ infrasp ┆ specifi ┆ genus ┆ family ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
-│ meUsageI ┆ e        ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---    ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
-│ D        ┆ ---      ┆ pithet  ┆ t       ┆ str   ┆ str    ┆ str     ┆ str     ┆ str     ┆ str     │
-│ ---      ┆ str      ┆ ---     ┆ ---     ┆       ┆        ┆         ┆         ┆         ┆         │
-│ i32      ┆          ┆ str     ┆ str     ┆       ┆        ┆         ┆         ┆         ┆         │
-╞══════════╪══════════╪═════════╪═════════╪═══════╪════════╪═════════╪═════════╪═════════╪═════════╡
-│ 787      ┆ Plecopte ┆ null    ┆ null    ┆ null  ┆ null   ┆ Plecopt ┆ Insecta ┆ Arthrop ┆ Animali │
-│          ┆ ra sp.   ┆         ┆         ┆       ┆        ┆ era     ┆         ┆ oda     ┆ a       │
-│          ┆ ZRCBDP_0 ┆         ┆         ┆       ┆        ┆         ┆         ┆         ┆         │
-│          ┆ 071997   ┆         ┆         ┆       ┆        ┆         ┆         ┆         ┆         │
-└──────────┴──────────┴─────────┴─────────┴───────┴────────┴─────────┴─────────┴─────────┴─────────┘
 ---------
 
 
@@ -1267,6 +1231,42 @@ shape: (8, 10)
 │         ┆ dae sp. ┆         ┆         ┆         ┆ dae     ┆ ormes   ┆ terygii ┆ a       ┆ ia     │
 │         ┆ 4       ┆         ┆         ┆         ┆         ┆         ┆         ┆         ┆        │
 └─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴─────────┴────────┘
+---------
+
+
+
+
+-------
+Feature: order ,Name: Plecoptera
+taxon_data_to_select_from
+ shape: (2, 9)
+┌─────────┬───────────┬───────────┬──────────┬──────────┬──────────┬─────────┬──────────┬──────────┐
+│ taxonID ┆ infraspec ┆ specificE ┆ genus    ┆ family   ┆ order    ┆ class   ┆ phylum   ┆ kingdom  │
+│ ---     ┆ ificEpith ┆ pithet    ┆ ---      ┆ ---      ┆ ---      ┆ ---     ┆ ---      ┆ ---      │
+│ i64     ┆ et        ┆ ---       ┆ str      ┆ str      ┆ str      ┆ str     ┆ str      ┆ str      │
+│         ┆ ---       ┆ str       ┆          ┆          ┆          ┆         ┆          ┆          │
+│         ┆ str       ┆           ┆          ┆          ┆          ┆         ┆          ┆          │
+╞═════════╪═══════════╪═══════════╪══════════╪══════════╪══════════╪═════════╪══════════╪══════════╡
+│ 1772826 ┆ null      ┆ null      ┆ Plecopte ┆ Erebidae ┆ Lepidopt ┆ Insecta ┆ Arthropo ┆ Animalia │
+│         ┆           ┆           ┆ ra       ┆          ┆ era      ┆         ┆ da       ┆          │
+│ 787     ┆ null      ┆ null      ┆ null     ┆ null     ┆ Plecopte ┆ Insecta ┆ Arthropo ┆ Animalia │
+│         ┆           ┆           ┆          ┆          ┆ ra       ┆         ┆ da       ┆          │
+└─────────┴───────────┴───────────┴──────────┴──────────┴──────────┴─────────┴──────────┴──────────┘
+parentNameUsageID chosen: 787
+no_match_subset_to_update to update:
+shape: (1, 10)
+┌──────────┬──────────┬─────────┬─────────┬───────┬────────┬─────────┬─────────┬─────────┬─────────┐
+│ parentNa ┆ taxonNam ┆ infrasp ┆ specifi ┆ genus ┆ family ┆ order   ┆ class   ┆ phylum  ┆ kingdom │
+│ meUsageI ┆ e        ┆ ecificE ┆ cEpithe ┆ ---   ┆ ---    ┆ ---     ┆ ---     ┆ ---     ┆ ---     │
+│ D        ┆ ---      ┆ pithet  ┆ t       ┆ str   ┆ str    ┆ str     ┆ str     ┆ str     ┆ str     │
+│ ---      ┆ str      ┆ ---     ┆ ---     ┆       ┆        ┆         ┆         ┆         ┆         │
+│ i32      ┆          ┆ str     ┆ str     ┆       ┆        ┆         ┆         ┆         ┆         │
+╞══════════╪══════════╪═════════╪═════════╪═══════╪════════╪═════════╪═════════╪═════════╪═════════╡
+│ 787      ┆ Plecopte ┆ null    ┆ null    ┆ null  ┆ null   ┆ Plecopt ┆ Insecta ┆ Arthrop ┆ Animali │
+│          ┆ ra sp.   ┆         ┆         ┆       ┆        ┆ era     ┆         ┆ oda     ┆ a       │
+│          ┆ ZRCBDP_0 ┆         ┆         ┆       ┆        ┆         ┆         ┆         ┆         │
+│          ┆ 071997   ┆         ┆         ┆       ┆        ┆         ┆         ┆         ┆         │
+└──────────┴──────────┴─────────┴─────────┴───────┴────────┴─────────┴─────────┴─────────┴─────────┘
 ---------
 
 

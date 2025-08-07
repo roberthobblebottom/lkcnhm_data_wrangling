@@ -119,7 +119,7 @@ def join():
         .with_columns(
             taxonName=pl.col("taxonName")
             .str.replace_all("<i>", "")
-            .str.replace_all("</i>", "")
+            .str.replace_all("</i>", ""),
         )
         # Not working:
         # .with_columns(
@@ -137,7 +137,7 @@ def join():
         # )
     )
     print("bos_df columns:", bos_df.columns)
-    bos_df.write_csv("outputsplit2.csv")
+    bos_df.write_csv("bos.csv")
     # print("bos speciesId", bos_df.filter(pl.col('taxonID').is_null()))
 
     _l = [
@@ -156,6 +156,7 @@ def join():
         "infraspecificEpithet",
         "taxonomicStatus",
         "acceptedNameUsageID",
+        # "domain",
     ]
     taxon_ranked_only = (
         pl.scan_csv(
@@ -236,21 +237,21 @@ def join():
     # matching and contetnious split
     # What makes a data point contentious is where it has duplicate speciesId.
 
-    matching = matching_df.filter(~pl.col("speciesId").is_duplicated()).with_columns(
+    matching_df = matching_df.filter(~pl.col("speciesId").is_duplicated()).with_columns(
         acceptedNameUsageID=pl.col("acceptedNameUsageID")
-        .fill_null(pl.lit(-1))
+        .fill_null(pl.lit(None))
         .cast(pl.Int64)
     )
     contentious = matching_df.filter(
         (pl.col("speciesId").is_duplicated())
     ).with_columns(
         acceptedNameUsageID=pl.col("acceptedNameUsageID")
-        .fill_null(pl.lit(-1))
+        .fill_null(pl.lit(None))
         .cast(pl.Int64)
     )
 
     unique_contentious = contentious.filter(
-        (pl.col("acceptedNameUsageID") == -1)
+        (pl.col("acceptedNameUsageID").is_null())
         & (pl.col("matched_taxonID").is_in(pl.col("acceptedNameUsageID").implode()))
     )
 
@@ -261,11 +262,11 @@ def join():
         ~pl.col("speciesId").is_in(unique_contentius_speciesId)
     )  # Removing...
 
-    matching = pl.concat(
-        [matching, unique_contentious],
+    matching_df = pl.concat(
+        [matching_df, unique_contentious],
     )
 
-    return matching, contentious
+    return matching_df, contentious
 
 
 if __name__ == "__main__":
