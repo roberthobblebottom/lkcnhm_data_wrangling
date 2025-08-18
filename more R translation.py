@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.14.16"
-app = marimo.App(width="full", auto_download=["ipynb", "html"])
+app = marimo.App(width="full")
 
 
 @app.cell(hide_code=True)
@@ -31,17 +31,6 @@ def _():
 @app.cell
 def _(contentious):
     contentious.collect_schema().keys()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(
-        r"""
-    # matching and contentious split
-    What makes a data point contentious is where it has duplicate speciesId.
-    """
-    )
     return
 
 
@@ -162,6 +151,12 @@ def _(matching, pl):
 
 
 @app.cell
+def _(mo):
+    mo.md(r"""# repeated_accepted_taxons = RAT""")
+    return
+
+
+@app.cell
 def _(pl):
     repeated_accepted_taxons = (
         pl.scan_csv("gbif/Taxon.tsv", separator="\t", quote_char=None, cache=True)
@@ -173,12 +168,6 @@ def _(pl):
         .filter(pl.col("canonicalName").is_duplicated())
     )
     return (repeated_accepted_taxons,)
-
-
-@app.cell
-def _(mo):
-    mo.md(r"""### repeated_accepted_taxons = RAT""")
-    return
 
 
 @app.cell
@@ -228,8 +217,20 @@ def _(pl, repeated_accepted_taxons):
 
 
 @app.cell
-def _(RAT_feats):
-    RAT_feats
+def _(RAT_feats, pl):
+    RAT_feats.filter(pl.col("matches") == "Tentaculata")
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+    # matching attempt
+
+    ### Still_no_match is not comprehensive, doesn't includes subset  with some matches and some without
+    """
+    )
     return
 
 
@@ -237,6 +238,7 @@ def _(RAT_feats):
 def _(RAT_feats, nomatch, pl, priority_columns, repeated_accepted_taxons):
     updated_to_matching = []
     all_taxon_data_to_be_selected_from = []
+    still_no_match = []
     _collected_repeated_taxons = repeated_accepted_taxons.collect().fill_null("")
     _reversed_priority_columns = priority_columns.copy()
     _reversed_priority_columns.reverse()
@@ -262,13 +264,12 @@ def _(RAT_feats, nomatch, pl, priority_columns, repeated_accepted_taxons):
             ):
                 col_index = priority_columns.index(_f)
                 _x = _t[col_index]
-                print(_x)
                 if not bool(_x):
-                    selected_row = i  # Since there are only two rows from taxon_data_t0_select_from, the results is either 0 or 1
+                    selected_row = i  # Since there are only two rows from taxon_data_to_select_from, the results is either 0 or 1
                     break
             assert selected_row != -1
 
-            # has_predicament1 is when kindom to genus all has values and it is kind of leveled between the two rows of the taxon data.
+            # has_predicament1 is when kingdom to genus all has values and it is kind of leveled between the two rows of the taxon data.
             has_predicament1 = False
             _l = taxon_data_to_select_from["family"].to_list()
             if _f == "genus" and _l[0] != None and _l[1] != None:
@@ -285,46 +286,48 @@ def _(RAT_feats, nomatch, pl, priority_columns, repeated_accepted_taxons):
                 pl.col(_f) == _m,
             )
 
-            features_to_null = _reversed_priority_columns[
-                _reversed_priority_columns.index(_f) + 1 : -3
-            ]
-
-            if len(features_to_null) != 0:
+            _temp2 = _reversed_priority_columns[:-3]
+            features_to_find_nulls = (
+                _temp2[_reversed_priority_columns.index(_f) + 1]
+                if len(_temp2) > _reversed_priority_columns.index(_f) + 1
+                else None
+            )
+            if features_to_find_nulls is not None:
+                print("features_to_find_nulls", features_to_find_nulls)
                 _no_match_subset_to_update = _no_match_subset_to_update.filter(
-                    pl.col(features_to_null[0]) == ""
+                    pl.col(features_to_find_nulls) == ""
                 )
+
                 if _no_match_subset_to_update.is_empty():
+                    # If not empty parent id will still be filled below
+                    still_no_match_subset = nomatch.filter(
+                        pl.col(_f) == _m,
+                    ).with_columns(
+                        current_feature=pl.lit(_f), current_name=pl.lit(_m)
+                    )
+                    still_no_match.append(still_no_match_subset)
                     print(
-                        "skipping",
+                        "\n\n\n\n\nskipping",
                         _f,
                         _m,
                         "\n this _no_match_subset_to_update dataframe doesn't have the same tax rank level\n",
-                        nomatch.filter(
-                            pl.col(_f) == _m,
-                        ).select(
-                            [
-                                "parentNameUsageID",
-                                "taxonName",
-                            ]
-                            + _reversed_priority_columns
+                        still_no_match_subset.select(
+                            # [
+                            #     "parentNameUsageID",
+                            #     "taxonName",
+                            # ]
+                            # +
+                            _reversed_priority_columns
                         ),
                     )
-                    print(
-                        "taxon_data_to_select_from\n",
-                        taxon_data_to_select_from,
-                    )
-                    print("---------")
-                    continue
-                else:
                     # print(
-                    #     "left out:",
-                    #     _no_match_subset_to_update.filter(
-                    #         pl.col(features_to_null[0]) == ""
-                    #     ),
+                    #     "taxon_data_to_select_from\n",
+                    #     taxon_data_to_select_from,
                     # )
                     print("---------")
+                    continue
 
-            # Settling predicament one
+            # Settleing predicament one
             # this predicament thing should only happen when the subset is of only 1 row.
             if has_predicament1 and _no_match_subset_to_update.shape[0] == 1:
                 match = True
@@ -360,26 +363,28 @@ def _(RAT_feats, nomatch, pl, priority_columns, repeated_accepted_taxons):
             )
 
             # Debugging for matching data from gbif to new matched rows
-            # print(
-            #     "taxon_data_to_select_from\n",
-            #     taxon_data_to_select_from,
-            # )
-            # print("parentNameUsageID chosen:", chosen_taxonId)
-            # print("no_match_subset_to_update ")
-            # print(
-            #     _no_match_subset_to_update.select(
-            #         [
-            #             "parentNameUsageID",
-            #             "taxonName",
-            #         ]
-            #         + _reversed_priority_columns
-            #     )
-            # )
-            # print("---------")
+            print(
+                "taxon_data_to_select_from\n",
+                taxon_data_to_select_from,
+            )
+            print("parentNameUsageID chosen:", chosen_taxonId)
+            print("no_match_subset_to_update ")
+            print(
+                _no_match_subset_to_update.select(
+                    # [
+                    #     "parentNameUsageID",
+                    #     "taxonName",
+                    # ]
+                    # +
+                    _reversed_priority_columns
+                )
+            )
+            print("---------")
 
             updated_to_matching.append(_no_match_subset_to_update)
             all_taxon_data_to_be_selected_from.append(taxon_data_to_select_from)
 
+    # turn them into dataframes and writing to csv files
     updated_to_matching = pl.concat(
         updated_to_matching, rechunk=True, parallel=True
     )
@@ -390,7 +395,9 @@ def _(RAT_feats, nomatch, pl, priority_columns, repeated_accepted_taxons):
     all_taxon_data_to_be_selected_from.write_csv(
         "all_taxon_data_to_be_selected_from.csv"
     )
-    return (updated_to_matching,)
+    still_no_match = pl.concat(still_no_match, rechunk=True, parallel=True)
+    still_no_match.write_csv("still_no_match.csv")
+    return still_no_match, updated_to_matching
 
 
 @app.cell
@@ -411,23 +418,297 @@ def _(matching_with_populated_match_taxonID, pl, updated_to_matching):
 
 
 @app.cell
-def _(nomatch, priority_columns, updated_to_matching):
-    still_no_match = (
-        nomatch.join(
-            updated_to_matching.select("speciesId", "parentNameUsageID"),
-            on="speciesId",
-            how="left",
-        )
-        .drop("parentNameUsageID")
-        .rename({"parentNameUsageID_right": "parentNameUsageID"})
+def _():
+    return
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(
+        r"""
+    # still no match stuff
+
+
+    """
     )
-    still_no_match.select(
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""## `current_feature` uniques""")
+    return
+
+
+@app.cell
+def _(still_no_match):
+    still_no_match["current_feature"].unique()
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""## `current_name` uniques""")
+    return
+
+
+@app.cell
+def _(still_no_match):
+    still_no_match["current_name"].unique()
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""## number of rows in still no match""")
+    return
+
+
+@app.cell
+def _(still_no_match):
+    still_no_match.shape[0]
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""## stop at class, there is only current_feature = phylum matches""")
+    return
+
+
+@app.cell
+def _(pl, priority_columns, still_no_match):
+    debug1 = still_no_match.select(
         [
-            "parentNameUsageID",
+            "current_feature",
+            "current_name",
+            # "parentNameUsageID",
             "taxonName",
         ]
         + priority_columns
     )
+
+    debug1.filter(pl.col("order") == "", pl.col("current_feature") == "phylum")
+    return (debug1,)
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""### class names and phylum names:""")
+    return
+
+
+@app.cell
+def _(debug1, pl):
+    debug1.filter(pl.col("order") == "", pl.col("current_feature") == "phylum").select(
+        'class','phylum'
+    ).group_by( 'class','phylum').len()
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""## stops at order there is only current_feature = phylum matches""")
+    return
+
+
+@app.cell
+def _(debug1, pl):
+    debug1.filter(
+        pl.col("family") == "",
+        pl.col("order") != "",
+        pl.col("genus") == "",
+        pl.col("current_feature") == "phylum",
+    )
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""### order names when current name = Arthropoda:""")
+    return
+
+
+@app.cell(hide_code=True)
+def _(debug1, pl):
+    # current Name:
+    debug1.filter(
+        pl.col("family") == "",
+        pl.col("order") != "",
+        pl.col("genus") == "",
+        pl.col("current_feature") == "phylum",
+    )["current_name"].unique().to_list()
+    return
+
+
+@app.cell
+def _(debug1, pl):
+    debug1.filter(
+        pl.col("family") == "",
+        pl.col("order") != "",
+        pl.col("genus") == "",
+        pl.col("current_feature") == "phylum",
+    )["order"].unique().to_list()
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""## stops at family, current_feature contains both phylum and order"""
+    )
+    return
+
+
+@app.cell
+def _(debug1, pl):
+    debug1.filter(
+        pl.col("family") != "",
+        pl.col("genus") == "",
+        pl.col("current_feature") == "phylum",
+    )
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""### family names where current_feature = phylum""")
+    return
+
+
+@app.cell
+def _(debug1, pl):
+    debug1.filter(
+        pl.col("family") != "",
+        pl.col("genus") == "",
+        pl.col("current_feature") == "phylum",
+    )["family"].unique().to_list()
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""### current names where current_feature = phylum:""")
+    return
+
+
+@app.cell
+def _(debug1, pl):
+    debug1.filter(
+        pl.col("family") != "",
+        pl.col("genus") == "",
+        pl.col("current_feature") == "phylum",
+    )["current_name"].unique().to_list()
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""## Stops at one of the epithet, current_feature contains both phylum and order"""
+    )
+    return
+
+
+@app.cell
+def _(debug1, pl):
+    debug1.filter(pl.col("genus") != "", pl.col("current_feature") == "phylum")
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+    ### specificEpithet names when current_feature = phylum and current_name = "Arthropoda"
+    """
+    )
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""#### current_name when current_feature = phylum""")
+    return
+
+
+@app.cell
+def _(debug1, pl):
+    debug1.filter(pl.col("genus") != "", pl.col("current_feature") == "phylum")[
+        "current_name"
+    ].unique().to_list()
+    return
+
+
+@app.cell
+def _(debug1, pl):
+    debug1.filter(pl.col("genus") != "", pl.col("current_feature") == "phylum")[
+        "specificEpithet"
+    ].unique().to_list()
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""## when current_feature = order""")
+    return
+
+
+@app.cell
+def _(debug1, pl):
+    debug1.filter(pl.col("current_feature") == "order")
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(r"""## Tentaculata Ctenophora""")
+    return
+
+
+@app.cell
+def _(pl, repeated_accepted_taxons):
+    repeated_accepted_taxons.filter(
+        pl.col("canonicalName") == "Tentaculata"
+    ).collect()
+    return
+
+
+@app.cell
+def _(pl, repeated_accepted_taxons):
+    repeated_accepted_taxons.filter(
+        pl.col("canonicalName") == "Tentaculates"
+    ).collect()
+    return
+
+
+@app.cell
+def _(pl, priority_columns, still_no_match):
+    still_no_match.select(
+        [
+            "current_feature",
+            "current_name",
+            "parentNameUsageID",
+            "taxonName",
+        ]
+        + priority_columns
+    ).filter(pl.col("class") == "Tentaculata", pl.col("phylum") == "Ctenophora")
+    return
+
+
+@app.cell
+def _(pl, priority_columns, repeated_accepted_taxons):
+    repeated_accepted_taxons.filter(pl.col("class") == "Tentaculata").select(
+        priority_columns
+    ).collect()
+    return
+
+
+@app.cell
+def _(pl, priority_columns, repeated_accepted_taxons):
+    repeated_accepted_taxons.filter(pl.col("family") == "Coeloplanidae").select(
+        priority_columns
+    ).collect()
     return
 
 
