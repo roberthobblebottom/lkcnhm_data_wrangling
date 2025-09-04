@@ -1,7 +1,7 @@
 import marimo
 
-__generated_with = "0.14.16"
-app = marimo.App(width="full", auto_download=["ipynb", "html"])
+__generated_with = "0.15.2"
+app = marimo.App(width="full")
 
 
 @app.cell(hide_code=True)
@@ -342,7 +342,7 @@ def _(RAT_feats, nomatch, pl, priority_columns, repeated_accepted_taxons):
                     print("---------")
                     continue
 
-            # Settleing predicament one
+            # Settling predicament one
             # this predicament thing should only happen when the subset is of only 1 row.
             if has_predicament1 and _no_match_subset_to_update.shape[0] == 1:
                 match = True
@@ -561,12 +561,7 @@ def _(match_on_class):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-    ## stops at order there is only current_feature = phylum matches
-
-    """
-    )
+    mo.md(r"""## stops at order there is only current_feature = phylum matches""")
     return
 
 
@@ -742,20 +737,11 @@ def _(mo):
 
 
 @app.cell
-def _(pl, still_no_match):
+def _(pl, still_no_match, taxons):
     ## stops at family there is only current_feature = phylum matches
 
 
-    match_on_genus = still_no_match.with_columns(
-        name_to_match=pl.when(
-            pl.col("specificEpithet") != "",
-            pl.col("genus") != "",
-        )
-        .then(
-            pl.concat_str(pl.col("specificEpithet"), pl.lit(" "), pl.col("genus"))
-        )
-        .otherwise(None)
-    ).filter(
+    to_be_match_on_specificEpithet = still_no_match.filter(
         pl.col("specificEpithet") != "",
         pl.col("genus") != "",
     )
@@ -779,27 +765,23 @@ def _(pl, still_no_match):
         .len()
     )
 
-
+    print(_x1)
     # This statement below seems to be wrong
-    print("Glaucias" in _x1["genus"].unique().to_list())
-    print("dorsalis" in _x1["specificEpithet"].unique().to_list())
-    _taxons = (
-        pl.scan_csv("gbif/Taxon.tsv", separator="\t", quote_char=None, cache=True)
-        # .filter(
-        #     pl.col("taxonomicStatus") == pl.lit("accepted"),
-        #     pl.col("taxonRank") != "unranked",
-        # )
-        # .filter(pl.col("kingdom").is_in(["Animalia", "Plantae"]))
-        # .select(["taxonID"] + priority_columns)
-    )
+    # _taxons = (
+    #     pl.scan_csv("gbif/Taxon.tsv", separator="\t", quote_char=None, cache=True)
+    #     # .filter(
+    #     #     pl.col("taxonomicStatus") == pl.lit("accepted"),
+    #     #     pl.col("taxonRank") != "unranked",
+    #     # )
+    #     # .filter(pl.col("kingdom").is_in(["Animalia", "Plantae"]))
+    #     # .select(["taxonID"] + priority_columns)
+    # )
     _taxons_subset = (
-        _taxons.filter(
+        taxons.filter(
             pl.col("specificEpithet").is_in(
                 _x1["specificEpithet"].unique().to_list()
             ),
             pl.col("genus").is_in(_x1["genus"].unique().to_list()),
-            # pl.col("phylum").is_in(_x1["phylum"].unique().to_list()),
-            # pl.col("infraspecificEpithet").is_null(),
         )
         .select(
             "taxonID",
@@ -808,25 +790,15 @@ def _(pl, still_no_match):
         )
         .collect()
     )
-    print(
-        match_on_genus.filter(pl.col("current_feature") == "phylum").select(
-            "specificEpithet", "genus", "phylum"
-        )
-    )
-    print(
-        _taxons_subset.filter(
-            pl.col("genus") == "Glaucias", pl.col("specificEpithet") == "dorsalis"
-        )
-    )
-    print(
-        _taxons.filter(
-            pl.col("genus") == "Glaucias", pl.col("specificEpithet") == "dorsalis"
-        ).collect()
-    )
+
 
     # TAXON.TSV doesn't have pl.col("genus")=='Dicaeum',pl.col('specificEpithet')=='chysorrheum'
-    match_on_genus = (
-        match_on_genus.join(_taxons_subset, on=["genus", "specificEpithet"])
+    match_on_specificEpithet = (
+        to_be_match_on_specificEpithet.join(
+            _taxons_subset,
+            on=["genus", "specificEpithet"],
+            # how="left"
+        )
         .with_columns(
             parentNameUsageID=pl.when(pl.col("taxonID").is_not_null())
             .then("taxonID")
@@ -834,13 +806,104 @@ def _(pl, still_no_match):
         )
         .drop("taxonID")
     )
-    print(match_on_genus.filter(pl.col("genus") == "Glaucias"))
-    return
+    # match_on_specificEpithet.write_csv("matching_attempt_on_specificEpithet.csv")
+    print(match_on_specificEpithet)
+    return (match_on_specificEpithet,)
 
 
 @app.cell
 def _(mo):
-    mo.md(r"""#combining updated parent id rows""")
+    mo.md(r"""### infraspecificepithet""")
+    return
+
+
+@app.cell
+def _(pl, priority_columns, still_no_match, taxons):
+    # InfraspecificEpithet
+
+    ## stops at family there is only current_feature = phylum matches
+
+
+    to_be_match_on_infraspecificEpithet = still_no_match.filter(
+        pl.col("genus") != "",
+    )
+
+    _x1 = (
+        still_no_match.filter(
+            pl.col("infraspecificEpithet") != "",
+            pl.col("genus") != "",
+        )
+        .select(
+            "infraspecificEpithet",
+            # "phylum",
+            "genus",
+        )
+        .group_by(
+            "infraspecificEpithet",
+            # "phylum",
+            "genus",
+        )
+        .len()
+    )
+    print(_x1)
+    # This statement below seems to be wrong
+    # _taxons = (
+    #     pl.scan_csv("gbif/Taxon.tsv", separator="\t", quote_char=None, cache=True)
+    #     # .filter(
+    #     #     pl.col("taxonomicStatus") == pl.lit("accepted"),
+    #     #     pl.col("taxonRank") != "unranked",
+    #     # )
+    #     # .filter(pl.col("kingdom").is_in(["Animalia", "Plantae"]))
+    #     # .select(["taxonID"] + priority_columns)
+    # )
+    _taxons_subset = (
+        taxons.filter(
+            pl.col("infraspecificEpithet").is_in(
+                _x1["infraspecificEpithet"].unique().to_list()
+            ),
+            pl.col("genus").is_in(_x1["genus"].unique().to_list()),
+        )
+        .select(
+            "taxonID",
+            "infraspecificEpithet",
+            "genus",
+        )
+        .collect()
+    )
+
+
+    # TAXON.TSV doesn't have pl.col("genus")=='Dicaeum',pl.col('specificEpithet')=='chysorrheum'
+    match_on_infraspecificEpithet = (
+        to_be_match_on_infraspecificEpithet.join(
+            _taxons_subset,
+            on=["genus", "infraspecificEpithet"],
+        )
+        .with_columns(
+            parentNameUsageID=pl.when(pl.col("taxonID").is_not_null())
+            .then("taxonID")
+            .otherwise("parentNameUsageID")
+        )
+        .drop("taxonID")
+    )
+    print(match_on_infraspecificEpithet.select(priority_columns))
+    return (match_on_infraspecificEpithet,)
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+    #combining updated parent id rows
+
+    todo: specificEpithet infraSpecificepithet
+    """
+    )
+    return
+
+
+@app.cell
+def _(match_on_class):
+    match_on_class.columns
     return
 
 
@@ -848,12 +911,22 @@ def _(mo):
 def _(
     match_on_class,
     match_on_family,
+    match_on_infraspecificEpithet,
     match_on_order,
+    match_on_specificEpithet,
     pl,
     updated_to_matching,
 ):
-    _new_match = pl.concat([match_on_class, match_on_order, match_on_family]).drop(
-        ["current_feature", "current_name", "name_to_match"]
+    _to_drop = ["current_feature", "current_name", "name_to_match"]
+    _to_drop2 = ["current_feature", "current_name"]
+    _new_match = pl.concat(
+        [
+            match_on_class.drop(_to_drop),
+            match_on_order.drop(_to_drop),
+            match_on_family.drop(_to_drop),
+            match_on_specificEpithet.drop(_to_drop2),
+            match_on_infraspecificEpithet.drop(_to_drop2),
+        ]
     )
     _new_match = pl.concat(
         [
@@ -865,200 +938,6 @@ def _(
     )
     _new_match.write_csv("updated_to_matching.csv")
     _new_match
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""# OLD""")
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""## stop at class, there is only current_feature = phylum matches""")
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""## stops at order there is only current_feature = phylum matches""")
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""## stops at family, current_feature = phylum""")
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""## Stops at one of the epithet, current_feature contains = phylum""")
-    return
-
-
-@app.cell
-def _(pl, priority_columns, still_no_match):
-    debug1 = still_no_match.select(
-        [
-            "current_feature",
-            "current_name",
-            # "parentNameUsageID",
-            "taxonName",
-        ]
-        + priority_columns
-    )
-
-    debug1.filter(pl.col("order") == "", pl.col("current_feature") == "phylum")
-    return (debug1,)
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""### class names and phylum names:""")
-    return
-
-
-@app.cell
-def _(debug1, pl):
-    debug1.filter(
-        pl.col("order") == "", pl.col("current_feature") == "phylum"
-    ).select("class", "phylum").group_by("class", "phylum").len()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(
-        r"""
-    potential matches from gbif.org  but not in `repeated_accepted_taxons`
-
-    |class|phylumn|taxonID from gbif.org|url|
-    |:---|:----|:----|:--
-    |Ostracoda|Arthropoda|353|https://www.gbif.org/species/353|
-    """
-    )
-    return
-
-
-@app.cell
-def _(debug1, pl):
-    debug1.filter(
-        pl.col("family") == "",
-        pl.col("order") != "",
-        pl.col("genus") == "",
-        pl.col("current_feature") == "phylum",
-    )
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""### order names when current name = Arthropoda:""")
-    return
-
-
-@app.cell(hide_code=True)
-def _(debug1, pl):
-    # current Name:
-    debug1.filter(
-        pl.col("family") == "",
-        pl.col("order") != "",
-        pl.col("genus") == "",
-        pl.col("current_feature") == "phylum",
-    )["current_name"].unique().to_list()
-    return
-
-
-@app.cell
-def _(debug1, pl):
-    debug1.filter(
-        pl.col("family") == "",
-        pl.col("order") != "",
-        pl.col("genus") == "",
-        pl.col("current_feature") == "phylum",
-    )["order"].unique().to_list()
-    return
-
-
-@app.cell
-def _(debug1, pl):
-    debug1.filter(
-        pl.col("family") != "",
-        pl.col("genus") == "",
-        pl.col("current_feature") == "phylum",
-    )
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""### family names where current_feature = phylum""")
-    return
-
-
-@app.cell
-def _(debug1, pl):
-    debug1.filter(
-        pl.col("family") != "",
-        pl.col("genus") == "",
-        pl.col("current_feature") == "phylum",
-    )["family"].unique().to_list()
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""### current names where current_feature = phylum:""")
-    return
-
-
-@app.cell
-def _(debug1, pl):
-    debug1.filter(
-        pl.col("family") != "",
-        pl.col("genus") == "",
-        pl.col("current_feature") == "phylum",
-    )["current_name"].unique().to_list()
-    return
-
-
-@app.cell
-def _(debug1, pl):
-    debug1.filter(pl.col("genus") != "", pl.col("current_feature") == "phylum")
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(
-        r"""
-    ### specificEpithet names when current_feature = phylum and current_name = "Arthropoda"
-    """
-    )
-    return
-
-
-@app.cell(hide_code=True)
-def _(mo):
-    mo.md(r"""#### current_name when current_feature = phylum""")
-    return
-
-
-@app.cell
-def _(debug1, pl):
-    debug1.filter(pl.col("genus") != "", pl.col("current_feature") == "phylum")[
-        "current_name"
-    ].unique().to_list()
-    return
-
-
-@app.cell
-def _(debug1, pl):
-    debug1.filter(pl.col("genus") != "", pl.col("current_feature") == "phylum")[
-        "specificEpithet"
-    ].unique().to_list()
     return
 
 
