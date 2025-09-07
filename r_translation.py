@@ -3,7 +3,7 @@ import polars as pl
 
 def join():
     bos_df = (
-        pl.read_csv("outputsplit.csv")
+        pl.read_csv("bos.csv")
         .rename(
             {
                 "data cleanup changes": "data cleanup changes 1",
@@ -15,7 +15,6 @@ def join():
         .with_columns(pl.col(pl.String).str.strip_chars(" "))
         .with_columns(genericName=pl.col("genus"))
     )
-    # Taxonsml <- Taxonsml[
 
     null_counts_df = (
         bos_df.null_count()
@@ -137,7 +136,7 @@ def join():
         # )
     )
     print("bos_df columns:", bos_df.columns)
-    bos_df.write_csv("bos.csv")
+    # bos_df.write_csv("bos.csv")
     # print("bos speciesId", bos_df.filter(pl.col('taxonID').is_null()))
 
     _l = [
