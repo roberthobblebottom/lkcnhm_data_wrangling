@@ -139,6 +139,7 @@ def bos_gbif_matching():
     )
 
     ### FIRST MATCHING WRANGLE ###############################################################
+    print("first matching wrangle")
     repeated_accepted_taxons = (
         pl.scan_csv("gbif/Taxon.tsv", separator="\t", quote_char=None, cache=True)
         .filter(pl.col("taxonomicStatus") == pl.lit("accepted"))
@@ -292,17 +293,13 @@ def bos_gbif_matching():
     # turn them into dataframes and writing to csv files
     updated_to_matching = pl.concat(updated_to_matching, rechunk=True, parallel=True)
     updated_to_matching.write_csv("first_matches_set_from_wrangling.csv")
-    print(updated_to_matching.shape)
 
     still_no_match = pl.concat(still_no_match, rechunk=True, parallel=True)
-    print(still_no_match.shape)
     still_no_match = still_no_match.join(
         updated_to_matching.select("speciesId"), on="speciesId", how="anti"
     )
-    print(still_no_match.shape)
-    # return
     ### SECOND MATCHING WRANGLE ##################################################################
-
+    print("second matching wrangle")
     taxons = (
         pl.scan_csv("gbif/Taxon.tsv", separator="\t", quote_char=None, cache=True)
         .filter(
@@ -312,6 +309,19 @@ def bos_gbif_matching():
         .filter(pl.col("kingdom").is_in(["Animalia", "Plantae"]))
         .select(["taxonID"] + priority_columns)
     )
+
+    def join_and_parentId_insertion(
+        match_on: pl.DataFrame, _taxons_subset: pl.DataFrame, on: list
+    ) -> pl.DataFrame:
+        return (
+            match_on.join(_taxons_subset, on=on)
+            .with_columns(
+                parentNameUsageID=pl.when(pl.col("taxonID").is_not_null())
+                .then("taxonID")
+                .otherwise("parentNameUsageID")
+            )
+            .drop("taxonID")
+        )
 
     # non nulls stopping at class ###########################################
     _filter_class = (
@@ -328,33 +338,26 @@ def bos_gbif_matching():
     ).filter(_filter_class)
 
     _x_class = (
-        still_no_match.filter(_filter_class)
-        .select("class", "phylum")
-        .group_by("class", "phylum")
-        .len()
+        still_no_match.filter(_filter_class).select("class").group_by("class").len()
     )
 
-    _taxons_subset_class = taxons.filter(
-        pl.col("family").is_null(),
-        pl.col("order").is_null(),
-        pl.col("genus").is_null(),
-        pl.col("class").is_in(_x_class["class"].unique().to_list()),
-        pl.col("specificEpithet").is_null(),
-        pl.col("infraspecificEpithet").is_null(),
-        pl.col("phylum").is_in(_x_class["phylum"].unique().to_list()),
-    ).select("taxonID", "class")
-    match_on_class = (
-        pl.LazyFrame(match_on_class)
-        .join(_taxons_subset_class, on="class")
-        .with_columns(
-            parentNameUsageID=pl.when(pl.col("taxonID").is_not_null())
-            .then("taxonID")
-            .otherwise("parentNameUsageID")
+    _taxons_subset_class = (
+        taxons.filter(
+            pl.col("family").is_null(),
+            pl.col("order").is_null(),
+            pl.col("genus").is_null(),
+            pl.col("class").is_in(_x_class["class"].unique().to_list()),
+            pl.col("specificEpithet").is_null(),
+            pl.col("infraspecificEpithet").is_null(),
+            # pl.col("phylum").is_in(_x_class["phylum"].unique().to_list()),
         )
-        .drop("taxonID")
-    ).collect()
-    # print(match_on_class.shape)
-    # return
+        .select("taxonID", "class")
+        .collect()
+    )
+    match_on_class = join_and_parentId_insertion(
+        match_on_class, _taxons_subset_class, ["class"]
+    )
+
     # non nulls stopping at order ###########################################
     _filter_order = (
         pl.col("class") != "",
@@ -369,10 +372,7 @@ def bos_gbif_matching():
         name_to_match=pl.when(_filter_order).then("order").otherwise(None)
     ).filter(_filter_order)
     _x_order = (
-        still_no_match.filter(_filter_order)
-        .select("order", "phylum")
-        .group_by("order", "phylum")
-        .len()
+        still_no_match.filter(_filter_order).select("order").group_by("order").len()
     )
 
     _taxons_subset_order = (
@@ -382,19 +382,12 @@ def bos_gbif_matching():
             pl.col("genus").is_null(),
             pl.col("specificEpithet").is_null(),
             pl.col("infraspecificEpithet").is_null(),
-            pl.col("phylum").is_in(_x_order["phylum"].unique().to_list()),
         )
         .select("taxonID", "order")
         .collect()
     )
-    match_on_order = (
-        match_on_order.join(_taxons_subset_order, on="order")
-        .with_columns(
-            parentNameUsageID=pl.when(pl.col("taxonID").is_not_null())
-            .then("taxonID")
-            .otherwise("parentNameUsageID")
-        )
-        .drop("taxonID")
+    match_on_order = join_and_parentId_insertion(
+        match_on_order, _taxons_subset_order, ["order"]
     )
 
     # non nulls stopping at family ######################################################
@@ -411,8 +404,8 @@ def bos_gbif_matching():
     ).filter(_filter_family)
     _x_family = (
         still_no_match.filter(_filter_family)
-        .select("family", "phylum", "order")
-        .group_by("family", "phylum", "order")
+        .select("family", "order")
+        .group_by("family", "order")
         .len()
     )
 
@@ -422,20 +415,13 @@ def bos_gbif_matching():
             pl.col("genus").is_null(),
             pl.col("specificEpithet").is_null(),
             pl.col("infraspecificEpithet").is_null(),
-            pl.col("phylum").is_in(_x_family["phylum"].unique().to_list()),
             pl.col("order").is_in(_x_family["order"].unique().to_list()),
         )
         .select("taxonID", "family")
         .collect()
     )
-    match_on_family = (
-        match_on_family.join(_taxons_subset_family, on="family")
-        .with_columns(
-            parentNameUsageID=pl.when(pl.col("taxonID").is_not_null())
-            .then("taxonID")
-            .otherwise("parentNameUsageID")
-        )
-        .drop("taxonID")
+    match_on_family = join_and_parentId_insertion(
+        match_on_family, _taxons_subset_family, ["family"]
     )
 
     # non nulls stopping at specificEpithet ###########################################
@@ -467,19 +453,12 @@ def bos_gbif_matching():
         .select("taxonID", "specificEpithet", "genus")
         .collect()
     )
-
-    match_on_specificEpithet = (
-        to_be_match_on_specificEpithet.join(
-            _taxons_subset_specificEpithet, on=["genus", "specificEpithet"]
-        )
-        .with_columns(
-            parentNameUsageID=pl.when(pl.col("taxonID").is_not_null())
-            .then("taxonID")
-            .otherwise("parentNameUsageID")
-        )
-        .drop("taxonID")
+    match_on_specificEpithet = join_and_parentId_insertion(
+        to_be_match_on_specificEpithet,
+        _taxons_subset_specificEpithet,
+        ["specificEpithet", "genus"],
     )
-
+    print(match_on_specificEpithet)
     # non nulls stopping at infraspecificEpithet ############################################
     _filter_infraspecificEpithet = (
         pl.col("class") != "",
@@ -510,16 +489,10 @@ def bos_gbif_matching():
         .collect()
     )
 
-    match_on_infraspecificEpithet = (
-        to_be_match_on_infraspecificEpithet.join(
-            _taxons_subset_infraspecificEpithet, on=["genus", "infraspecificEpithet"]
-        )
-        .with_columns(
-            parentNameUsageID=pl.when(pl.col("taxonID").is_not_null())
-            .then("taxonID")
-            .otherwise("parentNameUsageID")
-        )
-        .drop("taxonID")
+    match_on_infraspecificEpithet = join_and_parentId_insertion(
+        to_be_match_on_infraspecificEpithet,
+        _taxons_subset_infraspecificEpithet,
+        ["infraspecificEpithet", "genus"],
     )
 
     # combining all these second matching wrangling stage dataframes of the ranks ###################
@@ -534,7 +507,7 @@ def bos_gbif_matching():
             match_on_infraspecificEpithet.drop(_to_drop2),
         ]
     )
-    print(_new_match.shape)
+    print("second wrangle new matches", _new_match.shape)
     _new_match.write_csv("second_matches_set_from_wrangling.csv")
     _new_match = pl.concat(
         [

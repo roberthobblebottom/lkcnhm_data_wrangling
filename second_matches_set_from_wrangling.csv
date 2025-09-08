@@ -1,11 +1,4 @@
 speciesId,matched_taxonID,acceptedNameUsageID,taxonName,domain,kingdom,phylum,class,subclass,superorder,order,sub-order,infraorder,section,subsection,superfamily,family,subfamily,tribe,genus,subgenus,genericName,specificEpithet,infraspecificEpithet,taxonRank,taxonomicStatus,parentNameUsageID
-A-Ctenophora-000004,,,Comb jelly sp. 1,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
-A-Ctenophora-000005,,,Comb jelly sp. 2,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
-A-Ctenophora-000006,,,Comb jelly sp. 3,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
-A-Ctenophora-000007,,,Comb jelly sp. 4,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
-A-Ctenophora-000008,,,Comb jelly sp. 5,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
-A-Ctenophora-000009,,,Comb jelly sp. 6,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
-A-Ctenophora-000010,,,Benthic ctenophore sp. INT-1311,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
 A-Arth-Crus-Copepoda-000005,,,Copepod sp. 1,Eukarya,Animalia,Arthropoda,Copepoda,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,11545536
 A-Arth-Crus-Copepoda-000006,,,Copepod sp. 2,Eukarya,Animalia,Arthropoda,Copepoda,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,11545536
 A-Arth-Crus-Copepoda-000007,,,Copepod sp. 3,Eukarya,Animalia,Arthropoda,Copepoda,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,11545536
@@ -41,6 +34,13 @@ A-Arth-Crus-Ostracoda-000015,,,Ostracod sp. 15,Eukarya,Animalia,Arthropoda,Ostra
 A-Arth-Crus-Ostracoda-000016,,,Ostracod sp. 16,Eukarya,Animalia,Arthropoda,Ostracoda,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,353
 A-Arth-Hexa-Collembola-000001,,,Collembola sp. INT-0720,Eukarya,Animalia,Arthropoda,Collembola,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,10713444
 A-Arth-Hexa-Collembola-000002,,,Collembola sp.,Eukarya,Animalia,Arthropoda,Collembola,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,10713444
+A-Ctenophora-000004,,,Comb jelly sp. 1,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
+A-Ctenophora-000005,,,Comb jelly sp. 2,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
+A-Ctenophora-000006,,,Comb jelly sp. 3,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
+A-Ctenophora-000007,,,Comb jelly sp. 4,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
+A-Ctenophora-000008,,,Comb jelly sp. 5,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
+A-Ctenophora-000009,,,Comb jelly sp. 6,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
+A-Ctenophora-000010,,,Benthic ctenophore sp. INT-1311,Eukarya,Animalia,Ctenophora,Tentaculata,"","","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,365
 A-Arth-Arac-Ambl-000001,,,Amblypygi sp. ZRC_ENT00014159,Eukarya,Animalia,Arthropoda,Arachnida,"","",Amblypygi,"","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,1160
 A-Arth-Arac-Aran-000051,,,Araneae sp. ZRC_BDP0072018,Eukarya,Animalia,Arthropoda,Arachnida,"","",Araneae,"","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,1496
 A-Arth-Arac-Opil-000002,,,Opiliones sp. ZRCBDP_0071973,Eukarya,Animalia,Arthropoda,Arachnida,"","",Opiliones,"","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,907
@@ -936,10 +936,6 @@ A-Arth-Crus-Cirripedia-000015,,,Barnacle sp. SUB-1448,Eukarya,Animalia,Arthropod
 A-Arth-Crus-Cirripedia-000016,,,Barnacle sp. SEA-8136,Eukarya,Animalia,Arthropoda,Maxillopoda,"","",Sessilia,"","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,1426
 A-Arth-Crus-Cirripedia-000017,,,Goose barnacle sp. TR4712A-045,Eukarya,Animalia,Arthropoda,Maxillopoda,"","",Pedunculata,"","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,697
 A-Arth-Crus-Cirripedia-000026,,,Barnacle sp.,Eukarya,Animalia,Arthropoda,Maxillopoda,"","",Sessilia,"","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,1426
-A-Ctenophora-000001,,,Coeloplana sp. 1,Eukarya,Animalia,Ctenophora,Tentaculata,"","",Platyctenida,"","","","","",Coeloplanidae,"","","","",Coeloplana,"","",BOSuncornirmedSpecies,BOSunformired,9596
-A-Ctenophora-000002,,,Coeloplana sp. 2,Eukarya,Animalia,Ctenophora,Tentaculata,"","",Platyctenida,"","","","","",Coeloplanidae,"","","","",Coeloplana,"","",BOSuncornirmedSpecies,BOSunformired,9596
-A-Ctenophora-000003,,,Coeloplana sp. 3,Eukarya,Animalia,Ctenophora,Tentaculata,"","",Platyctenida,"","","","","",Coeloplanidae,"","","","",Coeloplana,"","",BOSuncornirmedSpecies,BOSunformired,9596
-A-Ctenophora-000011,,,Coeloplana sp.,Eukarya,Animalia,Ctenophora,Tentaculata,"","",Platyctenida,"","","","","",Coeloplanidae,"","","","",Coeloplana,"","",BOSuncornirmedSpecies,BOSunformired,9596
 A-Arth-Arac-Aran-000003,,,"Araneidae sp. ""ZRC_BDP0050080""",Eukarya,Animalia,Arthropoda,Arachnida,"","",Araneae,"",Araneomorphae,"","","",Araneidae,"","","","","","","",BOSuncornirmedSpecies,BOSunformired,7359
 A-Arth-Arac-Aran-000004,,,"Hahniidae sp. ""ZRC_BDP0050902""",Eukarya,Animalia,Arthropoda,Arachnida,"","",Araneae,"",Araneomorphae,"","","",Hahniidae,"","","","","","","",BOSuncornirmedSpecies,BOSunformired,7386
 A-Arth-Arac-Aran-000013,,,"Salticidae sp. ""ZRC_BDP0057873""",Eukarya,Animalia,Arthropoda,Arachnida,"","",Araneae,"",Araneomorphae,"","","",Salticidae,"","","","","","","",BOSuncornirmedSpecies,BOSunformired,5644
@@ -2025,6 +2021,10 @@ A-Arth-Crus-Cirripedia-000020,,,Lepas sp.,Eukarya,Animalia,Arthropoda,Maxillopod
 A-Arth-Crus-Cirripedia-000022,,,Pyrgoma sp.,Eukarya,Animalia,Arthropoda,Maxillopoda,"","",Sessilia,"","","","","",Pyrgomatidae,"","","","",Pyrgoma,"","",BOSuncornirmedSpecies,BOSunformired,9163
 A-Arth-Crus-Cirripedia-000023,,,Tetraclita sp.,Eukarya,Animalia,Arthropoda,Maxillopoda,"","",Sessilia,"","","","","",Tetraclitidae,"","","","",Tetraclita,"","",BOSuncornirmedSpecies,BOSunformired,5112
 A-Arth-Crus-Cirripedia-000024,,,Thompsonia sp.,Eukarya,Animalia,Arthropoda,Maxillopoda,"","",Akentrogonida,"","","","","",Thompsoniidae,"","","","",Thompsonia,"","",BOSuncornirmedSpecies,BOSunformired,8958
+A-Ctenophora-000001,,,Coeloplana sp. 1,Eukarya,Animalia,Ctenophora,Tentaculata,"","",Platyctenida,"","","","","",Coeloplanidae,"","","","",Coeloplana,"","",BOSuncornirmedSpecies,BOSunformired,9596
+A-Ctenophora-000002,,,Coeloplana sp. 2,Eukarya,Animalia,Ctenophora,Tentaculata,"","",Platyctenida,"","","","","",Coeloplanidae,"","","","",Coeloplana,"","",BOSuncornirmedSpecies,BOSunformired,9596
+A-Ctenophora-000003,,,Coeloplana sp. 3,Eukarya,Animalia,Ctenophora,Tentaculata,"","",Platyctenida,"","","","","",Coeloplanidae,"","","","",Coeloplana,"","",BOSuncornirmedSpecies,BOSunformired,9596
+A-Ctenophora-000011,,,Coeloplana sp.,Eukarya,Animalia,Ctenophora,Tentaculata,"","",Platyctenida,"","","","","",Coeloplanidae,"","","","",Coeloplana,"","",BOSuncornirmedSpecies,BOSunformired,9596
 A-Vert-Pisces-000179,,,Ariidae sp.,Eukarya,Animalia,Chordata,Actinopterygii,"","",Siluriformes,"","","","","",Ariidae,"","","","","","","",BOSuncornirmedSpecies,BOSunformired,4512
 A-Vert-Pisces-000556,,,Plotosidae sp. 1,Eukarya,Animalia,Chordata,Actinopterygii,"","",Siluriformes,"","","","","",Plotosidae,"","","","","","","",BOSuncornirmedSpecies,BOSunformired,5164
 A-Vert-Pisces-000557,,,Plotosidae sp. 2,Eukarya,Animalia,Chordata,Actinopterygii,"","",Siluriformes,"","","","","",Plotosidae,"","","","","","","",BOSuncornirmedSpecies,BOSunformired,5164
