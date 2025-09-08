@@ -1,6 +1,6 @@
 # LKCNHM Data Wrangling for centralised portal development
 
-Darwin Core Standards  
+Biodiversity of Singapore to gbif matching data wrangling.
 
 The following commands is for `bash` environment.  
   
