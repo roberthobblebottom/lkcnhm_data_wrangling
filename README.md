@@ -10,4 +10,4 @@ you may install the required packages via `uv pip install -r requirements.txt`
 
 `python3 bos_gbif_match.py` to run the wrangling. Requires `gbif/Taxon.tsv` (not in repo) and `bos_cleaned.csv`
 
-(You can download gbif from here)[https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36]
+[You can download gbif from here](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36)
