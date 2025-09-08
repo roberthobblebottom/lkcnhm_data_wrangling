@@ -15,7 +15,7 @@ wheels/
 *jpg
 *odt*
 gbif/
-MatchinngTexonBB.R
+MatchingTaxonBB.R
 .Rhistory
 # *.csv
 __marimo__/cache/
