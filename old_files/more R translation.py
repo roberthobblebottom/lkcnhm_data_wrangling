@@ -36,7 +36,9 @@ def _(contentious):
 
 @app.cell
 def _(mo):
-    mo.md(r"""nomatch lazyframe is for BOS data point that has no current match in gbif data set.""")
+    mo.md(
+        r"""nomatch lazyframe is for BOS data point that has no current match in gbif data set."""
+    )
     return
 
 
@@ -346,7 +348,9 @@ def _(still_no_match):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""# second matching wrangle of new `Taxons` df with `still_no_match`""")
+    mo.md(
+        r"""# second matching wrangle of new `Taxons` df with `still_no_match`"""
+    )
     return
 
 
@@ -509,7 +513,9 @@ def _(match_on_order):
 
 @app.cell
 def _(mo):
-    mo.md(r"""## stops at family, current_feature contains both phylum and order""")
+    mo.md(
+        r"""## stops at family, current_feature contains both phylum and order"""
+    )
     return
 
 
