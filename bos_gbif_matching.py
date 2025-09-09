@@ -10,7 +10,7 @@ TODO: rename some variables to increase readability. add more comments
 
 
 def bos_gbif_matching():
-    bos_df = (
+    bos = (
         pl.read_csv("bos.csv")
         .rename(
             {
@@ -24,13 +24,13 @@ def bos_gbif_matching():
         .with_columns(genericName=pl.col("genus"))
     )
 
-    null_counts_df = (
-        bos_df.null_count()
+    null_counts = (
+        bos.null_count()
         .transpose(include_header=True)
         .rename({"column": "feature", "column_0": "len"})
     )
     columns_to_drop_as_all_nulls = (
-        null_counts_df.filter(null_counts_df["len"] == bos_df.shape[0])
+        null_counts.filter(null_counts["len"] == bos.shape[0])
         .transpose()[0, :]
         .transpose()
         .to_series()
@@ -51,9 +51,9 @@ def bos_gbif_matching():
         "cleanup changes/comments",
         "subphylum",
     ]
-    bos_df = (
+    bos = (
         (
-            bos_df.drop(columns_to_drop_as_all_nulls)
+            bos.drop(columns_to_drop_as_all_nulls)
             .drop(columns_to_drop_as_they_are_just_changes_logs)
             .select(~pl.selectors.starts_with("Unnamed"))
         )
@@ -128,20 +128,6 @@ def bos_gbif_matching():
             .str.replace_all("<i>", "")
             .str.replace_all("</i>", ""),
         )
-        # Not working:
-        # .with_columns(
-        #     genus=pl.when(
-        #         (pl.col("genus").is_null()) & (pl.col("specificEpithet").is_not_null())
-        #     )
-        #     .then(
-        #         pl.col("taxonName")
-        #         .str.split(" ")
-        #         .list[0]
-        #         .str.replace("<i>", "")
-        #         .str.replace("</i>", "")
-        #     )
-        #     .otherwise("genus")
-        # )
     )
     _filter = pl.col("taxonomicStatus").is_in(
         [
@@ -178,9 +164,9 @@ def bos_gbif_matching():
         )
     )
 
-    matching_df = (
+    matching = (
         taxon_ranked_only.join(
-            other=pl.LazyFrame(bos_df),
+            other=pl.LazyFrame(bos),
             on=["genericName", "specificEpithet", "infraspecificEpithet"],
             how="right",
         )
@@ -221,14 +207,12 @@ def bos_gbif_matching():
 
     # matching and contetnious split
     # What makes a data point contentious is where it has duplicate speciesId.
-    matching_df = matching_df.filter(~pl.col("speciesId").is_duplicated()).with_columns(
+    matching = matching.filter(~pl.col("speciesId").is_duplicated()).with_columns(
         acceptedNameUsageID=pl.col("acceptedNameUsageID")
         .fill_null(pl.lit(None))
         .cast(pl.Int64)
     )
-    contentious = matching_df.filter(
-        (pl.col("speciesId").is_duplicated())
-    ).with_columns(
+    contentious = matching.filter((pl.col("speciesId").is_duplicated())).with_columns(
         acceptedNameUsageID=pl.col("acceptedNameUsageID")
         .fill_null(pl.lit(None))
         .cast(pl.Int64)
@@ -239,18 +223,18 @@ def bos_gbif_matching():
         & (pl.col("matched_taxonID").is_in(pl.col("acceptedNameUsageID").implode()))
     )
 
-    unique_contentius_speciesId = (
+    unique_contentious_speciesId = (
         unique_contentious.select("speciesId").collect().to_series().implode()
     )  # Just the speciesIds
     contentious = contentious.filter(
-        ~pl.col("speciesId").is_in(unique_contentius_speciesId)
-    )  # Removing...
+        ~pl.col("speciesId").is_in(unique_contentious_speciesId)
+    )  # Removing unique conentious
 
-    matching_df = pl.concat(
-        [matching_df, unique_contentious],
+    matching = pl.concat(
+        [matching, unique_contentious],
     )
 
-    matching_df = matching_df.with_columns(
+    matching = matching.with_columns(
         genus=pl.when(
             (pl.col("genus").is_null()) & (pl.col("specificEpithet").is_not_null())
         )
@@ -258,8 +242,8 @@ def bos_gbif_matching():
         .otherwise("genus")
     )
 
-    no_match_df = (
-        matching_df.filter(pl.col("matched_taxonID").is_null())
+    no_match = (
+        matching.filter(pl.col("matched_taxonID").is_null())
         .with_columns(
             taxonRank=pl.lit("BOSuncornirmedSpecies"),
             taxonomicStatus=pl.lit("BOSunformired"),
@@ -329,7 +313,7 @@ def bos_gbif_matching():
     for _col in _reversed_priority_columns:
         for _match in RAT_feats["matches"]:
             # skipping those that are not in RAT_feats
-            if _match not in no_match_df[_col].to_list():
+            if _match not in no_match[_col].to_list():
                 continue
 
             taxon_data_to_select_from = _collected_repeated_taxons.filter(
@@ -362,7 +346,7 @@ def bos_gbif_matching():
             ]
 
             # Getting the _no_match_subset_to_update section
-            _no_match_subset_to_update = no_match_df.filter(
+            _no_match_subset_to_update = no_match.filter(
                 pl.col(_col) == _match,
             )
             _x = _reversed_priority_columns[:-3]
@@ -376,7 +360,7 @@ def bos_gbif_matching():
                     pl.col(feature_to_find_nulls) == ""
                 )
                 if _no_match_subset_to_update.is_empty():
-                    still_no_match_subset = no_match_df.filter(
+                    still_no_match_subset = no_match.filter(
                         pl.col(_col) == _match,
                     ).with_columns(
                         current_feature=pl.lit(_col), current_name=pl.lit(_match)
@@ -589,7 +573,7 @@ def bos_gbif_matching():
         _taxons_subset_specificEpithet,
         ["specificEpithet", "genus"],
     )
-    print(match_on_specificEpithet)
+    # print(match_on_specificEpithet)
     # non nulls stopping at infraspecificEpithet ############################################
     _filter_infraspecificEpithet = (
         pl.col("class") != "",
@@ -638,7 +622,7 @@ def bos_gbif_matching():
             match_on_infraspecificEpithet.drop(_to_drop2),
         ]
     )
-    print("second wrangle new matches", _new_match.shape)
+    # print("second wrangle new matches", _new_match.shape)
     _new_match.write_csv("second_matches_set_from_wrangling.csv")
     _new_match = pl.concat(
         [
@@ -649,14 +633,14 @@ def bos_gbif_matching():
         ]
     )
     _new_match.write_csv("updated_to_matching.csv")
-    _no_match_df = no_match_df.join(
+    _no_match = no_match.join(
         _new_match.select("speciesId"), on="speciesId", how="anti"
     )
-    _no_match_df.write_csv("no_match.csv")
+    _no_match.write_csv("no_match.csv")
 
-    print("shape of all matches:", _new_match.shape[0])
-    print("shape of nomatch before any matches", no_match_df.shape[0])
-    print("remainding no match shape", _no_match_df.shape)
+    # print("shape of all matches:", _new_match.shape[0])
+    # print("shape of nomatch before any matches", no_match.shape[0])
+    # print("remainding no match shape", _no_match.shape)
 
 
 if __name__ == "__main__":
