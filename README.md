@@ -1,6 +1,6 @@
 # LKCNHM Data Wrangling for centralised portal development
 
-# Biodiversity of Singapore to gbif matching data wrangling.
+Biodiversity of Singapore to gbif matching data wrangling.
 
 The following commands is for `bash` cli and `uv` python environment.   
   
