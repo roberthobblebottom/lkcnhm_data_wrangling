@@ -10,8 +10,139 @@ TODO: rename some variables to increase readability. add more comments
 
 
 def bos_gbif_matching():
-    # old codes to clean outputsplit.csv or bos.csv is in r_translation.py
-    bos_df = pl.read_csv("bos_cleaned.csv")
+    bos_df = (
+        pl.read_csv("bos.csv")
+        .rename(
+            {
+                "data cleanup changes": "data cleanup changes 1",
+                "species": "specificEpithet",
+                "subspecies": "infraspecificEpithet",
+                "domain ": "domain",
+            }
+        )
+        .with_columns(pl.col(pl.String).str.strip_chars(" "))
+        .with_columns(genericName=pl.col("genus"))
+    )
+
+    null_counts_df = (
+        bos_df.null_count()
+        .transpose(include_header=True)
+        .rename({"column": "feature", "column_0": "len"})
+    )
+    columns_to_drop_as_all_nulls = (
+        null_counts_df.filter(null_counts_df["len"] == bos_df.shape[0])
+        .transpose()[0, :]
+        .transpose()
+        .to_series()
+        .to_list()
+    )
+    columns_to_drop_as_they_are_just_changes_logs = [
+        "cleanup changes ",
+        "Data cleanup changes",
+        "data cleanup changes 1",
+        "changes",
+        "cleanup changes",
+        "Unnamed: 18",
+        "Unnamed: 17",
+        "Unnamed: 19",
+        "query",
+        "query ",
+        "issue",
+        "cleanup changes/comments",
+        "subphylum",
+    ]
+    bos_df = (
+        (
+            bos_df.drop(columns_to_drop_as_all_nulls)
+            .drop(columns_to_drop_as_they_are_just_changes_logs)
+            .select(~pl.selectors.starts_with("Unnamed"))
+        )
+        .with_columns(
+            infraspecificEpithet=pl.when(pl.col("infraspecificEpithet").is_null())
+            .then(pl.lit(""))
+            .otherwise(pl.col("infraspecificEpithet"))
+        )
+        .with_columns(
+            infraspecificEpithet=pl.when(
+                (pl.col("genericName") == "Glenea")
+                & (pl.col("specificEpithet") == "mathemathica")
+            )
+            .then(pl.lit("mathematica"))
+            .otherwise(pl.col("infraspecificEpithet"))
+        )
+        .with_columns(
+            specificEpithet=pl.when(
+                (pl.col("genericName") == "Glenea")
+                & (pl.col("specificEpithet") == "mathemathica")
+            )
+            .then(pl.lit("mathematica"))
+            .when(
+                (pl.col("genericName") == "Bavia")
+                & (pl.col("specificEpithet") == "sexupunctata")
+            )
+            .then(pl.lit("sexpunctata"))
+            .when(
+                (pl.col("genericName") == "Omoedus")
+                & (pl.col("specificEpithet") == "ephippigera")
+            )
+            .then(pl.lit("ephippiger"))
+            .when(
+                (pl.col("genericName") == "Byblis")
+                & (pl.col("specificEpithet") == "kallartha")
+            )
+            .then(pl.lit("kallarthra"))
+            .when(
+                (pl.col("genericName") == "Alcockpenaeopsis")
+                & (pl.col("specificEpithet") == "hungerfordi")
+            )
+            .then(pl.lit("hungerfordii"))
+            .when(
+                (pl.col("genericName") == "Pseudosesarma")
+                & (pl.col("specificEpithet") == "edwardsi")
+            )
+            .then(pl.lit("edwardsii"))
+            .when(
+                (pl.col("genericName") == "Urocaridella")
+                & (pl.col("specificEpithet") == "antonbruuni")
+            )
+            .then(pl.lit("antonbruunii"))
+            .when(
+                (pl.col("genericName") == "Ocypode")
+                & (pl.col("specificEpithet") == "cordimanus")
+            )
+            .then(pl.lit("cordimana"))
+            .otherwise(pl.col("specificEpithet"))
+        )
+        .with_columns(
+            domain=pl.lit("Eukarya"),
+            kingdom=pl.when((pl.col("phylum").is_in(["Ascomycota", "Basidiomycota"])))
+            .then(pl.lit("fungi"))
+            .when(pl.col("phylum") == "Cyanobacteria")
+            .then(pl.lit("Bacteria"))
+            .when(pl.col("phylum") == "Ciliophora")
+            .then(pl.lit("Protista"))
+            .otherwise(pl.lit("Animalia")),
+        )
+        .with_columns(
+            taxonName=pl.col("taxonName")
+            .str.replace_all("<i>", "")
+            .str.replace_all("</i>", ""),
+        )
+        # Not working:
+        # .with_columns(
+        #     genus=pl.when(
+        #         (pl.col("genus").is_null()) & (pl.col("specificEpithet").is_not_null())
+        #     )
+        #     .then(
+        #         pl.col("taxonName")
+        #         .str.split(" ")
+        #         .list[0]
+        #         .str.replace("<i>", "")
+        #         .str.replace("</i>", "")
+        #     )
+        #     .otherwise("genus")
+        # )
+    )
     _filter = pl.col("taxonomicStatus").is_in(
         [
             "accepted",
