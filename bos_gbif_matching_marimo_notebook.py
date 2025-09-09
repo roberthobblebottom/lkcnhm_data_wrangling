@@ -1,15 +1,59 @@
-import polars as pl
+import marimo
 
-"""
-combination of r_transaltion.py script and more_r_translation.py marimo notebook
+__generated_with = "0.15.2"
+app = marimo.App(width="full")
 
-for the second matching wrangle, the parts for specificEpithet and infraSpecificEpithet doesn't match with all results 
 
-TODO: rename some variables to increase readability. add more comments
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+    # Introduction  
+
+    The documentation of this notebook is for those who are new to `python` and `polars`
+
+    combination of r_transaltion.py script and more_r_translation.py marimo notebook
+
+    for the second matching wrangle, the parts for specificEpithet and infraSpecificEpithet doesn't match with many results.
+
+    [Read the powers getting started guide](https://docs.pola.rs/user-guide/getting-started/)
+    You may check out the `Polars` API References and tutorials for more information.
+
+    String values are denoted with double quotations and contains unicode characters like alphabets, number and etc. eg: "test"
+
+    Booleans are binary values that are either 'True' or 'False'.  
+
+    # Imports
     """
+    )
+    return
 
 
-def bos_gbif_matching():
+@app.cell
+def _():
+    import marimo as mo
+    import polars as pl
+    return mo, pl
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+    `with_columns()`:[ Adds columns to this DataFrame. Added columns will replace existing columns with the same name.](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.with_columns.html)
+
+    `pl.col()`: [Create an expression representing column(s) in a DataFrame.](https://docs.pola.rs/api/python/stable/reference/expressions/col.html)  
+
+     `.str`: to get the string functions so that you could chain it with other funcitons such as `strip_chars()`   
+
+    `strip_char()`: strip a certain characters that is present in the start or end of the string
+    """
+    )
+    return
+
+
+@app.cell
+def _(pl):
     bos = (
         pl.read_csv("bos.csv")
         .rename(
@@ -23,7 +67,17 @@ def bos_gbif_matching():
         .with_columns(pl.col(pl.String).str.strip_chars(" "))
         .with_columns(genericName=pl.col("genus"))
     )
+    return (bos,)
 
+
+@app.cell
+def _(mo):
+    mo.md(r"""`transpose()`: matrix transpose the tabular data.""")
+    return
+
+
+@app.cell
+def _(bos):
     null_counts = (
         bos.null_count()
         .transpose(include_header=True)
@@ -36,6 +90,11 @@ def bos_gbif_matching():
         .to_series()
         .to_list()
     )
+    return (columns_to_drop_as_all_nulls,)
+
+
+@app.cell
+def _():
     columns_to_drop_as_they_are_just_changes_logs = [
         "cleanup changes ",
         "Data cleanup changes",
@@ -51,7 +110,43 @@ def bos_gbif_matching():
         "cleanup changes/comments",
         "subphylum",
     ]
-    bos = (
+    return (columns_to_drop_as_they_are_just_changes_logs,)
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+    `~`: negation of the predicate expressions.  
+    `fitler()` : [Filter rows, retaining those that match the given predicate expression(s). Only rows where the predicate resolves as True are retained; when the predicate result is False (or null), the row is discarded.](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.filter.html)  
+
+    `select()`: select specific columns 
+
+    `when().then().otherwise()`: Like if else statement. 
+    ```
+    e.g. infraspecificEpithet=pl.when(pl.col("infraspecificEpithet").is_null())
+            .then(pl.lit(""))
+            .otherwise(pl.col("infraspecificEpithet"))
+    ```
+    explaination: when values in infraspecificEpithet column is null then populate it with the literal empty string (as denoted as "") otherise populate it with infraspecificEpithet.  
+
+
+    `lit()`: Tells the intepretator that you are refering to a literal string not any columns.  
+
+    `pl.col("col1").is_in(["a","b"])`: is_in is used to check and filter in values that are the list of strings, these strings do not refer to any columns.
+    """
+    )
+    return
+
+
+@app.cell
+def _(
+    bos,
+    columns_to_drop_as_all_nulls,
+    columns_to_drop_as_they_are_just_changes_logs,
+    pl,
+):
+    bos_cleaned = (
         (
             bos.drop(columns_to_drop_as_all_nulls)
             .drop(columns_to_drop_as_they_are_just_changes_logs)
@@ -115,7 +210,9 @@ def bos_gbif_matching():
         )
         .with_columns(
             domain=pl.lit("Eukarya"),
-            kingdom=pl.when((pl.col("phylum").is_in(["Ascomycota", "Basidiomycota"])))
+            kingdom=pl.when(
+                (pl.col("phylum").is_in(["Ascomycota", "Basidiomycota"]))
+            )
             .then(pl.lit("fungi"))
             .when(pl.col("phylum") == "Cyanobacteria")
             .then(pl.lit("Bacteria"))
@@ -129,6 +226,19 @@ def bos_gbif_matching():
             .str.replace_all("</i>", ""),
         )
     )
+    return (bos_cleaned,)
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""Lazyframes from `pl.scan_csv()` is use to efficiently process big csv files."""
+    )
+    return
+
+
+@app.cell
+def _(pl):
     _filter = pl.col("taxonomicStatus").is_in(
         [
             "accepted",
@@ -158,15 +268,39 @@ def bos_gbif_matching():
         )
         .filter((pl.col("genus") != "") & (pl.col("specificEpithet") != ""))
         .with_columns(
-            infraspecificEpithet=pl.when((pl.col("infraspecificEpithet").is_null()))
+            infraspecificEpithet=pl.when(
+                (pl.col("infraspecificEpithet").is_null())
+            )
             .then(pl.lit(""))
             .otherwise(pl.col("infraspecificEpithet"))
         )
     )
+    return (taxon_ranked_only,)
 
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+    `cast()`: Cast column(s) in to a specific polars datatype.  
+
+    `collect()`: Materialize this LazyFrame into a DataFrame. It is a slow function so use it sparingly and appropriately.
+
+    `is_duplicated()`: a expression function for checking if a row's set of values is duplicated from one of the previous row's set of values.  
+
+    `fill_null()`: fills null values in a column with a particular string.
+
+    `list[0]`: gets the first element of the list. the numbering starts from 0 because of computer's base 2 counting standards.
+    """
+    )
+    return
+
+
+@app.cell
+def _(bos_cleaned, pl, taxon_ranked_only):
     matching = (
         taxon_ranked_only.join(
-            other=pl.LazyFrame(bos),
+            other=pl.LazyFrame(bos_cleaned),
             on=["genericName", "specificEpithet", "infraspecificEpithet"],
             how="right",
         )
@@ -204,7 +338,6 @@ def bos_gbif_matching():
             .alias("infraspecificEpithet")
         )
     )
-
     # matching and contetnious split
     # What makes a data point contentious is where it has duplicate speciesId.
     matching = matching.filter(~pl.col("speciesId").is_duplicated()).with_columns(
@@ -212,7 +345,9 @@ def bos_gbif_matching():
         .fill_null(pl.lit(None))
         .cast(pl.Int64)
     )
-    contentious = matching.filter((pl.col("speciesId").is_duplicated())).with_columns(
+    contentious = matching.filter(
+        (pl.col("speciesId").is_duplicated())
+    ).with_columns(
         acceptedNameUsageID=pl.col("acceptedNameUsageID")
         .fill_null(pl.lit(None))
         .cast(pl.Int64)
@@ -220,7 +355,11 @@ def bos_gbif_matching():
 
     unique_contentious = contentious.filter(
         (pl.col("acceptedNameUsageID").is_null())
-        & (pl.col("matched_taxonID").is_in(pl.col("acceptedNameUsageID").implode()))
+        & (
+            pl.col("matched_taxonID").is_in(
+                pl.col("acceptedNameUsageID").implode()
+            )
+        )
     )
 
     unique_contentious_speciesId = (
@@ -252,9 +391,23 @@ def bos_gbif_matching():
         .fill_null("")
         .collect()
     )
+    return (no_match,)
 
-    ### FIRST MATCHING WRANGLE ###############################################################
-    print("first matching wrangle")
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(
+        r"""
+    # First Matching
+
+    `sort()`: sort by a specific column(s) in ascending order
+    """
+    )
+    return
+
+
+@app.cell
+def _(pl):
     repeated_accepted_taxons = (
         pl.scan_csv("gbif/Taxon.tsv", separator="\t", quote_char=None, cache=True)
         .filter(pl.col("taxonomicStatus") == pl.lit("accepted"))
@@ -264,6 +417,11 @@ def bos_gbif_matching():
         .sort("canonicalName")
         .filter(pl.col("canonicalName").is_duplicated())
     )
+    return (repeated_accepted_taxons,)
+
+
+@app.cell
+def _():
     priority_columns = [
         "infraspecificEpithet",
         "specificEpithet",
@@ -274,7 +432,28 @@ def bos_gbif_matching():
         "phylum",
         "kingdom",
     ]
+    return (priority_columns,)
 
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+    `vstack()`: Stack the new dataframe vertically.  
+    `group_by()`: group the data by some column(s) and then do an operation such as `mean()`, `len()`, `agg()` and etc.  
+    `agg()`: a function to work on the groups.   
+
+    This line below is used to join the strings in the group using the delimiter ", "
+    `.agg(pl.col("feature_that_is_equal_to_canonicalName").str.join(", "))`  
+
+    `split()`: used to split a string type column into a list of strings.
+    """
+    )
+    return
+
+
+@app.cell
+def _(pl, priority_columns, repeated_accepted_taxons):
     _schema = {
         "feature_that_is_equal_to_canonicalName": pl.String,
         "matches": pl.String,
@@ -301,10 +480,46 @@ def bos_gbif_matching():
     RAT_feats = (
         RAT_interim.group_by("matches")
         .agg(pl.col("feature_that_is_equal_to_canonicalName").str.join(", "))
-        .with_columns(pl.col("feature_that_is_equal_to_canonicalName").str.split(", "))
+        .with_columns(
+            pl.col("feature_that_is_equal_to_canonicalName").str.split(", ")
+        )
         .sort("feature_that_is_equal_to_canonicalName")
     )
+    return (RAT_feats,)
 
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""
+    `copy()`: deep copy, you may search it up to read more about it.  
+    `reverse()`: reverse a list in place  
+    `index()`: The index() method in Python is used to find the position of the first occurrence of a specified value in a list or string.  
+
+    `bool()`: cast a value into boolean  
+    `None`: Null value in python
+    `append()`: add new element to the back of a list
+    `len()`: get length of string,list,etc  
+    `item()`: only in polars Series where there is one value, this will get that value out.  
+
+    This code returns a boolean `pl.Series`:
+    ```
+      (
+                            _no_match_subset_to_update[_col1].item()
+                            == taxon_data_to_select_from[
+                                int(not bool(selected_row_int)), :
+                            ]
+                        ) 
+                        ```  
+                      
+    # I stopped the documentation here as I was given the instruction that these instrucitons are no longer needed.
+    """
+    )
+    return
+
+
+@app.cell
+def _(RAT_feats, no_match, pl, priority_columns, repeated_accepted_taxons):
     updated_to_matching = []
     still_no_match = []
     _collected_repeated_taxons = repeated_accepted_taxons.collect().fill_null("")
@@ -342,7 +557,10 @@ def bos_gbif_matching():
 
             chosen_taxonId = taxon_data_to_select_from[selected_row_int, 0]
             other_taxonId = taxon_data_to_select_from[
-                int(not bool(selected_row_int)), 0
+                int(
+                    not bool(selected_row_int)
+                ),  # converts the int value into boolean than reverse the boolean before converting back to int.
+                0,
             ]
 
             # Getting the _no_match_subset_to_update section
@@ -376,7 +594,9 @@ def bos_gbif_matching():
                 for _col1 in ["class", "order", "family"]:
                     match *= (
                         _no_match_subset_to_update[_col1].item()
-                        == taxon_data_to_select_from[selected_row_int, :][_col1].item()
+                        == taxon_data_to_select_from[selected_row_int, :][
+                            _col1
+                        ].item()
                     )
                 if not match:
                     match = True
@@ -387,7 +607,9 @@ def bos_gbif_matching():
                                 int(not bool(selected_row_int)), :
                             ][_col1].item()
                         )  # searching in the three columns of interests for matches
-                    assert match  # Double check that there is no unmatch.  # noqa: E712
+                    assert (
+                        match
+                    )  # Double check that there is no unmatch.  # noqa: E712
                     temp = chosen_taxonId
                     chosen_taxonId = other_taxonId
                     other_taxonId = temp
@@ -406,15 +628,26 @@ def bos_gbif_matching():
             updated_to_matching.append(_no_match_subset_to_update)
 
     # turn them into dataframes and writing to csv files
-    updated_to_matching = pl.concat(updated_to_matching, rechunk=True, parallel=True)
+    updated_to_matching = pl.concat(
+        updated_to_matching, rechunk=True, parallel=True
+    )
     updated_to_matching.write_csv("first_matches_set_from_wrangling.csv")
 
     still_no_match = pl.concat(still_no_match, rechunk=True, parallel=True)
     still_no_match = still_no_match.join(
         updated_to_matching.select("speciesId"), on="speciesId", how="anti"
     )
-    ### SECOND MATCHING WRANGLE ##################################################################
-    print("second matching wrangle")
+    return still_no_match, updated_to_matching
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""# Second Matching Wrangle""")
+    return
+
+
+@app.cell
+def _(pl, priority_columns):
     taxons = (
         pl.scan_csv("gbif/Taxon.tsv", separator="\t", quote_char=None, cache=True)
         .filter(
@@ -424,6 +657,7 @@ def bos_gbif_matching():
         .filter(pl.col("kingdom").is_in(["Animalia", "Plantae"]))
         .select(["taxonID"] + priority_columns)
     )
+
 
     def join_and_parentId_insertion(
         match_on: pl.DataFrame, _taxons_subset: pl.DataFrame, on: list
@@ -437,8 +671,17 @@ def bos_gbif_matching():
             )
             .drop("taxonID")
         )
+    return join_and_parentId_insertion, taxons
 
-    # non nulls stopping at class ###########################################
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""## Non nulls stopped at class""")
+    return
+
+
+@app.cell
+def _(join_and_parentId_insertion, pl, still_no_match, taxons):
     _filter_class = (
         pl.col("class") != "",
         pl.col("order") == "",
@@ -453,7 +696,10 @@ def bos_gbif_matching():
     ).filter(_filter_class)
 
     _x_class = (
-        still_no_match.filter(_filter_class).select("class").group_by("class").len()
+        still_no_match.filter(_filter_class)
+        .select("class")
+        .group_by("class")
+        .len()
     )
 
     _taxons_subset_class = (
@@ -472,8 +718,17 @@ def bos_gbif_matching():
     match_on_class = join_and_parentId_insertion(
         match_on_class, _taxons_subset_class, ["class"]
     )
+    return (match_on_class,)
 
-    # non nulls stopping at order ###########################################
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""## non nulls stopping at order""")
+    return
+
+
+@app.cell
+def _(join_and_parentId_insertion, pl, still_no_match, taxons):
     _filter_order = (
         pl.col("class") != "",
         pl.col("order") != "",
@@ -487,7 +742,10 @@ def bos_gbif_matching():
         name_to_match=pl.when(_filter_order).then("order").otherwise(None)
     ).filter(_filter_order)
     _x_order = (
-        still_no_match.filter(_filter_order).select("order").group_by("order").len()
+        still_no_match.filter(_filter_order)
+        .select("order")
+        .group_by("order")
+        .len()
     )
 
     _taxons_subset_order = (
@@ -504,8 +762,17 @@ def bos_gbif_matching():
     match_on_order = join_and_parentId_insertion(
         match_on_order, _taxons_subset_order, ["order"]
     )
+    return (match_on_order,)
 
-    # non nulls stopping at family ######################################################
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""## non nulls stopping at family""")
+    return
+
+
+@app.cell
+def _(join_and_parentId_insertion, pl, still_no_match, taxons):
     _filter_family = (
         pl.col("class") != "",
         pl.col("order") != "",
@@ -538,8 +805,17 @@ def bos_gbif_matching():
     match_on_family = join_and_parentId_insertion(
         match_on_family, _taxons_subset_family, ["family"]
     )
+    return (match_on_family,)
 
-    # non nulls stopping at specificEpithet ###########################################
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""## non nulls stopping at specificEpithet""")
+    return
+
+
+@app.cell
+def _(join_and_parentId_insertion, pl, still_no_match, taxons):
     _filter_specificEpithet = (
         pl.col("class") != "",
         pl.col("order") != "",
@@ -573,8 +849,17 @@ def bos_gbif_matching():
         _taxons_subset_specificEpithet,
         ["specificEpithet", "genus"],
     )
-    # print(match_on_specificEpithet)
-    # non nulls stopping at infraspecificEpithet ############################################
+    return (match_on_specificEpithet,)
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""## non nulls stopping at infraspecificEpithet""")
+    return
+
+
+@app.cell
+def _(join_and_parentId_insertion, pl, still_no_match, taxons):
     _filter_infraspecificEpithet = (
         pl.col("class") != "",
         pl.col("order") != "",
@@ -598,7 +883,9 @@ def bos_gbif_matching():
             pl.col("infraspecificEpithet").is_in(
                 _x_infraspecificEpithet["infraspecificEpithet"].unique().to_list()
             ),
-            pl.col("genus").is_in(_x_infraspecificEpithet["genus"].unique().to_list()),
+            pl.col("genus").is_in(
+                _x_infraspecificEpithet["genus"].unique().to_list()
+            ),
         )
         .select("taxonID", "infraspecificEpithet", "genus")
         .collect()
@@ -609,8 +896,28 @@ def bos_gbif_matching():
         _taxons_subset_infraspecificEpithet,
         ["infraspecificEpithet", "genus"],
     )
+    return (match_on_infraspecificEpithet,)
 
-    # combining all these second matching wrangling stage dataframes of the ranks ###################
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(
+        r"""## Combining all these second matching wrangling stage dataframes of the ranks"""
+    )
+    return
+
+
+@app.cell
+def _(
+    match_on_class,
+    match_on_family,
+    match_on_infraspecificEpithet,
+    match_on_order,
+    match_on_specificEpithet,
+    no_match,
+    pl,
+    updated_to_matching,
+):
     _to_drop = ["current_feature", "current_name", "name_to_match"]
     _to_drop2 = ["current_feature", "current_name"]
     _new_match = pl.concat(
@@ -637,11 +944,8 @@ def bos_gbif_matching():
         _new_match.select("speciesId"), on="speciesId", how="anti"
     )
     _no_match.write_csv("no_match.csv")
-
-    # print("shape of all matches:", _new_match.shape[0])
-    # print("shape of nomatch before any matches", no_match.shape[0])
-    # print("remainding no match shape", _no_match.shape)
+    return
 
 
 if __name__ == "__main__":
-    bos_gbif_matching()
+    app.run()
