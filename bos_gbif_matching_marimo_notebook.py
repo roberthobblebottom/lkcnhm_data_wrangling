@@ -10,18 +10,9 @@ def _(mo):
         r"""
     # Introduction  
 
-    The documentation of this notebook is for those who are new to `python` and `polars`
-
-    combination of r_transaltion.py script and more_r_translation.py marimo notebook
+    combination of r_translation.py script and more_r_translation.py marimo notebook
 
     for the second matching wrangle, the parts for specificEpithet and infraSpecificEpithet doesn't match with many results.
-
-    [Read the powers getting started guide](https://docs.pola.rs/user-guide/getting-started/)
-    You may check out the `Polars` API References and tutorials for more information.
-
-    String values are denoted with double quotations and contains unicode characters like alphabets, number and etc. eg: "test"
-
-    Booleans are binary values that are either 'True' or 'False'.  
 
     # Imports
     """
@@ -34,22 +25,6 @@ def _():
     import marimo as mo
     import polars as pl
     return mo, pl
-
-
-@app.cell
-def _(mo):
-    mo.md(
-        r"""
-    `with_columns()`:[ Adds columns to this DataFrame. Added columns will replace existing columns with the same name.](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.with_columns.html)
-
-    `pl.col()`: [Create an expression representing column(s) in a DataFrame.](https://docs.pola.rs/api/python/stable/reference/expressions/col.html)  
-
-     `.str`: to get the string functions so that you could chain it with other funcitons such as `strip_chars()`   
-
-    `strip_char()`: strip a certain characters that is present in the start or end of the string
-    """
-    )
-    return
 
 
 @app.cell
@@ -111,32 +86,6 @@ def _():
         "subphylum",
     ]
     return (columns_to_drop_as_they_are_just_changes_logs,)
-
-
-@app.cell
-def _(mo):
-    mo.md(
-        r"""
-    `~`: negation of the predicate expressions.  
-    `fitler()` : [Filter rows, retaining those that match the given predicate expression(s). Only rows where the predicate resolves as True are retained; when the predicate result is False (or null), the row is discarded.](https://docs.pola.rs/api/python/stable/reference/dataframe/api/polars.DataFrame.filter.html)  
-
-    `select()`: select specific columns 
-
-    `when().then().otherwise()`: Like if else statement. 
-    ```
-    e.g. infraspecificEpithet=pl.when(pl.col("infraspecificEpithet").is_null())
-            .then(pl.lit(""))
-            .otherwise(pl.col("infraspecificEpithet"))
-    ```
-    explaination: when values in infraspecificEpithet column is null then populate it with the literal empty string (as denoted as "") otherise populate it with infraspecificEpithet.  
-
-
-    `lit()`: Tells the intepretator that you are refering to a literal string not any columns.  
-
-    `pl.col("col1").is_in(["a","b"])`: is_in is used to check and filter in values that are the list of strings, these strings do not refer to any columns.
-    """
-    )
-    return
 
 
 @app.cell
@@ -231,7 +180,9 @@ def _(
 
 @app.cell
 def _(mo):
-    mo.md(r"""Lazyframes from `pl.scan_csv()` is use to efficiently process big csv files.""")
+    mo.md(
+        r"""Lazyframes from `pl.scan_csv()` is use to efficiently process big csv files."""
+    )
     return
 
 
@@ -274,24 +225,6 @@ def _(pl):
         )
     )
     return (taxon_ranked_only,)
-
-
-@app.cell
-def _(mo):
-    mo.md(
-        r"""
-    `cast()`: Cast column(s) in to a specific polars datatype.  
-
-    `collect()`: Materialize this LazyFrame into a DataFrame. It is a slow function so use it sparingly and appropriately.
-
-    `is_duplicated()`: a expression function for checking if a row's set of values is duplicated from one of the previous row's set of values.  
-
-    `fill_null()`: fills null values in a column with a particular string.
-
-    `list[0]`: gets the first element of the list. the numbering starts from 0 because of computer's base 2 counting standards.
-    """
-    )
-    return
 
 
 @app.cell
@@ -484,36 +417,6 @@ def _(pl, priority_columns, repeated_accepted_taxons):
         .sort("feature_that_is_equal_to_canonicalName")
     )
     return (RAT_feats,)
-
-
-@app.cell
-def _(mo):
-    mo.md(
-        r"""
-    `copy()`: deep copy, you may search it up to read more about it.  
-    `reverse()`: reverse a list in place  
-    `index()`: The index() method in Python is used to find the position of the first occurrence of a specified value in a list or string.  
-
-    `bool()`: cast a value into boolean  
-    `None`: Null value in python
-    `append()`: add new element to the back of a list
-    `len()`: get length of string,list,etc  
-    `item()`: only in polars Series where there is one value, this will get that value out.  
-
-    This code returns a boolean `pl.Series`:
-    ```
-      (
-                            _no_match_subset_to_update[_col1].item()
-                            == taxon_data_to_select_from[
-                                int(not bool(selected_row_int)), :
-                            ]
-                        ) 
-                        ```  
-
-    # I stopped the documentation here as I was given the instruction that these instrucitons are no longer needed.
-    """
-    )
-    return
 
 
 @app.cell
@@ -899,7 +802,9 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""## Combining all these second matching wrangling stage dataframes of the ranks""")
+    mo.md(
+        r"""## Combining all these second matching wrangling stage dataframes of the ranks"""
+    )
     return
 
 
