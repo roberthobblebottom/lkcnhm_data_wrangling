@@ -19,3 +19,8 @@ uv pip install -r requirements.txt`
 Type `marimo edit bos_gbif_match_marimo_notebook.py` to run the wrangling. Requires `gbif/Taxon.tsv` (not in repo) and `bos.csv`  
   
 [You can download gbif from here](https://www.gbif.org/dataset/d7dddbf4-2cf0-4f39-9b2a-bb099caae36)
+
+# CSVs
+`updated_to_matching.csv` = `first_matches_set_from_wrangling.csv` + `second_matches_set_from_wrangling.csv`	   
+  
+`no_match.csv` are the remainders that does not have any `matched_taxonID` and does not match with any of `gbif` datapoints when used with the algorithms in the script. 

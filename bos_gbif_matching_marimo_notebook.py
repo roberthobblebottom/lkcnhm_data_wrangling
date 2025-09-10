@@ -231,9 +231,7 @@ def _(
 
 @app.cell
 def _(mo):
-    mo.md(
-        r"""Lazyframes from `pl.scan_csv()` is use to efficiently process big csv files."""
-    )
+    mo.md(r"""Lazyframes from `pl.scan_csv()` is use to efficiently process big csv files.""")
     return
 
 
@@ -511,7 +509,7 @@ def _(mo):
                             ]
                         ) 
                         ```  
-                      
+
     # I stopped the documentation here as I was given the instruction that these instrucitons are no longer needed.
     """
     )
@@ -901,9 +899,7 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""## Combining all these second matching wrangling stage dataframes of the ranks"""
-    )
+    mo.md(r"""## Combining all these second matching wrangling stage dataframes of the ranks""")
     return
 
 
