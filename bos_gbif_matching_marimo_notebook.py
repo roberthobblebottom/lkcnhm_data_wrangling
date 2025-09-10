@@ -10,7 +10,7 @@ def _(mo):
         r"""
     # Introduction  
 
-    combination of r_translation.py script and more_r_translation.py marimo notebook
+    combination of r_translation.py script and more_r_translation.py marimo notebook. these olds scripts are under `old_files`
 
     for the second matching wrangle, the parts for specificEpithet and infraSpecificEpithet doesn't match with many results.
 
@@ -313,12 +313,7 @@ def _(bos_cleaned, pl, taxon_ranked_only):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(
-        r"""
-    # First Matching Wrangle
-
-    """
-    )
+    mo.md(r"""# First Matching Wrangle""")
     return
 
 
@@ -546,7 +541,7 @@ def _(pl, priority_columns):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(
-        r"""##  matching for datapoints where phylumn to class ranks features are not empty"""
+        r"""##  matching for datapoints where phylumn to class ranks features are not empty strings"""
     )
     return
 
@@ -594,7 +589,9 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""## matching for datapoints where phylum to order ranks features are not empty""")
+    mo.md(
+        r"""## matching for datapoints where phylum to order ranks features are not empty strings"""
+    )
     return
 
 
@@ -684,7 +681,7 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(
-        r"""## matching for datapoints where phylum to specificEpithet ranks features are not empty"""
+        r"""## matching for datapoints where phylum to specificEpithet ranks features are not empty strings"""
     )
     return
 
@@ -730,7 +727,7 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(
-        r"""##matching for datapoints where phylum to infraspecificEpithet (Except for specificEpithet, no filters involved) ranks features are not empty."""
+        r"""##matching for datapoints where phylum to infraspecificEpithet (Except for specificEpithet, no filters involved) ranks features are not empty strings."""
     )
     return
 
