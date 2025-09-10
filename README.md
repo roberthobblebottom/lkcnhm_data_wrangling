@@ -21,9 +21,12 @@ Type `marimo edit bos_gbif_match_marimo_notebook.py` to run the wrangling. Requi
 This version is available in '_\_marimo__/bos_gbif_match_marimo_notebook.html'
 
 # CSVs
+`bos.csv` Biodiversity of Singapore dataset
 `updated_to_matching.csv` = `first_matches_set_from_wrangling.csv` + `second_matches_set_from_wrangling.csv`	   
   
 `no_match.csv` are the remainders that does not have any `matched_taxonID` and does not match with any of `gbif` datapoints when used with the algorithms in the script. 
+
+`gbif/Taxon.tsv` Gbif dataset. External download is required.:wq
   
 # Main packages used
 python

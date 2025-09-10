@@ -14,7 +14,7 @@ def _(mo):
 
     for the second matching wrangle, the parts for specificEpithet and infraSpecificEpithet doesn't match with many results.
 
-    # Imports
+    # Imports and Initial Preprocessing
     """
     )
     return
@@ -315,7 +315,7 @@ def _(bos_cleaned, pl, taxon_ranked_only):
 def _(mo):
     mo.md(
         r"""
-    # First Matching
+    # First Matching Wrangle
 
     """
     )
@@ -594,7 +594,7 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""## phylum to order ranks features are not empty""")
+    mo.md(r"""## matching for datapoints where phylum to order ranks features are not empty""")
     return
 
 
