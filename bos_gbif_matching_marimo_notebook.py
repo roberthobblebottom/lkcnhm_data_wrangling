@@ -46,12 +46,6 @@ def _(pl):
 
 
 @app.cell
-def _(mo):
-    mo.md(r"""`transpose()`: matrix transpose the tabular data.""")
-    return
-
-
-@app.cell
 def _(bos):
     null_counts = (
         bos.null_count()
@@ -176,14 +170,6 @@ def _(
         )
     )
     return (bos_cleaned,)
-
-
-@app.cell
-def _(mo):
-    mo.md(
-        r"""Lazyframes from `pl.scan_csv()` is use to efficiently process big csv files."""
-    )
-    return
 
 
 @app.cell
@@ -331,7 +317,6 @@ def _(mo):
         r"""
     # First Matching
 
-    `sort()`: sort by a specific column(s) in ascending order
     """
     )
     return
@@ -364,23 +349,6 @@ def _():
         "kingdom",
     ]
     return (priority_columns,)
-
-
-@app.cell
-def _(mo):
-    mo.md(
-        r"""
-    `vstack()`: Stack the new dataframe vertically.  
-    `group_by()`: group the data by some column(s) and then do an operation such as `mean()`, `len()`, `agg()` and etc.  
-    `agg()`: a function to work on the groups.   
-
-    This line below is used to join the strings in the group using the delimiter ", "
-    `.agg(pl.col("feature_that_is_equal_to_canonicalName").str.join(", "))`  
-
-    `split()`: used to split a string type column into a list of strings.
-    """
-    )
-    return
 
 
 @app.cell
@@ -577,7 +545,9 @@ def _(pl, priority_columns):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""## Non nulls stopped at class""")
+    mo.md(
+        r"""##  matching for datapoints where phylumn to class ranks features are not empty"""
+    )
     return
 
 
@@ -624,7 +594,7 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""## non nulls stopping at order""")
+    mo.md(r"""## phylum to order ranks features are not empty""")
     return
 
 
@@ -668,7 +638,9 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""## non nulls stopping at family""")
+    mo.md(
+        r"""## matching for datapoints where phylum to family ranks features are not empty"""
+    )
     return
 
 
@@ -711,7 +683,9 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""## non nulls stopping at specificEpithet""")
+    mo.md(
+        r"""## matching for datapoints where phylum to specificEpithet ranks features are not empty"""
+    )
     return
 
 
@@ -755,7 +729,9 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
 
 @app.cell(hide_code=True)
 def _(mo):
-    mo.md(r"""## non nulls stopping at infraspecificEpithet""")
+    mo.md(
+        r"""##matching for datapoints where phylum to infraspecificEpithet (Except for specificEpithet, no filters involved) ranks features are not empty."""
+    )
     return
 
 
