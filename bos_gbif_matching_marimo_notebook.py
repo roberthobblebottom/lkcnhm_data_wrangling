@@ -1,7 +1,7 @@
 import marimo
 
 __generated_with = "0.15.2"
-app = marimo.App(width="full", auto_download=["ipynb", "html"])
+app = marimo.App(width="full")
 
 
 @app.cell
@@ -528,7 +528,6 @@ def _(RAT_feats, collected_repeated_taxons, no_match, pl, priority_columns):
                         ].item()
                     )
                 if not match:
-                    # print('here')
                     match = True
                     for _col1 in [
                         "class",
@@ -552,15 +551,7 @@ def _(RAT_feats, collected_repeated_taxons, no_match, pl, priority_columns):
                         temp = chosen_taxonId
                         chosen_taxonId = other_taxonId
                         other_taxonId = temp
-                    # else:
-                # print(
-                # taxon_data_to_select_from.select(
-                #     ["taxonID"] + priority_columns
-                # ),
-                # _no_match_subset_to_update.select(priority_columns),
-                # )
-                # print(chosen_taxonId)
-                # print("-----")
+            
             # turning these rows to matching by filling parentNameUsageID
             _no_match_subset_to_update = _no_match_subset_to_update.with_columns(
                 parentNameUsageID=pl.when(
@@ -580,7 +571,6 @@ def _(RAT_feats, collected_repeated_taxons, no_match, pl, priority_columns):
     )
     updated_to_matching.write_csv("first_matches_set_from_wrangling.csv")
 
-    # still_no_match = pl.concat(still_no_match, rechunk=True, parallel=True)
     still_no_match = no_match.join(
         updated_to_matching.select("speciesId"), on="speciesId", how="anti"
     )
@@ -658,7 +648,6 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
         pl.col("genus") == "",
         pl.col("specificEpithet") == "",
         pl.col("infraspecificEpithet") == "",
-        # pl.col("current_feature") == "phylum",
     )
     match_on_class = still_no_match.with_columns(
         name_to_match=pl.when(_filter_class).then("class").otherwise(None)
@@ -679,7 +668,6 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
             pl.col("class").is_in(_x_class["class"].unique().to_list()),
             pl.col("specificEpithet").is_null(),
             pl.col("infraspecificEpithet").is_null(),
-            # pl.col("phylum").is_in(_x_class["phylum"].unique().to_list()),
         )
         .select("taxonID", "class")
         .collect()
@@ -721,7 +709,6 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
         pl.col("genus") == "",
         pl.col("specificEpithet") == "",
         pl.col("infraspecificEpithet") == "",
-        # pl.col("current_feature") == "phylum",
     )
     match_on_order = still_no_match.with_columns(
         name_to_match=pl.when(_filter_order).then("order").otherwise(None)
@@ -862,7 +849,6 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
         .select("taxonID", "genus")
         .collect()
     )
-    # print(_taxons_subset_genus)
     match_on_genus = join_and_parentId_insertion(
         to_be_match_on_genus,
         _taxons_subset_genus,
