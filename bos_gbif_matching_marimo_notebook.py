@@ -215,28 +215,7 @@ def _(pl):
         .then("genericName")
         .otherwise("genus")
     )
-    taxon_ranked_only.select("genus").null_count().collect()
     return (taxon_ranked_only,)
-
-
-@app.cell
-def _(pl, taxon_ranked_only):
-    taxon_ranked_only.filter(pl.col("genus") == "").collect()
-    return
-
-
-@app.cell
-def _(mo):
-    mo.md(
-        r"""combining genus and genericName causes assertion error down there."""
-    )
-    return
-
-
-@app.cell
-def _(pl, taxon_ranked_only):
-    taxon_ranked_only.filter(pl.col("genus") == "").collect()
-    return
 
 
 @app.cell
@@ -413,24 +392,6 @@ def _(pl, priority_columns, repeated_accepted_taxons):
 
 
 @app.cell
-def _(RAT_feats, pl):
-    RAT_feats.filter(pl.col("matches") == "Spionidae")
-    return
-
-
-@app.cell
-def _(repeated_accepted_taxons):
-    repeated_accepted_taxons.collect_schema()
-    return
-
-
-@app.cell
-def _(priority_columns):
-    priority_columns
-    return
-
-
-@app.cell
 def _(RAT_feats, collected_repeated_taxons, no_match, pl, priority_columns):
     updated_to_matching = []
     still_no_match = []
@@ -551,7 +512,7 @@ def _(RAT_feats, collected_repeated_taxons, no_match, pl, priority_columns):
                         temp = chosen_taxonId
                         chosen_taxonId = other_taxonId
                         other_taxonId = temp
-            
+
             # turning these rows to matching by filling parentNameUsageID
             _no_match_subset_to_update = _no_match_subset_to_update.with_columns(
                 parentNameUsageID=pl.when(
@@ -1004,12 +965,6 @@ def _(mo):
     mo.md(
         r"""## Combining all these second matching wrangling stage dataframes of the ranks"""
     )
-    return
-
-
-@app.cell
-def _(mo):
-    mo.md(r"""after: 1944""")
     return
 
 
