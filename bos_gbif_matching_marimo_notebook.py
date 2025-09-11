@@ -953,9 +953,9 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
 
 
 @app.cell
-def _(match_on_infraspecificEpithet):
+def _(match_on_infraspecificEpithet, priority_columns):
     match_on_infraspecificEpithet.select(
-        "infraspecificEpithet", "specificEpithet", "genus", "parentNameUsageID"
+        ["speciesId", "taxonName", "parentNameUsageID"] + priority_columns
     ).sort("parentNameUsageID")
     return
 
