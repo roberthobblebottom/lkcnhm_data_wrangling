@@ -210,7 +210,33 @@ def _(pl):
             .otherwise(pl.col("infraspecificEpithet"))
         )
     )
+    taxon_ranked_only = taxon_ranked_only.with_columns(
+        genus=pl.when(pl.col("genus").is_null())
+        .then("genericName")
+        .otherwise("genus")
+    )
+    taxon_ranked_only.select("genus").null_count().collect()
     return (taxon_ranked_only,)
+
+
+@app.cell
+def _(pl, taxon_ranked_only):
+    taxon_ranked_only.filter(pl.col("genus") == "").collect()
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""combining genus and genericName causes assertion error down there."""
+    )
+    return
+
+
+@app.cell
+def _(pl, taxon_ranked_only):
+    taxon_ranked_only.filter(pl.col("genus") == "").collect()
+    return
 
 
 @app.cell
@@ -218,7 +244,7 @@ def _(bos_cleaned, pl, taxon_ranked_only):
     matching = (
         taxon_ranked_only.join(
             other=pl.LazyFrame(bos_cleaned),
-            on=["genericName", "specificEpithet", "infraspecificEpithet"],
+            on=["genus", "specificEpithet", "infraspecificEpithet"],
             how="right",
         )
         .rename({"taxonID": "matched_taxonID"})
@@ -352,11 +378,13 @@ def _(pl, priority_columns, repeated_accepted_taxons):
         "feature_that_is_equal_to_canonicalName": pl.String,
         "matches": pl.String,
     }
-    _r = (repeated_accepted_taxons).collect()
+    collected_repeated_taxons = repeated_accepted_taxons.collect()
     RAT_interim = pl.DataFrame(schema=_schema)
     for _col in priority_columns:
         _canonical_names = (
-            _r.filter(pl.col("canonicalName") == pl.col(_col))
+            collected_repeated_taxons.filter(
+                pl.col("canonicalName") == pl.col(_col)
+            )
             .select("canonicalName")
             .unique()
             .to_series()
@@ -371,6 +399,7 @@ def _(pl, priority_columns, repeated_accepted_taxons):
                 schema=_schema,
             )
             RAT_interim = RAT_interim.vstack(_row)
+
     RAT_feats = (
         RAT_interim.group_by("matches")
         .agg(pl.col("feature_that_is_equal_to_canonicalName").str.join(", "))
@@ -379,16 +408,36 @@ def _(pl, priority_columns, repeated_accepted_taxons):
         )
         .sort("feature_that_is_equal_to_canonicalName")
     )
-    return (RAT_feats,)
+    RAT_feats
+    return RAT_feats, collected_repeated_taxons
 
 
 @app.cell
-def _(RAT_feats, no_match, pl, priority_columns, repeated_accepted_taxons):
+def _(RAT_feats, pl):
+    RAT_feats.filter(pl.col("matches") == "Spionidae")
+    return
+
+
+@app.cell
+def _(repeated_accepted_taxons):
+    repeated_accepted_taxons.collect_schema()
+    return
+
+
+@app.cell
+def _(priority_columns):
+    priority_columns
+    return
+
+
+@app.cell
+def _(RAT_feats, collected_repeated_taxons, no_match, pl, priority_columns):
     updated_to_matching = []
     still_no_match = []
-    _collected_repeated_taxons = repeated_accepted_taxons.collect().fill_null("")
+    _collected_repeated_taxons = collected_repeated_taxons.fill_null("")
     _reversed_priority_columns = priority_columns.copy()
     _reversed_priority_columns.reverse()
+    pl.Config.set_tbl_cols(10)
     for _col in _reversed_priority_columns:
         for _match in RAT_feats["matches"]:
             # skipping those that are not in RAT_feats
@@ -431,6 +480,14 @@ def _(RAT_feats, no_match, pl, priority_columns, repeated_accepted_taxons):
             _no_match_subset_to_update = no_match.filter(
                 pl.col(_col) == _match,
             )
+            for _col3 in priority_columns[: priority_columns.index(_col)]:
+                _no_match_subset_to_update = _no_match_subset_to_update.filter(
+                    pl.col(_col3) == "",
+                )
+            if not _no_match_subset_to_update.select(priority_columns).is_empty():
+                pass
+            else:
+                continue
             _x = _reversed_priority_columns[:-3]
             feature_to_find_nulls = (
                 _x[_reversed_priority_columns.index(_col) + 1]
@@ -441,21 +498,29 @@ def _(RAT_feats, no_match, pl, priority_columns, repeated_accepted_taxons):
                 _no_match_subset_to_update = _no_match_subset_to_update.filter(
                     pl.col(feature_to_find_nulls) == ""
                 )
-                if _no_match_subset_to_update.is_empty():
-                    still_no_match_subset = no_match.filter(
-                        pl.col(_col) == _match,
-                    ).with_columns(
-                        current_feature=pl.lit(_col), current_name=pl.lit(_match)
-                    )
-                    still_no_match.append(still_no_match_subset)
-
-                    continue
+                # print(_no_match_subset_to_update)
+                # if _no_match_subset_to_update.is_empty():
+                #     still_no_match_subset = no_match.filter(
+                #         pl.col(_col) == _match, # This is the problme where there is too little matches in second matching wrangling
+                #     ).with_columns(
+                #         current_feature=pl.lit(_col), current_name=pl.lit(_match)
+                #     )
+                #     still_no_match.append(still_no_match_subset)
+                #     continue
 
             # Settling predicament one
             # this predicament thing should only happen when the subset is of only 1 row.
+            # has_predicament1 is when kingdom to genus all has values and it is kind of leveled between the two rows of the taxon data.
             if has_predicament1 and _no_match_subset_to_update.shape[0] == 1:
                 match = True
-                for _col1 in ["class", "order", "family"]:
+                for _col1 in [
+                    "class",
+                    "order",
+                    "family",
+                    "genus",
+                    "specificEpithet",
+                    "infraspecificEpithet",
+                ]:
                     match *= (
                         _no_match_subset_to_update[_col1].item()
                         == taxon_data_to_select_from[selected_row_int, :][
@@ -463,21 +528,39 @@ def _(RAT_feats, no_match, pl, priority_columns, repeated_accepted_taxons):
                         ].item()
                     )
                 if not match:
+                    # print('here')
                     match = True
-                    for _col1 in ["class", "order", "family"]:
+                    for _col1 in [
+                        "class",
+                        "order",
+                        "family",
+                        "genus",
+                        "specificEpithet",
+                        "infraspecificEpithet",
+                    ]:
                         match *= (
                             _no_match_subset_to_update[_col1].item()
                             == taxon_data_to_select_from[
                                 int(not bool(selected_row_int)), :
                             ][_col1].item()
                         )  # searching in the three columns of interests for matches
-                    assert (
-                        match
-                    )  # Double check that there is no unmatch.  # noqa: E712
-                    temp = chosen_taxonId
-                    chosen_taxonId = other_taxonId
-                    other_taxonId = temp
 
+                    # assert (
+                    #     match
+                    # )  # Double check that there is no unmatch.  # noqa: E712
+                    if match:
+                        temp = chosen_taxonId
+                        chosen_taxonId = other_taxonId
+                        other_taxonId = temp
+                    # else:
+                # print(
+                # taxon_data_to_select_from.select(
+                #     ["taxonID"] + priority_columns
+                # ),
+                # _no_match_subset_to_update.select(priority_columns),
+                # )
+                # print(chosen_taxonId)
+                # print("-----")
             # turning these rows to matching by filling parentNameUsageID
             _no_match_subset_to_update = _no_match_subset_to_update.with_columns(
                 parentNameUsageID=pl.when(
@@ -497,11 +580,31 @@ def _(RAT_feats, no_match, pl, priority_columns, repeated_accepted_taxons):
     )
     updated_to_matching.write_csv("first_matches_set_from_wrangling.csv")
 
-    still_no_match = pl.concat(still_no_match, rechunk=True, parallel=True)
-    still_no_match = still_no_match.join(
+    # still_no_match = pl.concat(still_no_match, rechunk=True, parallel=True)
+    still_no_match = no_match.join(
         updated_to_matching.select("speciesId"), on="speciesId", how="anti"
     )
     return still_no_match, updated_to_matching
+
+
+@app.cell
+def _(pl, priority_columns, updated_to_matching):
+    updated_to_matching.select(["speciesId"] + priority_columns).filter(
+        pl.col("genus") == "Aonides"
+    )
+    return
+
+
+@app.cell
+def _(updated_to_matching):
+    updated_to_matching.shape
+    return
+
+
+@app.cell
+def _(still_no_match):
+    still_no_match
+    return
 
 
 @app.cell(hide_code=True)
@@ -555,7 +658,7 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
         pl.col("genus") == "",
         pl.col("specificEpithet") == "",
         pl.col("infraspecificEpithet") == "",
-        pl.col("current_feature") == "phylum",
+        # pl.col("current_feature") == "phylum",
     )
     match_on_class = still_no_match.with_columns(
         name_to_match=pl.when(_filter_class).then("class").otherwise(None)
@@ -587,6 +690,20 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
     return (match_on_class,)
 
 
+@app.cell
+def _(match_on_class):
+    match_on_class.select(["parentNameUsageID", "class"]).sort("parentNameUsageID")
+    return
+
+
+@app.cell
+def _(match_on_class, pl, priority_columns):
+    match_on_class.select(
+        ["speciesId", "taxonName", "parentNameUsageID"] + priority_columns
+    ).sort("parentNameUsageID").filter(pl.col("parentNameUsageID") == 136)
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(
@@ -604,7 +721,7 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
         pl.col("genus") == "",
         pl.col("specificEpithet") == "",
         pl.col("infraspecificEpithet") == "",
-        pl.col("current_feature") == "phylum",
+        # pl.col("current_feature") == "phylum",
     )
     match_on_order = still_no_match.with_columns(
         name_to_match=pl.when(_filter_order).then("order").otherwise(None)
@@ -631,6 +748,20 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
         match_on_order, _taxons_subset_order, ["order"]
     )
     return (match_on_order,)
+
+
+@app.cell
+def _(match_on_order):
+    match_on_order.select(["parentNameUsageID", "order"]).sort("parentNameUsageID")
+    return
+
+
+@app.cell
+def _(match_on_order, pl, priority_columns):
+    match_on_order.select(
+        ["speciesId", "taxonName", "parentNameUsageID"] + priority_columns
+    ).sort("parentNameUsageID").filter(pl.col("parentNameUsageID") == 459)
+    return
 
 
 @app.cell(hide_code=True)
@@ -663,11 +794,11 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
 
     _taxons_subset_family = (
         taxons.filter(
+            pl.col("order").is_in(_x_family["order"].unique().to_list()),
             pl.col("family").is_in(_x_family["family"].unique().to_list()),
             pl.col("genus").is_null(),
             pl.col("specificEpithet").is_null(),
             pl.col("infraspecificEpithet").is_null(),
-            pl.col("order").is_in(_x_family["order"].unique().to_list()),
         )
         .select("taxonID", "family")
         .collect()
@@ -676,6 +807,98 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
         match_on_family, _taxons_subset_family, ["family"]
     )
     return (match_on_family,)
+
+
+@app.cell
+def _(match_on_family, priority_columns):
+    match_on_family.select(
+        ["speciesId", "taxonName", "parentNameUsageID"] + priority_columns
+    ).sort("parentNameUsageID")
+    return
+
+
+@app.cell
+def _(match_on_family, pl, priority_columns):
+    match_on_family.select(
+        ["speciesId", "taxonName", "parentNameUsageID"] + priority_columns
+    ).sort("parentNameUsageID").filter(pl.col("parentNameUsageID") == 2045)
+    return
+
+
+@app.cell
+def _(mo):
+    mo.md(
+        r"""# matching for datapoints where phylum to genus ranks features are not empty strings"""
+    )
+    return
+
+
+@app.cell
+def _(join_and_parentId_insertion, pl, still_no_match, taxons):
+    _filter_genus = (
+        pl.col("class") != "",
+        pl.col("order") != "",
+        pl.col("family") != "",
+        pl.col("genus") != "",
+        pl.col("specificEpithet") == "",
+        pl.col("infraspecificEpithet") == "",
+    )
+
+    to_be_match_on_genus = still_no_match.filter(_filter_genus)
+
+    _x_genus = (
+        still_no_match.filter(_filter_genus)
+        .select("genus")
+        .group_by("genus")
+        .len()
+    )
+
+    _taxons_subset_genus = (
+        taxons.filter(
+            pl.col("genus").is_in(_x_genus["genus"].unique().to_list()),
+            pl.col("specificEpithet").is_null(),
+            pl.col("infraspecificEpithet").is_null(),
+        )
+        .select("taxonID", "genus")
+        .collect()
+    )
+    # print(_taxons_subset_genus)
+    match_on_genus = join_and_parentId_insertion(
+        to_be_match_on_genus,
+        _taxons_subset_genus,
+        ["genus"],
+    )
+    return (match_on_genus,)
+
+
+@app.cell
+def _(match_on_genus, priority_columns):
+    match_on_genus.select(
+        ["speciesId", "taxonName", "parentNameUsageID"] + priority_columns
+    ).sort("parentNameUsageID")
+    return
+
+
+@app.cell
+def _(match_on_genus, pl, priority_columns):
+    match_on_genus.select(
+        ["speciesId", "taxonName", "parentNameUsageID"] + priority_columns
+    ).sort("parentNameUsageID").filter(pl.col("parentNameUsageID") == 1004617)
+    return
+
+
+@app.cell
+def _(match_on_genus, pl, priority_columns):
+    match_on_genus.select(
+        ["speciesId", "taxonName", "parentNameUsageID"] + priority_columns
+    ).filter(pl.col("taxonName") == "Paguristes sp. 1").sort("parentNameUsageID")
+    return
+
+
+@app.cell
+def _(match_on_genus):
+    match_on_genus.shape
+    return
 
 
 @app.cell(hide_code=True)
@@ -712,6 +935,7 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
                 _x_specificEpithet["specificEpithet"].unique().to_list()
             ),
             pl.col("genus").is_in(_x_specificEpithet["genus"].unique().to_list()),
+            pl.col("infraspecificEpithet").is_not_null(),
         )
         .select("taxonID", "specificEpithet", "genus")
         .collect()
@@ -722,6 +946,14 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
         ["specificEpithet", "genus"],
     )
     return (match_on_specificEpithet,)
+
+
+@app.cell
+def _(match_on_specificEpithet):
+    match_on_specificEpithet.select(
+        "specificEpithet", "genus", "parentNameUsageID"
+    )
+    return
 
 
 @app.cell(hide_code=True)
@@ -773,6 +1005,14 @@ def _(join_and_parentId_insertion, pl, still_no_match, taxons):
     return (match_on_infraspecificEpithet,)
 
 
+@app.cell
+def _(match_on_infraspecificEpithet):
+    match_on_infraspecificEpithet.select(
+        "infraspecificEpithet", "specificEpithet", "genus", "parentNameUsageID"
+    ).sort("parentNameUsageID")
+    return
+
+
 @app.cell(hide_code=True)
 def _(mo):
     mo.md(
@@ -782,9 +1022,16 @@ def _(mo):
 
 
 @app.cell
+def _(mo):
+    mo.md(r"""after: 1944""")
+    return
+
+
+@app.cell
 def _(
     match_on_class,
     match_on_family,
+    match_on_genus,
     match_on_infraspecificEpithet,
     match_on_order,
     match_on_specificEpithet,
@@ -792,18 +1039,19 @@ def _(
     pl,
     updated_to_matching,
 ):
-    _to_drop = ["current_feature", "current_name", "name_to_match"]
-    _to_drop2 = ["current_feature", "current_name"]
+    _to_drop = ["name_to_match"]
+    match_on_genus.write_csv("second_matches_set_for_genus_only.csv")
     _new_match = pl.concat(
         [
             match_on_class.drop(_to_drop),
             match_on_order.drop(_to_drop),
             match_on_family.drop(_to_drop),
-            match_on_specificEpithet.drop(_to_drop2),
-            match_on_infraspecificEpithet.drop(_to_drop2),
+            match_on_genus,
+            match_on_specificEpithet,
+            match_on_infraspecificEpithet,
         ]
     )
-    # print("second wrangle new matches", _new_match.shape)
+    print("second wrangle new matches", _new_match.shape)
     _new_match.write_csv("second_matches_set_from_wrangling.csv")
     _new_match = pl.concat(
         [
@@ -817,7 +1065,15 @@ def _(
     _no_match = no_match.join(
         _new_match.select("speciesId"), on="speciesId", how="anti"
     )
+    print("all matches", _new_match.shape)
+    print("no match", _no_match.shape)
     _no_match.write_csv("no_match.csv")
+    return
+
+
+@app.cell
+def _(bos):
+    bos.shape
     return
 
 
