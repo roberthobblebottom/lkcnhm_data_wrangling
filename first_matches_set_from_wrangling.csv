@@ -1,4 +1,4 @@
-speciesId,matched_taxonID,acceptedNameUsageID,taxonName,domain,kingdom,phylum,class,subclass,superorder,order,sub-order,infraorder,section,subsection,superfamily,family,subfamily,tribe,genus,subgenus,genericName,specificEpithet,infraspecificEpithet,taxonRank,taxonomicStatus,parentNameUsageID
+speciesID,matched_taxonID,acceptedNameUsageID,taxonName,domain,kingdom,phylum,class,subclass,superorder,order,sub-order,infraorder,section,subsection,superfamily,family,subfamily,tribe,genus,subgenus,genericName,specificEpithet,infraspecificEpithet,taxonRank,taxonomicStatus,parentNameUsageID
 A-Anne-Echiura-000002,,,Spoon worm sp. 1,Eukarya,Animalia,Annelida,Polychaeta,Echiura,"","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,256
 A-Anne-Echiura-000003,,,Spoon worm sp. 2,Eukarya,Animalia,Annelida,Polychaeta,Echiura,"","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,256
 A-Anne-Echiura-000004,,,Spoon worm sp. 3,Eukarya,Animalia,Annelida,Polychaeta,Echiura,"","","","","","","","","","","","","","","",BOSuncornirmedSpecies,BOSunformired,256
